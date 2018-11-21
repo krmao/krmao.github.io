@@ -28,7 +28,9 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
-    <div id="banner"></div>
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
             <h1 id="logo-wrap">
@@ -60,6 +62,7 @@
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
 <script type="text/javascript" id="local.search.active">
 	var inputArea = document.querySelector("#local-search-input");
 	inputArea.onclick = function () {
@@ -73,9 +76,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-算法_00004_快速排序" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-算法_00003_约瑟夫环" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/算法_00004_快速排序/" class="article-date">
+    <a href="/2018/11/19/算法_00003_约瑟夫环/" class="article-date">
   <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
 </a>
     
@@ -91,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/算法_00004_快速排序/">算法_00004_快速排序</a>
+      <a class="article-title" href="/2018/11/19/算法_00003_约瑟夫环/">算法_00003_约瑟夫环</a>
     </h1>
   
 
@@ -99,15 +102,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class QuickSort &#123;</span><br><span class="line"></span><br><span class="line">    private static void quickSort(final int array[], final int originLeft, final int originRight) &#123;</span><br><span class="line"></span><br><span class="line">        if (originLeft &lt; originRight) &#123;</span><br><span class="line"></span><br><span class="line">            int baseValue = array[originLeft];</span><br><span class="line">            int tmpLeft = originLeft;</span><br><span class="line">            int tmpRight = originRight;</span><br><span class="line"></span><br><span class="line">            while (tmpLeft != tmpRight) &#123;</span><br><span class="line"></span><br><span class="line">                while (tmpLeft &lt; tmpRight &amp;&amp; array[tmpRight] &gt;= baseValue) tmpRight--;</span><br><span class="line">                array[tmpLeft] = array[tmpRight];</span><br><span class="line"></span><br><span class="line">                while (tmpLeft &lt; tmpRight &amp;&amp; array[tmpLeft] &lt;= baseValue) tmpLeft++;</span><br><span class="line">                array[tmpRight] = array[tmpLeft];</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            array[tmpRight] = baseValue;</span><br><span class="line">            quickSort(array, originLeft, tmpLeft - 1);</span><br><span class="line">            quickSort(array, tmpRight + 1, originRight);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        int array[] = &#123;10, 5, 4, 1, 5, 2, 7, 3, 0, 4, 9, 6, 8&#125;;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;排序之前：&quot;);</span><br><span class="line">        for (int element : array) System.out.print(element + &quot; &quot;);</span><br><span class="line"></span><br><span class="line">        quickSort(array, 0, array.length - 1);</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;\n排序之后：&quot;);</span><br><span class="line">        for (int element : array) System.out.print(element + &quot; &quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://www.cnblogs.com/MOBIN/p/4681369.html" target="_blank" rel="noopener">https://www.cnblogs.com/MOBIN/p/4681369.html</a></li>
+        <h3 id="1-总结"><a href="#1-总结" class="headerlink" title="1 总结"></a>1 总结</h3><p>有 <strong>n</strong> 个打算杀身成仁的犹太人(<em>将军为约瑟夫</em>)商量后决定分别从黑箱子里抽签(<em>编号是连续的分别为 1,2,3…n, 在数组中下标即为 0,1,2…n-1</em>), 然后按编号顺序围成一个圈, 随机取一个数 <strong>m</strong> , 不断的依次杀死报数为 <strong>m</strong> (<em>即下标为m-1</em>)的人, 求最后一个报数为 <strong>m</strong> 的人编号(<em>自己有预谋的拿到这个编号,就可以活下来</em>)</p>
+<ol>
+<li>第一个杀死的人为第一个抽签为 <strong>m</strong> (<em>下标为m-1</em>) 的人</li>
+<li>最后一个人在该轮的下标肯定为 <strong>0</strong></li>
+</ol>
+<ul>
+<li>上一轮的结果f(n-1) + 报数的值 m 取模 这一轮的总数 n</li>
+<li><strong>f(n)</strong>  即有 <strong>n</strong> 个人从 下标为<strong>m-1</strong>依次报数, 将报数为<strong>m</strong>的人杀掉, 求最后一个报数为m(最后一个可以活着)的人的下标<ul>
+<li>注意报的数是从 <strong>1</strong> 开始到 <strong>m</strong>, 所以报数为m的人的下标为 m-1, 毕竟数组的下标从0开始<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">即 n 个人里面从 下标为(m-1)的人从1开始依次报数(1,2...m) 最后一个报数为m的人即为活着的人的 下标</span><br><span class="line">f(n) = (f(n-1) + m) % n</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+</ul>
+<p><a href="https://leetcode-cn.com/playground/93L4SBcb" target="_blank" rel="noopener">https://leetcode-cn.com/playground/93L4SBcb</a></p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>大致过程如图下：<br><img src="http://upload-images.jianshu.io/upload_images/2062311-3a243e97a1545608?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="参考大神文章中提到一个容易理解的解释 [https://blog.csdn.net/tingyun_say/article/details/52343897](https://blog.csdn.net/tingyun_say/article/details/52343897)"></p>
+<p>那么我们知道是这么得到的新的队列，那么也很容易知道怎么反推了：<br>反观如上的变化情况，都是减去一个q，所以：<br><strong>变回去的公式如下：old = (new + q) % n</strong><br>这里的old和new指的是下标，n指的是总共有多少人</p>
+<p>知道了怎么推出之前的下标，那么也就可以一步步递推回去得到开始的队列或者从小推到大得到最后剩余的结果。<br><strong>最后再做一道实际点的例子，求J2(4):</strong></p>
+<p>J2(1) = 0<br>J2(2) = (J2(1) + 2) % 2 = 0<br>J2(3) = (J2(2) + 2) % 3 = 2<br>J2(4) = (J2(3) + 2) % 4 = 0</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/tingyun_say/article/details/52343897" target="_blank" rel="noopener">https://blog.csdn.net/tingyun_say/article/details/52343897</a></p>
+<p><a href="https://www.zhihu.com/question/23331384" target="_blank" rel="noopener">https://www.zhihu.com/question/23331384</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/算法_00004_快速排序/" data-id="cjoql04qr001ilfsletx7r4s9" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/19/算法_00003_约瑟夫环/" data-id="cjoqml4uw001hunslnuo9u7gr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">算法</a></li></ul>
@@ -169,7 +188,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/">服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER</a>
+            <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
           </li>
         
           <li>
