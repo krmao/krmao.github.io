@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目的自己研究是一个痛苦的过程,网上的完整一点的文章很少,而且总是遇到各种各样的问题,所以记录下来去帮助那些像我一样的人少走一些弯路 实现目标 可以横向滚动的菜单栏点击任意一个CELL ,下方的数据发生改变,这里先用横向滚动的UITableView,不好做,然后用第三方的UIScrollView做的,也不好用  过程1234567一个小小的自适应代码,搞了两天两夜,IOS相比Android编码,简直">
+<meta name="keywords" content="移动端,IOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小">
+<meta property="og:url" content="krmao.gihub.io/2018/11/19/移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="目的自己研究是一个痛苦的过程,网上的完整一点的文章很少,而且总是遇到各种各样的问题,所以记录下来去帮助那些像我一样的人少走一些弯路 实现目标 可以横向滚动的菜单栏点击任意一个CELL ,下方的数据发生改变,这里先用横向滚动的UITableView,不好做,然后用第三方的UIScrollView做的,也不好用  过程1234567一个小小的自适应代码,搞了两天两夜,IOS相比Android编码,简直">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2062311-65e0a7b6423957be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-11-20T09:41:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小">
+<meta name="twitter:description" content="目的自己研究是一个痛苦的过程,网上的完整一点的文章很少,而且总是遇到各种各样的问题,所以记录下来去帮助那些像我一样的人少走一些弯路 实现目标 可以横向滚动的菜单栏点击任意一个CELL ,下方的数据发生改变,这里先用横向滚动的UITableView,不好做,然后用第三方的UIScrollView做的,也不好用  过程1234567一个小小的自适应代码,搞了两天两夜,IOS相比Android编码,简直">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2062311-65e0a7b6423957be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/19/移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小/" class="article-date">
+  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>自己研究是一个痛苦的过程,网上的完整一点的文章很少,而且总是遇到各种各样的问题,所以记录下来去帮助那些像我一样的人少走一些弯路</p>
+<h3 id="实现目标-可以横向滚动的菜单栏"><a href="#实现目标-可以横向滚动的菜单栏" class="headerlink" title="实现目标 可以横向滚动的菜单栏"></a>实现目标 可以横向滚动的菜单栏</h3><p>点击任意一个CELL ,下方的数据发生改变,这里先用横向滚动的UITableView,不好做,然后用第三方的UIScrollView做的,也不好用</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2062311-65e0a7b6423957be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">一个小小的自适应代码,搞了两天两夜,IOS相比Android编码,简直太落后了,</span><br><span class="line"></span><br><span class="line">1. 通过约束自适应大小会出现最后1-2个数据不显示的问题,count是正确的,此时发现设置sectionInset&gt;0 以及 minimumLineSpacing=1 就显示完整了,但是这样代码就变成了魔术代码,后经过多方请教,发现决定性因素是 返回 CELL size的时候不能写 zero, 宽度自适应的时候,设置宽&gt;0,高度自适应的时候要设置高&gt;0,不然会出现末尾的几个cell丢失的不明不白的问题,如果约束写在自定义CELL 的 layoutSubviews 方法里,则需要在显示CELL的时候即cellForItemAt方法里调用 cell.layoutIfNeeded(),不然会出现CELL错乱的问题</span><br><span class="line"></span><br><span class="line">2. 通过自己计算CELL的大小,最开始是稀里糊涂的,结果现在已经豁然开朗,在 sizeForItemAt 里面返回的是 CELL.frame 的size ,但是CELL frame 里面的子view 都还没有设置大小,所以会不显示,需要在 layoutSubviews 里对子view进行设置大小,所以我认为 layoutSubviews 方法是在 sizeForItemAt之后调用的,已经可以拿到 CELL frame size</span><br><span class="line"></span><br><span class="line">3. 总结: 约束自适应优先使用,因为CELL越来越复杂的话自己计算就会十分麻烦,当然也可以自己计算大小然后通过约束来搞定subView 之间的位置关系混着用</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line">import SnapKit</span><br><span class="line">import Foundation</span><br><span class="line"></span><br><span class="line">class HorizontalCollectionView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout &#123;</span><br><span class="line">    var dataArray: [String] = [] &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            collectionView.reloadData()</span><br><span class="line">            collectionView.collectionViewLayout.invalidateLayout()</span><br><span class="line">            //collectionView.reloadSections(IndexSet(integersIn: 0...0))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    var collectionView: UICollectionView!</span><br><span class="line"></span><br><span class="line">    override init(frame: CGRect) &#123;</span><br><span class="line">        super.init(frame: frame)</span><br><span class="line">        self.setUp()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    required init?(coder aDecoder: NSCoder) &#123;</span><br><span class="line">        fatalError(&quot;init(coder:) has not been implemented&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func requestViewData() &#123;</span><br><span class="line">        dataArray = [&quot;0&quot;, &quot;1&quot;, &quot;22&quot;, &quot;333&quot;, &quot;4444&quot;, &quot;55555&quot;, &quot;666666&quot;, &quot;7777777&quot;, &quot;88888888&quot;, &quot;999999999&quot;, &quot;10101010101010101010&quot;, &quot;A&quot;, &quot;1111111111111111111111&quot;, &quot;12&quot;, &quot;13&quot;, &quot;14&quot;]</span><br><span class="line">        print(&quot;dataArray.count=&quot;, dataArray.count)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private func setUp() &#123;</span><br><span class="line">        let flowLayout = UICollectionViewFlowLayout()</span><br><span class="line"></span><br><span class="line">        flowLayout.minimumInteritemSpacing = 10;</span><br><span class="line">        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)</span><br><span class="line">        flowLayout.scrollDirection = .horizontal</span><br><span class="line"></span><br><span class="line">        //===== CELL 约束自适应 必备条件 1 =====</span><br><span class="line">        if #available(iOS 10.0, *) &#123;</span><br><span class="line">            flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            flowLayout.estimatedItemSize = CGSize(width: 15, height: 48)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        collectionView = UICollectionView.init(frame: CGRect(0, 0, SCREEN_WIDTH, 48), collectionViewLayout: flowLayout)</span><br><span class="line">        collectionView.delegate = self</span><br><span class="line">        collectionView.dataSource = self</span><br><span class="line">        collectionView.backgroundColor = UIColor.yellow</span><br><span class="line">        collectionView.showsHorizontalScrollIndicator = false</span><br><span class="line">        self.addSubview(collectionView)</span><br><span class="line"></span><br><span class="line">        collectionView.register(HorizontalLabelCell.classForCoder(), forCellWithReuseIdentifier: &quot;_cell&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) &#123;</span><br><span class="line">        print(&quot;点击了 cell&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int &#123;</span><br><span class="line">        print(&quot;dataArray.count=&quot;, dataArray.count)</span><br><span class="line">        return dataArray.count</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -&gt; UICollectionViewCell &#123;</span><br><span class="line">        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: &quot;_cell&quot;, for: indexPath) as! HorizontalLabelCell</span><br><span class="line">        cell.title = dataArray[indexPath.row]</span><br><span class="line">        return cell</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -&gt; CGSize &#123;</span><br><span class="line">        //===== CELL 计算自适应 必备条件 1 =====</span><br><span class="line">        // return CGSize(dataArray[indexPath.row].widthWithFont(), 48)</span><br><span class="line"></span><br><span class="line">        //===== CELL 约束自适应 必备条件 2 ===== 宽度或者高度一定要  大于 0 ,否则会出现丢失错误等不可预料问题</span><br><span class="line">        return CGSize(0.01, 48)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HorizontalLabelCell: UICollectionViewCell &#123;</span><br><span class="line"></span><br><span class="line">    private lazy var titleLabel: UILabel = &#123;</span><br><span class="line">        let label = UILabel()</span><br><span class="line">        label.numberOfLines = 1</span><br><span class="line">        label.font = UIFont.systemFont(ofSize: 18)</span><br><span class="line">        label.textAlignment = .center</span><br><span class="line">        label.textColor = UIColor.red</span><br><span class="line">        return label</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    var title: String = &quot;&quot; &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            self.titleLabel.text = title</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    required init?(coder aDecoder: NSCoder) &#123;</span><br><span class="line">        super.init(coder: aDecoder)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override init(frame: CGRect) &#123;</span><br><span class="line">        super.init(frame: frame)</span><br><span class="line">        self.contentView.addSubview(self.titleLabel)</span><br><span class="line"></span><br><span class="line">        //===== CELL 约束自适应 必备条件 3 =====</span><br><span class="line">        self.titleLabel.snp.makeConstraints &#123; maker in</span><br><span class="line">            maker.left.top.equalTo(self.contentView)</span><br><span class="line">            maker.width.greaterThanOrEqualTo(5)</span><br><span class="line">            maker.height.greaterThanOrEqualTo(48)</span><br><span class="line">            maker.height.equalTo(self.contentView).priorityLow()</span><br><span class="line">            maker.right.equalTo(self.contentView).priorityLow()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //===== CELL 计算自适应 必备条件 2 ===== 如果没有使用约束,则在这里赋值 subViews frame 大小</span><br><span class="line">    /*override func layoutSubviews() &#123;</span><br><span class="line">        super.layoutSubviews()</span><br><span class="line">        self.titleLabel.frame = self.contentView.frame</span><br><span class="line">    &#125;*/</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">lazy var topMenuView: HorizontalCollectionView = &#123;</span><br><span class="line">    let horizontalView = HorizontalCollectionView.init(frame: CGRect(0, 0, SCREEN_WIDTH, 48))</span><br><span class="line">    return horizontalView</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">    self.view.addSubview(self.topMenuView)</span><br><span class="line">    self.topMenuView.snp.makeConstraints &#123; maker in</span><br><span class="line">        maker.left.right.top.equalTo(self.view)</span><br><span class="line">        maker.height.equalTo(48)</span><br><span class="line">    &#125;</span><br><span class="line">    self.topMenuView.requestViewData()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><p>经过多次使用总结: 上面通过约束自适应的方案当只有一个 cell 的时候,会居中,需要自定义 followLayout 设置左对齐,总之会有各种各样的问题,经老开发提醒,UICollectionView 的宽高最好在 外部给定, 即 sizeForItemAtIndexPath 这里返回固定的宽高,然后 不要设置 estimatedItemSize,然后在 自定义Cell里面通过约束布局,<br>注意 UICollectionView 有默认的 spacing 间距,需要设置为0,才不会出现计算之外的问题,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];</span><br><span class="line">layout.minimumInteritemSpacing = 0;</span><br><span class="line">layout.minimumLineSpacing = 0;</span><br></pre></td></tr></table></figure></p>
+<p>即趋势应该是  由外到内 的设置 大小.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/19/移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小/" data-id="cjoqiy5z8000qdeslllfy5hii" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/19/安装_CENTOS_FTP/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          安装_CENTOS_FTP
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/19/移动端_IOS_发布/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS_发布</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+	var idPrimary = '移动端_IOS_UICOLLECTIONVIEW_CELL_自适应大小' + '-' + 'Mon Nov 19 2018 18:29:49 GMT+0800';
+	var idMD5 = md5(idPrimary);
+	console.log("idPrimary:" + idPrimary);
+	console.log("idMD5:" + idMD5);
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: "krmao",
+		repo: "krmao.github.io",
+		oauth: {
+			client_id: "fcb8807f8dd032053916",
+			client_secret: "c8a88998914e0f4774aed972ef12d0bba6510b60"
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_ROCKET_MQ/">安装_CENTOS_ROCKET_MQ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

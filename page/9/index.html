@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/9/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/" class="article-date">
+  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/">服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="公共接口"><a href="#公共接口" class="headerlink" title="公共接口"></a>公共接口</h3><p>发现书写 mapper对数据库进行增删改查 以及 controller 都是重复性操作，才有了本编文章，主要是利用反射自动生成 SQL 增删改查语句</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.ibatis.annotations.DeleteProvider</span><br><span class="line">import org.apache.ibatis.annotations.InsertProvider</span><br><span class="line">import org.apache.ibatis.annotations.Options</span><br><span class="line">import org.apache.ibatis.annotations.UpdateProvider</span><br><span class="line"></span><br><span class="line">interface HKBaseMapper&lt;T&gt; &#123;</span><br><span class="line">    @Options(useGeneratedKeys = true)</span><br><span class="line">    @InsertProvider(type = HKSqlProvider::class, method = &quot;insert&quot;)</span><br><span class="line">    fun insert(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @DeleteProvider(type = HKSqlProvider::class, method = &quot;delete&quot;)</span><br><span class="line">    fun delete(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @UpdateProvider(type = HKSqlProvider::class, method = &quot;update&quot;)</span><br><span class="line">    fun update(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @SelecProvider(type = HKSqlProvider::class, method = &quot;select&quot;)</span><br><span class="line">    fun select(tableModel: T): MutableList&lt;T&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.ibatis.annotations.Mapper</span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">interface AdMapper : HKBaseMapper&lt;AdModel&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.logging.log4j.LogManager</span><br><span class="line">import org.apache.logging.log4j.Logger</span><br><span class="line"></span><br><span class="line">@Suppress(&quot;unused&quot;)</span><br><span class="line">class HKSqlProvider &#123;</span><br><span class="line">    private val logger: Logger = LogManager.getLogger(UserController::class.java.name)</span><br><span class="line"></span><br><span class="line">    fun insert(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;insert into $tableName (&quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(valueName).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;) values(&quot;) &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;)&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-insert --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun update(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;update $tableName set &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-update --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun delete(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;delete from $tableName where &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot; and &quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-delete --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun select(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;select * from $tableName where &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot; and &quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-select --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import io.swagger.annotations.ApiOperation</span><br><span class="line">import org.springframework.web.bind.annotation.PostMapping</span><br><span class="line">import org.springframework.web.bind.annotation.RequestBody</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping</span><br><span class="line">import org.springframework.web.bind.annotation.RestController</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/ad&quot;)</span><br><span class="line">class AdController(val mapper: AdMapper) &#123;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;增加&quot;, notes = &quot;返回 ID&quot;)</span><br><span class="line">    @PostMapping(&quot;/insert&quot;)</span><br><span class="line">    fun insert(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKIdData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(HKIdData(mapper.insert(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;删除&quot;, notes = &quot;返回 受影响的行数&quot;)</span><br><span class="line">    @PostMapping(&quot;/delete&quot;)</span><br><span class="line">    fun delete(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKColumnData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response(HKColumnData(-1))</span><br><span class="line">        return HKResponse(HKColumnData(mapper.delete(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;修改&quot;, notes = &quot;返回 受影响的行数&quot;)</span><br><span class="line">    @PostMapping(&quot;/update&quot;)</span><br><span class="line">    fun update(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKColumnData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(HKColumnData(mapper.update(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;查询&quot;)</span><br><span class="line">    @PostMapping(&quot;/select&quot;)</span><br><span class="line">    fun select(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;List&lt;AdModel&gt;&gt; &#123;</span><br><span class="line">        if (request.data == null || request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(mapper.select(request.data!!))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="反射工具类"><a href="#反射工具类" class="headerlink" title="反射工具类"></a>反射工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Field</span><br><span class="line">import java.lang.reflect.InvocationTargetException</span><br><span class="line">import kotlin.reflect.KClass</span><br><span class="line">import kotlin.reflect.full.companionObject</span><br><span class="line">import kotlin.reflect.full.companionObjectInstance</span><br><span class="line">import kotlin.reflect.full.declaredFunctions</span><br><span class="line"></span><br><span class="line">@Suppress(&quot;unused&quot;)</span><br><span class="line">object HKReflectUtil &#123;</span><br><span class="line">    private val TAG = &quot;[reflect]&quot;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 根据方法的名字调用方法，适合 object 定义的单例静态方法</span><br><span class="line">     */</span><br><span class="line">    @Throws(RuntimeException::class, IllegalAccessException::class, IllegalArgumentException::class, InvocationTargetException::class, NullPointerException::class, ExceptionInInitializerError::class)</span><br><span class="line">    fun invoke(clazz: KClass&lt;*&gt;?, methodName: String?, vararg params: Any?): Any? &#123;</span><br><span class="line">        if (clazz == null || methodName.isNullOrBlank()) throw RuntimeException(&quot;$&#123;TAG&#125; clazz:$clazz or methodName:$methodName is null&quot;)</span><br><span class="line">        val methods = clazz.java.kotlin.companionObject?.declaredFunctions?.filter &#123; it.name == methodName &amp;&amp; it.parameters.size - 1 == params.size &#125;</span><br><span class="line">        if (methods?.size ?: 0 &lt;= 0) throw RuntimeException(&quot;[callNativeMethod] the invoked method dose not exist :$methodName&quot;)</span><br><span class="line">        return methods!![0].call(clazz.companionObjectInstance, *params)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getFields(objectClass: Class&lt;*&gt;?): MutableList&lt;Field&gt; &#123;</span><br><span class="line">        var fieldList: MutableList&lt;Field&gt;? = null</span><br><span class="line">        try &#123;</span><br><span class="line">            fieldList = objectClass?.declaredFields?.toMutableList()</span><br><span class="line">            objectClass?.superclass?.declaredFields.let &#123; if (it != null) fieldList?.addAll(it) &#125;</span><br><span class="line">        &#125; catch (ignore: Exception) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        return fieldList ?: arrayListOf()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getValue(field: Field?, fromObject: Any?): Any? = try &#123;</span><br><span class="line">        field?.isAccessible = true</span><br><span class="line">        field?.get(fromObject)</span><br><span class="line">    &#125; catch (ignore: Exception) &#123;</span><br><span class="line">        null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><p><img src="http://upload-images.jianshu.io/upload_images/2062311-b06f057d9274c144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="swagger2"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/" data-id="cjoqiy5z4000jdeslxlplkkyk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">SPRING-BOOT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service/">服务端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/19/安装_CENTOS_ROCKET_MQ/">安装_CENTOS_ROCKET_MQ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>
