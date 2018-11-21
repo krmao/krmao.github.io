@@ -76,9 +76,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_用户组管理" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-安装_CENTOS_ROCKET_MQ" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_用户组管理/" class="article-date">
+    <a href="/2018/11/19/安装_CENTOS_ROCKET_MQ/" class="article-date">
   <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
 </a>
     
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+      <a class="article-title" href="/2018/11/19/安装_CENTOS_ROCKET_MQ/">安装_CENTOS_ROCKET_MQ</a>
     </h1>
   
 
@@ -102,12 +102,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># 新增用户组</span><br><span class="line">groupadd dev</span><br><span class="line"></span><br><span class="line"># 新增用户并添加到用户组</span><br><span class="line">useradd -g dev user_name</span><br><span class="line"></span><br><span class="line"># 为新增的用户修改密码</span><br><span class="line">echo &quot;123456&quot; | passwd --stdin user_name</span><br><span class="line"></span><br><span class="line">Changing password for user user_name.</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line"></span><br><span class="line"># 查看用户所属的组</span><br><span class="line">groups user_name</span><br><span class="line"></span><br><span class="line"># 查看用户信息</span><br><span class="line">id user_name</span><br><span class="line"></span><br><span class="line"># 从组中删除用户</span><br><span class="line">gpasswd dev -d user_name</span><br><span class="line"></span><br><span class="line">Removing user user_name from group dev</span><br><span class="line">gpasswd: user &apos;user_name&apos; is not a member of &apos;dev&apos;</span><br><span class="line"></span><br><span class="line"># 添加已有用户到组</span><br><span class="line">gpasswd dev -a user_name</span><br><span class="line"></span><br><span class="line">Adding user user_name to group dev</span><br><span class="line"></span><br><span class="line"># 永久删除用户</span><br><span class="line">userdel user_name</span><br><span class="line">gpasswd dev -d user_name</span><br><span class="line"># 同时删除该用户所有数据</span><br><span class="line">rm -rf /home/user_name</span><br><span class="line"></span><br><span class="line"># 给用户添加 sudo 权限(为了方便大佬)</span><br><span class="line">vi /etc/sudoers</span><br><span class="line"># 找到 root    ALL=(ALL)       ALL 这一行,在下面添加  user_name    ALL=(ALL)       ALL </span><br><span class="line"></span><br><span class="line">## Allow root to run any commands anywhere</span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">user_name    ALL=(ALL)       ALL</span><br><span class="line">user_name_1    ALL=(ALL)       ALL</span><br><span class="line">user_name_2    ALL=(ALL)       ALL</span><br><span class="line"></span><br><span class="line">wq! 保存即可</span><br></pre></td></tr></table></figure>
+        <h1 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h1><ul>
+<li><a href="http://rocketmq.apache.org/docs/quick-start/" target="_blank" rel="noopener">官方文档</a></li>
+<li><a href="https://blog.csdn.net/u013680938/article/details/53447996" target="_blank" rel="noopener">参考文档</a></li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 64bit OS, Linux/Unix/Mac is recommended</span><br><span class="line"># install 64bit JDK 1.8+</span><br><span class="line"># install Maven 3.2.x</span><br><span class="line"></span><br><span class="line">yum install git</span><br><span class="line"></span><br><span class="line">cd /opt/software</span><br><span class="line">git clone -b release-4.2.0 https://github.com/apache/rocketmq.git</span><br><span class="line">cd rocketmq</span><br><span class="line">mvn -Prelease-all -DskipTests clean install -U</span><br></pre></td></tr></table></figure>
+<ul>
+<li>环境变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># ROCKETMQ_HOME</span><br><span class="line">ROCKETMQ_HOME=/opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line"></span><br><span class="line"># MAVEN_HOME</span><br><span class="line">MAVEN_HOME=/opt/software/apache-maven-3.5.3</span><br><span class="line"></span><br><span class="line"># JAVA_HOME START</span><br><span class="line">JAVA_HOME=/opt/software/sdks/jdk/jdk1.8.0_162</span><br><span class="line">JRE_HOME=$JAVA_HOME/jre</span><br><span class="line">CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$MAVEN_HOME/bin:$ROCKETMQ_HOME:$ROCKETMQ_HOME/bin</span><br><span class="line">export JAVA_HOME JRE_HOME CLASS_PATH PATH</span><br><span class="line"># JAVA_HOME END</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h1 id="Start-Name-Server"><a href="#Start-Name-Server" class="headerlink" title="Start Name Server"></a>Start Name Server</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd /opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line">&gt; nohup sh bin/mqnamesrv &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/namesrv.log</span><br><span class="line">The Name Server boot success...</span><br></pre></td></tr></table></figure>
+<h1 id="Start-Broker"><a href="#Start-Broker" class="headerlink" title="Start Broker"></a>Start Broker</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd /opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line">&gt; nohup sh bin/mqbroker -n localhost:9876 &amp;</span><br><span class="line">&gt; tail -f ~/logs/rocketmqlogs/broker.log </span><br><span class="line">The broker[%s, 172.30.30.233:10911] boot success...</span><br></pre></td></tr></table></figure>
+<h1 id="Shutdown-Servers"><a href="#Shutdown-Servers" class="headerlink" title="Shutdown Servers"></a>Shutdown Servers</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd /opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line">&gt; sh bin/mqshutdown broker</span><br><span class="line">The mqbroker(36695) is running...</span><br><span class="line">Send shutdown request to mqbroker(36695) OK</span><br><span class="line"></span><br><span class="line">&gt; sh bin/mqshutdown namesrv</span><br><span class="line">The mqnamesrv(36664) is running...</span><br><span class="line">Send shutdown request to mqnamesrv(36664) OK</span><br></pre></td></tr></table></figure>
+<h1 id="Send-amp-Receive-Messages"><a href="#Send-amp-Receive-Messages" class="headerlink" title="Send &amp; Receive Messages"></a>Send &amp; Receive Messages</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd /opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line">&gt; export NAMESRV_ADDR=localhost:9876</span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer</span><br><span class="line">SendResult [sendStatus=SEND_OK, msgId= ...</span><br><span class="line"></span><br><span class="line">&gt; cd /opt/software/rocketmq/distribution/target/apache-rocketmq</span><br><span class="line">&gt; sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer</span><br><span class="line">ConsumeMessageThread_%d Receive New Messages: [MessageExt...</span><br></pre></td></tr></table></figure>
+<h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 开放 9876 端口</span><br></pre></td></tr></table></figure>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ul>
+<li><p>启动 Name Server 和 Broker 的时候 报内存不足</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">“VM warning: INFO: OS::commit_memory(0x00000006c0000000, 2147483648, 0) faild; error=’Cannot allocate memory’ (errno=12)”</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决方案：修改/RocketMQ/devnev/bin/ 下的服务启动脚本 runserver.sh 、runbroker.sh 中对于内存的限制，​改成如下示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPT=&quot;$&#123;JAVA_OPT&#125; -server -Xms128m -Xmx128m -Xmn128m -XX:PermSize=128m -XX:MaxPermSize=128m&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_用户组管理/" data-id="cjoqml4u8000aunsl0cji9pah" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_ROCKET_MQ/" data-id="cjoqptotu000bmpsldafv85yb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
@@ -169,11 +192,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
           </li>
         
           <li>
@@ -181,11 +200,15 @@
           </li>
         
           <li>
+            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_ROCKET_MQ/">安装_CENTOS_ROCKET_MQ</a>
+            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
           </li>
         
       </ul>

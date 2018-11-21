@@ -76,9 +76,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_IOS_发布" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/" class="article-date">
+    <a href="/2018/11/19/移动端_IOS_发布/" class="article-date">
   <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
 </a>
     
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
+      <a class="article-title" href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
     </h1>
   
 
@@ -102,12 +102,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">static func downloadByFullURLSync&lt;T: Codable&gt;(url: String, timeoutInterval: Double = 60) -&gt; T? &#123;</span><br><span class="line">    CXLogUtil.e(&quot;download 0 sync \(Thread.currentThread())&quot;)</span><br><span class="line">    let semaphore = DispatchSemaphore.init(value: 0)</span><br><span class="line"></span><br><span class="line">    var responseModel: T?</span><br><span class="line"></span><br><span class="line">    let start = Date()</span><br><span class="line">    Alamofire.download(URLRequest(url: NSURL.init(string: url)! as URL, timeoutInterval: timeoutInterval))</span><br><span class="line">        .responseJSON(queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.background), options: .allowFragments, completionHandler:  &#123; dataResponse in</span><br><span class="line">                CXLogUtil.e(&quot;download 2 sync \(Thread.currentThread())&quot;)</span><br><span class="line"></span><br><span class="line">                print(&quot;\n\n&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot;)</span><br><span class="line">                print(&quot;request url: &quot;, dataResponse.request?.url ?? &quot;&quot;)</span><br><span class="line">                print(&quot;\nrequest headers:\n&quot;)</span><br><span class="line">                dataResponse.request?.allHTTPHeaderFields?.forEach &#123; key, value in</span><br><span class="line">                    print(&quot;\t&quot;, key, value)</span><br><span class="line">                &#125;</span><br><span class="line">                print(&quot;\n&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;----------&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;\n&quot;)</span><br><span class="line">                print(&quot;response headers:\n&quot;)</span><br><span class="line">                dataResponse.response?.allHeaderFields.forEach &#123; key, value in</span><br><span class="line">                    print(&quot;\t&quot;, key, value)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                print(&quot;\nresponse body:\n\n\t\(dataResponse.result.value ?? &quot;&quot;)\n&quot;)</span><br><span class="line"></span><br><span class="line">                let ms = round(Date().timeIntervalSince(start) * 1000)</span><br><span class="line">                print(&quot;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; 耗时: \(ms) ms \n\n&quot;)</span><br><span class="line">                if (dataResponse.result.isSuccess &amp;&amp; dataResponse.result.value != nil) &#123;</span><br><span class="line">                    responseModel = CXJsonUtil.parse(T.self, withJSONObject: dataResponse.result.value ?? &quot;&quot;)</span><br><span class="line">                    print(&quot;\nresponse success:\n&quot;)</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    responseModel = nil</span><br><span class="line">                    let failureMessage = dataResponse.result.error?.localizedDescription.lowercased() ?? &quot;网络错误&quot;</span><br><span class="line">                    print(&quot;\nresponse failure:\n\n\t\(failureMessage)\n&quot;)</span><br><span class="line">                &#125;</span><br><span class="line">                semaphore.signal()</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">    _ = semaphore.wait(timeout: DispatchTime.distantFuture)</span><br><span class="line">    CXLogUtil.e(&quot;download 1 sync \(Thread.currentThread())&quot;)</span><br><span class="line">    return responseModel</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="1-首先设置-apple-开发者账号"><a href="#1-首先设置-apple-开发者账号" class="headerlink" title="1: 首先设置 apple 开发者账号"></a>1: 首先设置 apple <a href="https://developer.apple.com/account/ios/identifier/bundle]" target="_blank" rel="noopener">开发者账号</a></h3><p>我把所有的(Certificates/Provisioning Profiles)全部删除了,只留下 Identifiers 菜单里面的 App IDs 里面的  该应用的 id</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2062311-b2e1aa094039036c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="2-xcode-登录账号密码"><a href="#2-xcode-登录账号密码" class="headerlink" title="2: xcode 登录账号密码"></a>2: xcode 登录账号密码</h3><h3 id="3-Targets-gt-General-gt-Identity-gt-Bundle-Identifier-输入-与步骤一里面-app-id-对应的-id"><a href="#3-Targets-gt-General-gt-Identity-gt-Bundle-Identifier-输入-与步骤一里面-app-id-对应的-id" class="headerlink" title="3: Targets -&gt; General -&gt; Identity -&gt; Bundle Identifier  输入 与步骤一里面 app id 对应的 id"></a>3: Targets -&gt; General -&gt; Identity -&gt; Bundle Identifier  输入 与步骤一里面 app id 对应的 id</h3><h3 id="3-Targets-gt-General-gt-Signing-gt-Team-选择注册-该应用-Bundle-Identifier-的账号-这里很关键"><a href="#3-Targets-gt-General-gt-Signing-gt-Team-选择注册-该应用-Bundle-Identifier-的账号-这里很关键" class="headerlink" title="3: Targets -&gt; General -&gt; Signing -&gt; Team 选择注册 该应用 Bundle Identifier 的账号 (这里很关键)"></a>3: Targets -&gt; General -&gt; Signing -&gt; Team 选择注册 该应用 Bundle Identifier 的账号 (这里很关键)</h3><ul>
+<li>一般个人账号没有注册 Bundle Identifier (Personal Team 都是为了自己免费在自己的真机上测试使用的)</li>
+<li>如果选择了注册 该应用 的 Bundle Identifier 的账号,则 步骤二必须 填写相同的 Bundle Identifier,生成的包应该即可以发布到appstore,也可以发给注册了 iphone-uuid 的用户安装测试</li>
+<li>如果选择了个人账号(Personal Team ),则必须填写与 appstore中完全不重复的 Bundle Identifier(随便写一个)才能编译通过,而且生成的包不能发布到 app store, 但是应该依然可以发给注册了 iphone-uuid 的用户安装使用<h3 id="4-Targets-gt-Build-Settings-gt-Code-Signing-Identity-gt-选择步骤3里面的-Signing-Certificate-相同账号的账号"><a href="#4-Targets-gt-Build-Settings-gt-Code-Signing-Identity-gt-选择步骤3里面的-Signing-Certificate-相同账号的账号" class="headerlink" title="4: Targets -&gt; Build Settings -&gt; Code Signing Identity -&gt; 选择步骤3里面的 Signing Certificate 相同账号的账号"></a>4: Targets -&gt; Build Settings -&gt; Code Signing Identity -&gt; 选择步骤3里面的 Signing Certificate 相同账号的账号</h3><h3 id="5-Xcode-gt-Product-gt-Archive-进行打包"><a href="#5-Xcode-gt-Product-gt-Archive-进行打包" class="headerlink" title="5: Xcode -&gt; Product -&gt; Archive 进行打包"></a>5: Xcode -&gt; Product -&gt; Archive 进行打包</h3></li>
+<li>如果个人/公司账号想要发布到 蒲公英等,打包成功后选择 AD HOC<br><img src="http://upload-images.jianshu.io/upload_images/2062311-d539bd819e46c5b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布 ad hoc.png"></li>
+<li>如果想发布到 app store 则直接点击 upload to appstore<br><img src="http://upload-images.jianshu.io/upload_images/2062311-b4bd45902c958451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布.png"></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/" data-id="cjoqml4uh000munslgwrxeemn" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/19/移动端_IOS_发布/" data-id="cjoqptoub000nmpslqbih9kuy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -169,11 +177,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行/">移动端_IOS_SWIFT_4_0_ALAMOFILE_同步执行</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
           </li>
         
           <li>
@@ -181,11 +185,15 @@
           </li>
         
           <li>
+            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_ROCKET_MQ/">安装_CENTOS_ROCKET_MQ</a>
+            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
           </li>
         
       </ul>

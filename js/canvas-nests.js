@@ -1,5 +1,38 @@
 'use strict';
 
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var w = canvas.width = canvas.offsetWidth;
+var h = canvas.height = canvas.offsetHeight;
+var nodeCount = 36;
+var maxLineDistance = 48;
+var circleRadius = 5;
+
+if (w < 500) {  // pixel 2
+	nodeCount = 36;
+	maxLineDistance = 48;
+	circleRadius = 5;
+} else if (w < 1000) { // ipad
+	nodeCount = 48;
+	maxLineDistance = 60;
+	circleRadius = 7;
+} else if (w < 1500) {// ipad pro or pc
+	nodeCount = 60;
+	maxLineDistance = 72;
+	circleRadius = 9;
+} else {// ipad pro or pc
+	nodeCount = 72;
+	maxLineDistance = 84;
+	circleRadius = 11;
+}
+
+console.log("canvas:width" + w);
+console.log("canvas:height" + h);
+console.log("canvas:nodeCount" + nodeCount);
+console.log("canvas:maxLineDistance" + maxLineDistance);
+console.log("canvas:circleRadius" + circleRadius);
+
 var _createClass = function () {
 	function defineProperties(target, props) {
 		for (var i = 0; i < props.length; i++) {
@@ -50,7 +83,7 @@ var Circle = function () {
 
 		this.x = x;
 		this.y = y;
-		this.r = Math.random() * 10;
+		this.r = Math.random() * (circleRadius);
 		this._mx = Math.random();
 		this._my = Math.random();
 	}
@@ -76,7 +109,7 @@ var Circle = function () {
 			var dx = this.x - _circle.x;
 			var dy = this.y - _circle.y;
 			var d = Math.sqrt(dx * dx + dy * dy);
-			if (d < 150) {
+			if (d < (maxLineDistance)) {
 				ctx.beginPath();
 				//开始一条路径，移动到位置 this.x,this.y。创建到达位置 _circle.x,_circle.y 的一条线：
 				ctx.moveTo(this.x, this.y); //起始点
@@ -120,7 +153,7 @@ var currentCirle = function (_Circle) {
 			ctx.beginPath();
 			//注释内容为鼠标焦点的地方圆圈半径变化
 			//this.r = (this.r < 14 && this.r > 1) ? this.r + (Math.random() * 2 - 1) : 2;
-			this.r = 8;
+			this.r = (circleRadius);
 			ctx.arc(this.x, this.y, this.r, 0, 360);
 			ctx.closePath();
 			//ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
@@ -133,13 +166,6 @@ var currentCirle = function (_Circle) {
 }(Circle);
 //更新页面用requestAnimationFrame替代setTimeout
 
-
-window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var w = canvas.width = canvas.offsetWidth;
-var h = canvas.height = canvas.offsetHeight;
 var circles = [];
 var current_circle = new currentCirle(0, 0);
 
@@ -167,7 +193,7 @@ var init = function init(num) {
 	}
 	draw();
 };
-window.addEventListener('load', init(36));
+window.addEventListener('load', init(nodeCount));
 window.onmousemove = function (e) {
 	e = e || window.event;
 	current_circle.x = e.clientX;
