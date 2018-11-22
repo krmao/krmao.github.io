@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android基础入门0_AndroidStudio" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_PHP基础入门_配置Phpstorm与xampp" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/" class="article-date">
-  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" class="article-date">
+  <time datetime="2018-11-22T02:07:53.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+      <a class="article-title" href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
     </h1>
   
 
@@ -104,72 +104,111 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p>下载地址：<a href="http://developer.android.com/sdk/installing/studio.html#download" rel="noopener" target="_blank">http://developer.android.com/sdk/installing/studio.html#download</a></p>
-<p>如果出现启动不了的问题</p>
-<p>进入AndroidStudio安装目录 E:\software\AndroidStudio\bin ，运行studio.bat</p>
-<p>出现</p>
-<p></p>
+<div><strong>1 Xampp</strong> </div>
+<div><strong><br></strong></div>
+<div><a href="http://blog.csdn.net/jonathanlin2008/article/details/6210782%E2%80%8D" rel="noopener" target="_blank"></a></div>
+<div><strong>安装好xampp，配置 httpd.conf</strong> </div>
+<div>191/221 行 DocumentRoot 路径改为 "F:/PHP"  （我的工作空间）,以后项目就放在这个文件夹里。</div>
 <div></div>
-<div style="text-align:center;"><img src="https://img-blog.csdn.net/20130516103534436" alt=""></div>
-<p></p>
-<p></p>
-<div></div>
-<br><p></p>
-<p>原来是没有设置JAVA的环境变量！</p>
-<p><strong>No.1 </strong><br>
-在系统变量里点击新建，变量名填写JAVA_HOME<br><br></p>
-<pre><code class="language-cpp">变量名    JAVA_HOME
-变量值    C:\Program Files\Java\jdk1.7.0_21</code></pre>
-<br><strong>No.2 </strong><br>
-在系统变量里点击新建变量名填写CLASSPATH<br><br><pre><code class="language-cpp">变量名    CLASSPATH
-变量值    .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code></pre>
-<br><strong>No.3 </strong><br>
-在系统变量里找到Path变量，这是系统自带的，在变量最后加上<br><br><pre><code class="language-cpp">;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code></pre>
-<br>
-注意前面的分号。
-<p></p>
-<p>设置好后，打开AndroidStudio，新建一个项目，</p>
-<p><strong>Project location</strong> 中设置路径时的项目文件夹必须为<strong>本地还没有的文件夹</strong>，然后点击其它的输入框，会发先 Description 不提示错误了，感谢<strong><a class="username" href="http://blog.csdn.net/king875812310" rel="noopener" target="_blank">king875812310</a> </strong>的研究成果。</p>
-<p><strong>例如路径为      E:\software\AndroidWorkspace\MTank</strong>   这个<strong><u>MTank</u></strong>文件夹本地不存在。<br></p>
-<p>然后出现了一个下载更新的界面，等待</p>
-<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516104928165" alt=""><br></p>
-<p>更新玩后，就成功出现了界面了，哈哈，如下图</p>
-<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516105340631" alt=""><br></p>
-<p><span style="font-size:24px;color:#ff0000;"><strong><br></strong></span></p>
-<p>如果还不能运行 试试<span style="font-size:18px;color:#ff9966;"><strong>最新版的jdk</strong></span>吧，因为我的是最新版本，下载地址</p>
-<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" rel="noopener" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a><br></p>
-<p><br></p>
-<p>运行截图：</p>
-<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516112914542" alt=""><br></p>
-<p><span style="font-size:24px;color:rgb(255,0,0);"><strong><br></strong></span></p>
-<p><span style="font-size:24px;color:#ff0000;"><strong>中文乱码的解决</strong></span></p>
-<p>在打开的窗口中，找到IDE <strong><u>File</u></strong> --&gt; <strong><u>Settings</u></strong>下的<u><strong>Appearance</strong></u>，在右侧勾选上“<strong><u>Override default fonts by</u></strong>”，然后点应用，我的就可以看到中文了，然后我选择了<strong><u>黑体</u></strong>，哈哈，搞定。</p>
-<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516151758202" alt=""><br></p>
-<p>参考 <a href="http://www.eoeandroid.com/thread-275485-1-1.html" rel="noopener" target="_blank">http://www.eoeandroid.com/thread-275485-1-1.html</a></p>
-<p><br></p>
-<p>在代码中使用中文如果提示<strong><em><span style="color:#ff0000;"> java: 未结束的字符串文字</span></em></strong></p>
-<p>则设置项目的字符编码，我是这么设置的</p>
-<p>File --&gt; Settings </p>
-<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516153707095" alt=""><br></p>
-<p><strong><br></strong></p>
-<p><strong>搞定收工！</strong><br></p>
-<p><span style="font-size:24px;color:#ff0000;"><strong>转载请注明出处！</strong></span><br></p>
-<p style="text-align:center;"><br></p>
-<p style="text-align:center;"><br></p>
-<p style="text-align:center;"><br></p>
+<div> </div>
+<div><strong>配置 php.ini</strong> </div>
+<div> </div>
+<div>Windows 下</div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension = "E:\Software\Develop\xampp\php\ext\php_xdebug.dll"
+xdebug.profiler_append = 0
+xdebug.profiler_enable = 1
+xdebug.profiler_enable_trigger = 0
+xdebug.profiler_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.profiler_output_name = "cachegrind.out.%t-%s"
+xdebug.remote_enable = on
+xdebug.remote_handler = "dbgp"
+xdebug.remote_host = "127.0.0.1"
+xdebug.trace_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.remote_port = 9000</code></pre>
+</div>
+<div><br></div>
+<div>重启 Apache </div>
+<div> </div>
+<div>如果是Linux 需要下载 xdebug</div>
+<div><a href="http://code.activestate.com/komodo/remotedebugging/" rel="noopener" target="_blank">http://code.activestate.com/komodo/remotedebugging/</a></div>
+<div> </div>
+<div>解压后找到合适版本的xdebug.so并将其复制到/opt/lampp/lib/php/extensions/中。然后修改/opt/lampp/etc/php.ini文件，</div>
+<div>在其最后加上</div>
+<div><code></code>
+<div>
+<div><br></div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension="/opt/lampp/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=true
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+xdebug.remote_handler=dbgp
+xdebug.profiler_enable=1
+xdebug.profiler_output_dir="/opt/lampp/tmp"</code></pre>
+<br></div>
+</div>
+</div>
+<div>lampp restart</div>
+<div><br></div>
+<div><strong>2 PhpStorm</strong></div>
+<div> </div>
+<div><strong>2.1    进入File&gt;Settings&gt;PHP&gt;Servers，添加一个 Server</strong> </div>
+<div> </div>
+<div><code></code>
+<div>
+<div>
+<pre><code class="language-python">Name     :  localhost
+Host     :  localhost
+Port     :  80
+Debugger :  Xdebuger</code></pre>
+</div>
+<br></div>
+</div>
+<div> </div>
+<div><strong>2.2    进入File&gt;Settings&gt;PHP&gt;Debug</strong></div>
+<div> </div>
+<div>
+<pre><code class="language-python">Debug port    :    9000</code></pre>
+</div>
+<br><div> </div>
+<div><strong>2.3    打开 Edit Configurations</strong></div>
+<div> </div>
+<div align="left"></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div><br></div>
+<div><strong><u>添加一个 PHP Web Application</u></strong></div>
+<div><strong><u><br></u></strong></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170419953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div align="left"></div>
+<div> </div>
+<div>运行时 就用这个 Web 运行调试，搞定。</div>
+<div>还不行就试试修改 上图中的Defaults，我把 server都改成了自己的localhost ,浏览器改成了firefox。</div>
+<div><br></div>
+<div>成果就是设置好断点,</div>
+<div>debug 运行，或者直接 shift + F9</div>
+<div>则会自动打开火狐浏览器并且停留在断点处。</div>
+<div><br></div>
+<div><br></div>
+<div><strong><span style="font-size:18px;">以后遇到新问题是将更新本文档，免得后面人又得重新探索，也欢迎大家提出问题。</span></strong></div>
+<div> </div>
+<div><span style="font-size:18px;color:#ff0000;"><strong>转载请注明出处</strong></span></div>
+<div><br></div>
+<div> </div>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门0_AndroidStudio/" data-id="cjorxdlpc000uauslusp3bpol" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" data-id="cjoryg8wt004tf4sl8wv6lvk9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -188,7 +227,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -199,7 +238,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -209,7 +248,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -218,7 +257,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -231,15 +270,11 @@
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -248,6 +283,10 @@
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

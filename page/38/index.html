@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_数据结构与算法_02_选择排序" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android框架进阶01_ThinkAndroid注解机制二" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_数据结构与算法_02_选择排序/" class="article-date">
-  <time datetime="2018-11-22T01:34:48.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android框架进阶01_ThinkAndroid注解机制二/" class="article-date">
+  <time datetime="2018-11-22T02:07:47.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_数据结构与算法_02_选择排序/">移动端_IOS【数据结构与算法 02】选择排序</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android框架进阶01_ThinkAndroid注解机制二/">移动端_IOS【Android框架进阶〖01〗】ThinkAndroid注解机制二</a>
     </h1>
   
 
@@ -104,75 +104,60 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<h3><span style="font-size:12px;">算法思想：</span></h3>
 <p></p>
-<ul><li>遍历数组array[N]，索引为 i，然后算出[i+1,N-1]区间中的最小数，与array[i]交换，最后一个数因为只有一个，所以不用比较外循环为 N-2次</li></ul><p></p>
-<p><a href="http://blog.csdn.net/mkrcpp/article/details/39181077" rel="noopener" target="_blank"><strong>博客地址：http://blog.csdn.net/mkrcpp/article/details/39181077</strong></a><br></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/14166121" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/14166121</a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+<p>打开ThinkAndroid框架最显眼的莫过于根目录下的TAActivity和TAApplication。</p>
+<p>看着阵势就是让我们以后写的Activity都继承于TAActivity，待研究一番后，确实如此。</p>
+<p><strong>TAActivity</strong></p>
+<p>最重要的就是其<strong>onCreate</strong>方法</p>
 <p></p>
-<pre><code class="language-java">import java.util.Arrays;
-
-/***
- * @title 选择排序
- * @author michael.mao
- * @date 2014年9月10日 下午2:32:01
- * @version V1.0
- */
-public class SelectionSort
+<pre><code class="language-java">@Override
+protected void onCreate(Bundle savedInstanceState)
 {
-	/***
-	 * @title 遍历数组
-	 *        array[N]，然后算出[i+1,N-1]区间中的最小数，与array[i]交换，最后一个数因为只有一个，所以不用比较外循环为
-	 *        N-2次
-	 * @param array
-	 * @author michael.mao
-	 * @date 2014年9月10日 下午2:33:17
-	 * @version V1.0
-	 */
-	public static void execute(int[] array)
-	{
-		int tmp = 0;
-		for (int i = 0, min = i; i &lt; array.length - 1; i++)
-		{
-			for (int j = i + 1; j &lt; array.length; j++)
-				if ( array[min] &gt; array[j] )
-					min = j;
-
-			if ( i != min )
-			{
-				tmp = array[i];
-				array[i] = array[min];
-				array[min] = tmp;
-			}
-		}
-	}
-
-	// 循环测试次数
-	public static int LOOP_COUNT = 100;
-	public static int ARRAY_SIZE = 10000;
-
-	public static void main(String[] args)
-	{
-		int[] mArray = Common.getArray(ARRAY_SIZE);
-		int allTime = 0;
-		for (int i = 0; i &lt; LOOP_COUNT; i++)
-		{
-			// 拷贝数组
-			int[] tmpArray = Arrays.copyOf(mArray, ARRAY_SIZE);
-			long tmpTime = System.currentTimeMillis();
-			execute(tmpArray);
-			allTime += System.currentTimeMillis() - tmpTime;
-		}
-		System.err.println("数组大小为(" + ARRAY_SIZE + ")的" + LOOP_COUNT + "次选择排序的平均耗时为：" + allTime / (float) LOOP_COUNT);
-	}
-}
-</code></pre><br><pre><code class="language-html">数组大小为(10000)的100次选择排序的平均耗时为：39.29 ms</code></pre><br><br><p></p>
-<p><br></p>
+	notifiyApplicationActivityCreating();
+	onPreOnCreate(savedInstanceState);
+	super.onCreate(savedInstanceState);
+	getTAApplication().getAppManager().addActivity(this);
+	initActivity();
+	onAfterOnCreate(savedInstanceState);
+	notifiyApplicationActivityCreated();
+}</code></pre>
+<span style="background-color:rgb(51,0,0);"><span style="color:#ff9900;"><strong>TAActivity</strong>提供了
+<strong>onPreOnCreate</strong>方法，<strong>onAfterOnCreate</strong>方法，以后继承的Activity只需重写这两个就能完成大部分任务。</span></span>
+<p></p>
+<p>在<strong>onPreOnCreate</strong>和<strong>onAfterOnCreate</strong>之间，调用了自己的 <strong>
+super.onCreate</strong>，但是还没有绑定布局，再下面有个<strong>initActivity</strong>方法，在这个方法里，<strong><span style="color:#6600cc;">自动完成了初始化注解元素，设置显示的布局等一系列动作。</span></strong><br></p>
+<p></p>
+<pre><code class="language-java">private void initActivity()
+{
+	// 初始化模块名
+	getModuleName();
+	// 初始化布局名
+	getLayouName();
+	// 加载类注入器
+	initInjector();
+	// 自动加载默认布局
+	loadDefautLayout();
+}</code></pre>
+代码注释的很清楚，首先通过<span style="color:#ff6600;"><strong>命名规范</strong></span>自动获取布局的名字，然后<strong>initInjector</strong>初始化<span style="color:#33cc00;"><strong>注解的属性</strong></span>，最后<strong>loadDefaultLayout</strong>来设置<strong>显示的布局</strong>，一切都自动化了，不需要自己写setContentView......
+<p>通过研究<strong>TAActivity</strong>，以后如果想用<strong>Fragment</strong>，那么完全可以自己写个<strong>TAFragment</strong>了，大同小异。</p>
+<p></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/14166121" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/14166121</a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
 <p><br></p>
             </div>
 
@@ -180,7 +165,7 @@ public class SelectionSort
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_数据结构与算法_02_选择排序/" data-id="cjorxdkgm0009auslf7w7cwti" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶01_ThinkAndroid注解机制二/" data-id="cjoryg8uf002of4slzfih6kgt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -199,7 +184,7 @@ public class SelectionSort
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/37/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/39/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/37/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/39/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -210,7 +195,7 @@ public class SelectionSort
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -220,7 +205,7 @@ public class SelectionSort
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -229,7 +214,7 @@ public class SelectionSort
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -242,15 +227,11 @@ public class SelectionSort
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -259,6 +240,10 @@ public class SelectionSort
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

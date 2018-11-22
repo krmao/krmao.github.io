@@ -76,9 +76,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_ANDROID_SDK" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-算法_00003_约瑟夫环" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/" class="article-date">
+    <a href="/2018/11/19/算法_00003_约瑟夫环/" class="article-date">
   <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
 </a>
     
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+      <a class="article-title" href="/2018/11/19/算法_00003_约瑟夫环/">算法_00003_约瑟夫环</a>
     </h1>
   
 
@@ -102,38 +102,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-下载地址-https-developer-android-com-studio-index-html-downloads"><a href="#1-下载地址-https-developer-android-com-studio-index-html-downloads" class="headerlink" title="1 下载地址 https://developer.android.com/studio/index.html#downloads"></a>1 下载地址 <a href="https://developer.android.com/studio/index.html#downloads" target="_blank" rel="noopener">https://developer.android.com/studio/index.html#downloads</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/packages/</span><br><span class="line">wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip</span><br></pre></td></tr></table></figure>
-<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><ul>
-<li><p>解压到指定目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip /opt/software/packages/sdk-tools-linux-3859397.zip -d /opt/software/sdks/android/sdk</span><br><span class="line">cd /opt/software/sdks/android/sdk/tools/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查需要安装的 sdk 版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Sdk and tools</span><br><span class="line">minSdkVersion = 15</span><br><span class="line">targetSdkVersion = 25</span><br><span class="line">compileSdkVersion = 27</span><br><span class="line">buildToolsVersion = &quot;27.0.3&quot;</span><br><span class="line"></span><br><span class="line">// App dependencies</span><br><span class="line">supportLibraryVersion = &quot;27.0.2&quot;</span><br><span class="line">constraintLayoutVersion = &quot;1.0.2&quot;</span><br><span class="line">multidex = &quot;1.0.2&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行安装命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./sdkmanager --help</span><br><span class="line"></span><br><span class="line"># echo y | 通过管道模式直接确认,不需要等会儿手动输入 y 确认</span><br><span class="line">echo y | ./sdkmanager &quot;build-tools;27.0.3&quot; &quot;platforms;android-27&quot; &quot;platform-tools&quot; &quot;ndk-bundle&quot; &quot;extras;android;m2repository&quot; &quot;extras;google;m2repository&quot; &quot;extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2&quot; &quot;tools&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>默认安装的目录结构 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"># /opt/software/sdks/android/sdk</span><br><span class="line">[root@localhost android]# tree -L 3</span><br><span class="line">.</span><br><span class="line">└── sdk</span><br><span class="line">    ├── build-tools</span><br><span class="line">    │   └── 27.0.3</span><br><span class="line">    ├── emulator</span><br><span class="line">    │   ├── bin64</span><br><span class="line">    │   ├── emulator</span><br><span class="line">    │   ├── emulator64-arm</span><br><span class="line">    │   ├── emulator64-crash-service</span><br><span class="line">    │   ├── emulator64-mips</span><br><span class="line">    │   ├── emulator64-x86</span><br><span class="line">    │   ├── emulator-check</span><br><span class="line">    │   ├── lib</span><br><span class="line">    │   ├── lib64</span><br><span class="line">    │   ├── mksdcard</span><br><span class="line">    │   ├── NOTICE.txt</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── qemu</span><br><span class="line">    │   ├── resources</span><br><span class="line">    │   └── source.properties</span><br><span class="line">    ├── extras</span><br><span class="line">    │   ├── android</span><br><span class="line">    │   ├── google</span><br><span class="line">    │   └── m2repository</span><br><span class="line">    ├── licenses</span><br><span class="line">    │   └── android-sdk-license</span><br><span class="line">    ├── ndk-bundle</span><br><span class="line">    │   ├── build</span><br><span class="line">    │   ├── CHANGELOG.md</span><br><span class="line">    │   ├── meta</span><br><span class="line">    │   ├── ndk-build</span><br><span class="line">    │   ├── ndk-depends</span><br><span class="line">    │   ├── ndk-gdb</span><br><span class="line">    │   ├── ndk-stack</span><br><span class="line">    │   ├── ndk-which</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── platforms</span><br><span class="line">    │   ├── prebuilt</span><br><span class="line">    │   ├── python-packages</span><br><span class="line">    │   ├── README.md</span><br><span class="line">    │   ├── shader-tools</span><br><span class="line">    │   ├── simpleperf</span><br><span class="line">    │   ├── source.properties</span><br><span class="line">    │   ├── sources</span><br><span class="line">    │   ├── sysroot</span><br><span class="line">    │   └── toolchains</span><br><span class="line">    ├── patcher</span><br><span class="line">    │   └── v4</span><br><span class="line">    ├── platforms</span><br><span class="line">    │   └── android-27</span><br><span class="line">    ├── platform-tools</span><br><span class="line">    │   ├── adb</span><br><span class="line">    │   ├── api</span><br><span class="line">    │   ├── dmtracedump</span><br><span class="line">    │   ├── e2fsdroid</span><br><span class="line">    │   ├── etc1tool</span><br><span class="line">    │   ├── fastboot</span><br><span class="line">    │   ├── hprof-conv</span><br><span class="line">    │   ├── lib64</span><br><span class="line">    │   ├── make_f2fs</span><br><span class="line">    │   ├── mke2fs</span><br><span class="line">    │   ├── mke2fs.conf</span><br><span class="line">    │   ├── NOTICE.txt</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── sload_f2fs</span><br><span class="line">    │   ├── source.properties</span><br><span class="line">    │   ├── sqlite3</span><br><span class="line">    │   └── systrace</span><br><span class="line">    └── tools</span><br><span class="line">        ├── android</span><br><span class="line">        ├── bin</span><br><span class="line">        ├── emulator</span><br><span class="line">        ├── emulator-check</span><br><span class="line">        ├── lib</span><br><span class="line">        ├── mksdcard</span><br><span class="line">        ├── monitor</span><br><span class="line">        ├── NOTICE.txt</span><br><span class="line">        ├── package.xml</span><br><span class="line">        ├── proguard</span><br><span class="line">        ├── source.properties</span><br><span class="line">        └── support</span><br><span class="line"></span><br><span class="line">38 directories, 42 files</span><br><span class="line">[root@localhost android]#</span><br></pre></td></tr></table></figure>
+        <h3 id="1-总结"><a href="#1-总结" class="headerlink" title="1 总结"></a>1 总结</h3><p>有 <strong>n</strong> 个打算杀身成仁的犹太人(<em>将军为约瑟夫</em>)商量后决定分别从黑箱子里抽签(<em>编号是连续的分别为 1,2,3…n, 在数组中下标即为 0,1,2…n-1</em>), 然后按编号顺序围成一个圈, 随机取一个数 <strong>m</strong> , 不断的依次杀死报数为 <strong>m</strong> (<em>即下标为m-1</em>)的人, 求最后一个报数为 <strong>m</strong> 的人编号(<em>自己有预谋的拿到这个编号,就可以活下来</em>)</p>
+<ol>
+<li>第一个杀死的人为第一个抽签为 <strong>m</strong> (<em>下标为m-1</em>) 的人</li>
+<li>最后一个人在该轮的下标肯定为 <strong>0</strong></li>
+</ol>
+<ul>
+<li>上一轮的结果f(n-1) + 报数的值 m 取模 这一轮的总数 n</li>
+<li><strong>f(n)</strong>  即有 <strong>n</strong> 个人从 下标为<strong>m-1</strong>依次报数, 将报数为<strong>m</strong>的人杀掉, 求最后一个报数为m(最后一个可以活着)的人的下标<ul>
+<li>注意报的数是从 <strong>1</strong> 开始到 <strong>m</strong>, 所以报数为m的人的下标为 m-1, 毕竟数组的下标从0开始<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">即 n 个人里面从 下标为(m-1)的人从1开始依次报数(1,2...m) 最后一个报数为m的人即为活着的人的 下标</span><br><span class="line">f(n) = (f(n-1) + m) % n</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line"># ANDROID_HOME START</span><br><span class="line">ANDROID_HOME=/opt/software/sdks/android/sdk</span><br><span class="line">PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:ANDROID_HOME/emulator</span><br><span class="line">export ANDROID_HOME PATH</span><br><span class="line"># ANDROID_HOME END</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ul>
-<li><p>Unsupported major.minor version 52.0 <a href="https://www.jianshu.com/p/9cde35b7faba" target="_blank" rel="noopener">点击查看如何安装 JDK1.8</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 需要安装 jdk 1.8 版本</span><br><span class="line">JDK 1.8 = 52</span><br><span class="line">JDK 1.7 = 51</span><br><span class="line">JDK 1.6 = 50</span><br><span class="line">JDK 1.5 = 49</span><br><span class="line">JDK 1.4 = 48</span><br><span class="line">JDK 1.3 = 47</span><br><span class="line">JDK 1.2 = 46</span><br><span class="line">JDK 1.1 = 45</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译 android 项目 报错 <strong>‘java.lang.RuntimeException: No server to serve request. Check logs for details.’</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 仔细查看编译日志</span><br><span class="line">AAPT err(Facade for 232115523): /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt: /lib64/libc.so.6: version `GLIBC_2.14&apos; not found (required by /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt)</span><br><span class="line">AAPT err(Facade for 232115523): /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt: /lib64/libc.so.6: version `GLIBC_2.14&apos; not found (required by /opt/software/sdks/android/sdk/build-tools/27.0.3/lib64/libc++.so)</span><br><span class="line"></span><br><span class="line"># 查看系统是否已经安装 glibc 2.14</span><br><span class="line">strings /lib64/libc.so.6 |grep GLIBC</span><br><span class="line"></span><br><span class="line"># 发现不包含 2.14, 安装 glibc 2.14 版本应该可以解决问题</span><br><span class="line">yum install gcc g++</span><br><span class="line"></span><br><span class="line">cd /opt/software/packages/ &amp;&amp; wget wget http://ftp.gnu.org/gnu/glibc/glibc-2.14.tar.gz</span><br><span class="line">tar zxvf glibc-2.14.tar.gz</span><br><span class="line">cd glibc-2.14</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">../configure –prefix=/opt/glibc-2.14</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># /opt/software/packages/glibc-2.14/build/elf/ldconfig: Can&apos;t open configuration file /opt/software/glibc-2.14/etc/ld.so.conf: No such file or directory</span><br><span class="line">cp /etc/ld.so.conf /opt/software/glibc-2.14/etc/</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># make install 最后报 ld.so.conf: No such file or directory</span><br><span class="line">mkdir -p $prefix/etc</span><br><span class="line">touch $prefix/etc/ld.so.conf</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># 重新查看系统是否已经安装 glibc 2.14</span><br><span class="line">strings /lib64/libc.so.6 |grep GLIBC</span><br><span class="line"># 我这里是仍然没有看到 2.14 :) 哈哈</span><br><span class="line"></span><br><span class="line"># 修改 aapt</span><br><span class="line">cd /opt/software/sdks/android/sdk/build-tools/27.0.3</span><br><span class="line">mv ./aapt ./aapt_</span><br><span class="line">vi ./aapt</span><br><span class="line"></span><br><span class="line">#!/bin/sh</span><br><span class="line">export LD_LIBRARY_PATH=/opt/software/glibc_2_14/lib &amp;&amp; &quot;$0&quot;_ $@</span><br><span class="line"></span><br><span class="line">chmod +x ./aapt</span><br><span class="line"></span><br><span class="line"># 对 ./aapt2 也做相同的处理,因为发现有的时候编译使用的是 aapt, 有的时候使用的是 aapt2</span><br><span class="line"></span><br><span class="line"># 重新build android 项目</span><br><span class="line">./gradlew clean assembleDebug --stacktrace</span><br><span class="line"></span><br><span class="line"># 编译成功 !!!</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p><a href="https://leetcode-cn.com/playground/93L4SBcb" target="_blank" rel="noopener">https://leetcode-cn.com/playground/93L4SBcb</a></p>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>大致过程如图下：<br><img src="http://upload-images.jianshu.io/upload_images/2062311-3a243e97a1545608?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="参考大神文章中提到一个容易理解的解释 [https://blog.csdn.net/tingyun_say/article/details/52343897](https://blog.csdn.net/tingyun_say/article/details/52343897)"></p>
+<p>那么我们知道是这么得到的新的队列，那么也很容易知道怎么反推了：<br>反观如上的变化情况，都是减去一个q，所以：<br><strong>变回去的公式如下：old = (new + q) % n</strong><br>这里的old和new指的是下标，n指的是总共有多少人</p>
+<p>知道了怎么推出之前的下标，那么也就可以一步步递推回去得到开始的队列或者从小推到大得到最后剩余的结果。<br><strong>最后再做一道实际点的例子，求J2(4):</strong></p>
+<p>J2(1) = 0<br>J2(2) = (J2(1) + 2) % 2 = 0<br>J2(3) = (J2(2) + 2) % 3 = 2<br>J2(4) = (J2(3) + 2) % 4 = 0</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/tingyun_say/article/details/52343897" target="_blank" rel="noopener">https://blog.csdn.net/tingyun_say/article/details/52343897</a></p>
+<p><a href="https://www.zhihu.com/question/23331384" target="_blank" rel="noopener">https://www.zhihu.com/question/23331384</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_ANDROID_SDK/" data-id="cjor2bnug0000a7slr10xs7h7" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/19/算法_00003_约瑟夫环/" data-id="cjoryg8ym006gf4sl2vvcipju" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">算法</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -149,7 +145,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/70/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span>
+    <a class="extend prev" rel="prev" href="/page/70/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/72/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -160,7 +156,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -170,7 +166,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -179,7 +175,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -192,15 +188,11 @@
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -209,6 +201,10 @@
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

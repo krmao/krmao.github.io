@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Django基础入门_空间数据库查询" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_数据结构与算法_二叉树" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Django基础入门_空间数据库查询/" class="article-date">
-  <time datetime="2018-11-22T01:34:51.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_数据结构与算法_二叉树/" class="article-date">
+  <time datetime="2018-11-22T02:07:49.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_空间数据库查询/">移动端_IOS【Django基础入门】空间数据库查询</a>
+      <a class="article-title" href="/2018/11/22/移动端_数据结构与算法_二叉树/">移动端_IOS【数据结构与算法】二叉树</a>
     </h1>
   
 
@@ -104,100 +104,174 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p>1 ：在views.py中</p>
-<p>//阿里云地图之地址转地理坐标    <a href="http://ditu.aliyun.com/jsdoc/geocode_api.html" rel="noopener" target="_blank">
-http://ditu.aliyun.com/jsdoc/geocode_api.html</a>  里面有返回的数据格式。<br></p>
-<p>//参考geopy</p>
+<p><br></p>
+<p><strong><span style="color:#009900;">头文件 BTree.h</span></strong></p>
 <p></p>
-<pre><code class="language-python">address = smart_str(city.name + address).replace(' ','')import traceback
-import xml.dom.minidom
-from urllib2 import urlopen
-from sys import version_info
-from apps.address.models import City
-from apps.org.models import Vresource
-from django.utils.encoding import smart_str
-from xml.parsers.expat import ExpatError
+<pre><code class="language-cpp">#ifndef BTREE_H
+#define BTREE_H
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
 
-################################Quick Search###########################################
-def search(request):
-    qs = Vresource.objects.all()
-    q = request.GET.get('q', '')
-    result = util.ali_getlocation(q)
-    result = simplejson.loads(result)
-    distance = request.GET.get('distance', '1')
-    
-    if q != '':
-        myfilter = Q()
-        q = q.split(" ")
-        
-        for i in q:
-            myfilter = myfilter|Q(name__icontains=i)|Q(address__icontains=i)|Q(traffic_info__icontains=i)
-            
-        if result['level'] != -1:
-            geom = fromstr("POINT(%s %s)" % (result['lon'],result['lat']))
-            distance_from_point = {'km':distance}
-            qs = qs.filter(geometry__distance_lte=(geom, D(**distance_from_point)))         
-            myfilter = myfilter|Q(geometry__distance_lte=(geom, D(**distance_from_point)))   
-             
-        qs = qs.filter(myfilter)
-    return render_to_response('org/search.html', {'results':qs}, context_instance=RequestContext(request))
+template&lt;class T&gt;                                     //树节点类
+class BNode
+{
+public:
+    BNode&lt;T&gt;():left(NULL),right(NULL),data(T()){}
+    BNode&lt;T&gt; *left;
+    BNode&lt;T&gt; *right;
+    T data;
+};
 
-###############################ali_getlocation##########################################
 
-def ali_getlocation(address, city_id=1):
-    try:
-        city = City.objects.get(id=city_id)
-        address = smart_str(city.name + address).replace(' ','').replace(' ','')
-        page = urlopen('http://gc.ditu.aliyun.com/geocoding?a=%s' %address)
-        page = decode_page(page)
-        return page
-    except:
-        print "Unexpected error:"
-        tb = traceback.format_exc()
-        print tb
-        
-def get_encoding(page, contents=None):
-    # TODO: clean up Py3k support
-    if version_info &lt; (3, 0):
-        charset = page.headers.getparam("charset") or None
-    else:
-        charset = page.headers.get_param("charset") or None
-    if charset:
-        return charset
+template&lt;class T&gt;                                     //二叉树类
+class BTree
+{
+public:
+    BNode&lt;T&gt; *root;
+    BTree&lt;T&gt;():root(NULL){}
+    ~BTree&lt;T&gt;()
+    {
+        DestoryBTree(root);
+    }
+    void CreateBTree(BNode&lt;T&gt;* &amp;mBTree);              //构造二叉树
+    void PreorderDisplay(BNode&lt;T&gt;* &amp;mBTree);          //前序遍历
+    void InorderDisplay(BNode&lt;T&gt;* &amp;mBTree);           //中序遍历
+    void PostorderDisplay(BNode&lt;T&gt;* &amp;mBTree);         //后序遍历
+    void LevelorderDisplay(BNode&lt;T&gt;* &amp;mBTree);        //层次遍历
+    void DestoryBTree(BNode&lt;T&gt;* &amp;mBTree);             //毁灭二叉树
+};
 
-    if contents:
-        try:
-            return xml.dom.minidom.parseString(contents).encoding
-        except ExpatError:
-            pass
+template&lt;class T&gt;
+void BTree&lt;T&gt;::CreateBTree(BNode&lt;T&gt; *&amp;mBTree)
+{
+    BNode&lt;T&gt; *tmpNode=new BNode&lt;T&gt;();
+    cout&lt;&lt;"Input:\t";
+    cin&gt;&gt;tmpNode-&gt;data;
 
-def decode_page(page):
-    contents = page.read()
-    # HTTP 1.1 defines iso-8859-1 as the 'implied' encoding if none is given
-    encoding = get_encoding(page, contents) or 'iso-8859-1'
-    # TODO: clean up Py3k support
-    if version_info &lt; (3, 0):
-        return unicode(contents, encoding=encoding).encode('utf-8')
-    else:
-        return str(contents, encoding=encoding)        
-########################################################################################    
+    if(tmpNode-&gt;data=="#")
+    {
+        delete tmpNode;
+        mBTree=NULL;
+        return;
+    }
+    mBTree=tmpNode;
+    CreateBTree(mBTree-&gt;left);
+    CreateBTree(mBTree-&gt;right);
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::PreorderDisplay(BNode&lt;T&gt; *&amp;mBTree)     //前序遍历
+{
+    if(mBTree)
+    {
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+        PreorderDisplay(mBTree-&gt;left);
+        PreorderDisplay(mBTree-&gt;right);
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::InorderDisplay(BNode&lt;T&gt; *&amp;mBTree)      //中序遍历
+{
+    if(mBTree)
+    {
+        InorderDisplay(mBTree-&gt;left);
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+        InorderDisplay(mBTree-&gt;right);
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::PostorderDisplay(BNode&lt;T&gt; *&amp;mBTree)    //后序遍历
+{
+    if(mBTree)
+    {
+        PostorderDisplay(mBTree-&gt;left);
+        PostorderDisplay(mBTree-&gt;right);
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::LevelorderDisplay(BNode&lt;T&gt; *&amp;mBTree)   //层次遍历
+{
+    if(mBTree)
+    {
+        BNode&lt;T&gt; *p=NULL;
+        queue&lt;BNode&lt;T&gt; *&gt;BNodeQueue;
+        BNodeQueue.push(mBTree);
+        while(!BNodeQueue.empty())
+        {
+            p=BNodeQueue.front();
+            cout&lt;&lt;p-&gt;data&lt;&lt;" ";
+            BNodeQueue.pop();
+            if(p-&gt;left)
+                BNodeQueue.push(p-&gt;left);
+            if(p-&gt;right)
+                BNodeQueue.push(p-&gt;right);
+        }
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::DestoryBTree(BNode&lt;T&gt; *&amp;mBTree)        //毁灭二叉树
+{
+    if(mBTree)
+    {
+        DestoryBTree(mBTree-&gt;left);
+        DestoryBTree(mBTree-&gt;right);
+        delete mBTree;
+    }
+
+}
+
+#endif // BTREE_H
 </code></pre>
-<p>2 ：输出</p>
-<pre><code class="language-python">{"cityName":"","address":"江苏省,苏州市,虎丘区,","level":5,"alevel":2,"lat":31.28723,"lon":120.55216}</code></pre>
-<h3><span style="font-family:'KaiTi_GB2312';font-size:18px;color:#ff0000;font-weight:normal;background-color:rgb(255,255,204);">转载请注明出处！</span></h3>
+<p><strong><span style="color:#009900;"><br></span></strong></p>
+<p><strong><span style="color:#009900;">主函数 main.cpp</span></strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include "BTree.h"
+using namespace std;
+
+int main()
+{
+    cout&lt;&lt;"Create A BinaryTree Now :"&lt;&lt;endl;
+    BTree&lt;string&gt; mBTree;
+    mBTree.CreateBTree(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"PreorderDisplay"&lt;&lt;endl;
+    mBTree.PreorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"InorderDisplay"&lt;&lt;endl;
+    mBTree.InorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"PostorderDisplay"&lt;&lt;endl;
+    mBTree.PostorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"LevelorderDisplay"&lt;&lt;endl;
+    mBTree.LevelorderDisplay(mBTree.root);
+
+    return 0;
+}
+</code></pre>
+<br><span style="color:#009900;"><strong>结果</strong></span><br><p><img src="" alt=""></p>
+<p><img src="http://img.my.csdn.net/uploads/201304/23/1366704968_7137.png" alt=""><br></p>
+<p><span style="color:#009900;"><strong>持续更新。</strong></span></p>
+<p><strong><span style="color:#ff0000;">转载请注明出处！</span></strong></p>
+<p><br></p>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_空间数据库查询/" data-id="cjorxdrhv0030auslo12cckil" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_数据结构与算法_二叉树/" data-id="cjoryg8xp005sf4sln567z85q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -216,7 +290,7 @@ def decode_page(page):
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/25/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/27/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/25/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/27/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -227,7 +301,7 @@ def decode_page(page):
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -237,7 +311,7 @@ def decode_page(page):
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -246,7 +320,7 @@ def decode_page(page):
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -259,15 +333,11 @@ def decode_page(page):
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -276,6 +346,10 @@ def decode_page(page):
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

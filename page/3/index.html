@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android基础入门1_UI布局" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门0_AndroidStudio" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android基础入门1_UI布局/" class="article-date">
-  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/" class="article-date">
+  <time datetime="2018-11-22T02:07:54.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
     </h1>
   
 
@@ -104,67 +104,71 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<h1>1  Android UI 的基础知识</h1>
-<div>       UI 即 User Interface，用户界面。Android 中所有的可视化组件都是从 View 类派生而来的，通常把他们称为视图。视图也常被称为控件或者组件。ViewGroup 类是对 View类的扩展，它是用来包含多个视图的。一般来说，视图组主要用来管理子视图的布局，但是也可以用来构建原子的可重用组件，那些用来实现前一种功能的视图组通常称为布局。</div>
-<div> </div>
-<h1>2  将用户界面分配给 Activity</h1>
-<div>       一个新的Activity在刚被创建的时候是一个空白屏幕，可以把自己的UI放在上面。setContentView方法既可以接受一个布局资源ID，也可以接受一个单独的视图实例。这样既可以使用代码，又可以使用其他喜欢的外部布局资源的技术来定义UI。setContentView(R.id.layout);setContentView(new TextView(this));</div>
-<h1>3  布局简介</h1>
-<div>        布局管理器是对ViewGroup类的扩展，它是用来控制子控件在UI中的位置的，布局是可以嵌套的，因此，可以使用多个布局的组合来创建任意复杂的界面。布局类最关键的特征就是能够扩展并适应各种各样的屏幕尺寸、分辨率和屏幕方向。</div>
-<ul><li>FrameLayout</li></ul><div>            最简单的布局管理器，它会把每一个新的子视图堆积在前一个子视图的上面，而且每一个新 的子视图可能会遮挡住上一个。</div>
-<ul><li>LinearLayout</li></ul><div>            按照垂直或者水平方向来对齐每一个子视图，通过weight控制每一个子视图在可用空间内的相对大小。</div>
-<ul><li>RelativeLayout</li></ul><div>            使用RelativeLayout，可以定义每一个子视图与其他子视图之间以及屏幕边界之间的相对位置。允许根据父元素或者其他视图的位置定义每个元素在布局中的位置。</div>
-<ul><li>GridLayout</li></ul><div>            GridLayout在Android4.0(API level 14)中引入，它是由极细的线构成的矩形网格，在一系列行和列中布局视图。</div>
-<div> </div>
-<h3>    3.1  FrameLayout</h3>
-<div><span><img src="https://img-blog.csdn.net/20130910130344578" alt=""></span></div>
-<div><br></div>
+<p>下载地址：<a href="http://developer.android.com/sdk/installing/studio.html#download" rel="noopener" target="_blank">http://developer.android.com/sdk/installing/studio.html#download</a></p>
+<p>如果出现启动不了的问题</p>
+<p>进入AndroidStudio安装目录 E:\software\AndroidStudio\bin ，运行studio.bat</p>
+<p>出现</p>
+<p></p>
 <div></div>
-<h3>    3.2  LinearLayout</h3>
-<div><span><img src="https://img-blog.csdn.net/20130910130355156" alt=""></span></div>
+<div style="text-align:center;"><img src="https://img-blog.csdn.net/20130516103534436" alt=""></div>
+<p></p>
+<p></p>
 <div></div>
-<h1><span style="font-size:12px;"></span></h1>
-<h3>   3.3 RelativeLayout</h3>
-<div><span><img src="https://img-blog.csdn.net/20130910130402015" alt=""></span></div>
-<div></div>
-<h3>    3.4 GridLayout</h3>
-<div>
-<div>
-<div>       网格布局是所有布局管理器中最为灵活的一种。网格布局使用一个随意选择的网格来放置视图。通过使用行和列延伸、Space View 和 Gravity 属性，可以创建复杂的UI，而不是像相对布局那样为构建UI而经常使用复杂的嵌套。</div>
-<div>       GridLayout 看起来和 TableLayout差不多，实其性能和功能要比TableLayout要好，比如 GridLyout布局中的单元格可以跨越多行，而TabLayout却不行，此外，其渲染速度也比TabLayout要快。</div>
-<div>       出于性能考虑，在创建相同的UI时，应该优先考虑使用网格布局，而不是嵌套布局 。</div>
-<div>       在GridLyout中，默认对每一个子控件使用 wrap_content的方式，而不是显示声明高度和宽度。</div>
-</div>
-</div>
-<div> </div>
-<ul><li>GridLayout  案例</li></ul><div></div>
-<div> <span> <img src="https://img-blog.csdn.net/20130910130406562" alt=""></span></div>
-<h3>    3.5 优化布局</h3>
-<div>
-<div>        填充布局是一个开销巨大的过程，一个FrameLayout布局内的 layout_width 和layout_height 都被设置为 match_parent，这样做没有什么实际意义，只是增加了填充时间，当该布局作为子布局嵌入父布局时，两个match_parent就形成了冗余布局。布局可以被任意嵌套，但最好不要超过10层，不然性能会有质的差距。避免使用过多的View，每个布局中View个数不应该超过80。</div>
-</div>
-<div></div>
-<div> </div>
-<div> <span> <img src="https://img-blog.csdn.net/20130910130414765" alt=""></span></div>
-<div> </div>
-<div> </div>
-<div><strong><span style="font-size:18px;color:#ff0000;"><u>转载请注明出处 :)</u></span></strong></div>
-<div><br></div>
-<div><br></div>
-<div> </div>
+<br><p></p>
+<p>原来是没有设置JAVA的环境变量！</p>
+<p><strong>No.1 </strong><br>
+在系统变量里点击新建，变量名填写JAVA_HOME<br><br></p>
+<pre><code class="language-cpp">变量名    JAVA_HOME
+变量值    C:\Program Files\Java\jdk1.7.0_21</code></pre>
+<br><strong>No.2 </strong><br>
+在系统变量里点击新建变量名填写CLASSPATH<br><br><pre><code class="language-cpp">变量名    CLASSPATH
+变量值    .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar</code></pre>
+<br><strong>No.3 </strong><br>
+在系统变量里找到Path变量，这是系统自带的，在变量最后加上<br><br><pre><code class="language-cpp">;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</code></pre>
+<br>
+注意前面的分号。
+<p></p>
+<p>设置好后，打开AndroidStudio，新建一个项目，</p>
+<p><strong>Project location</strong> 中设置路径时的项目文件夹必须为<strong>本地还没有的文件夹</strong>，然后点击其它的输入框，会发先 Description 不提示错误了，感谢<strong><a class="username" href="http://blog.csdn.net/king875812310" rel="noopener" target="_blank">king875812310</a> </strong>的研究成果。</p>
+<p><strong>例如路径为      E:\software\AndroidWorkspace\MTank</strong>   这个<strong><u>MTank</u></strong>文件夹本地不存在。<br></p>
+<p>然后出现了一个下载更新的界面，等待</p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516104928165" alt=""><br></p>
+<p>更新玩后，就成功出现了界面了，哈哈，如下图</p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516105340631" alt=""><br></p>
+<p><span style="font-size:24px;color:#ff0000;"><strong><br></strong></span></p>
+<p>如果还不能运行 试试<span style="font-size:18px;color:#ff9966;"><strong>最新版的jdk</strong></span>吧，因为我的是最新版本，下载地址</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" rel="noopener" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a><br></p>
+<p><br></p>
+<p>运行截图：</p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516112914542" alt=""><br></p>
+<p><span style="font-size:24px;color:rgb(255,0,0);"><strong><br></strong></span></p>
+<p><span style="font-size:24px;color:#ff0000;"><strong>中文乱码的解决</strong></span></p>
+<p>在打开的窗口中，找到IDE <strong><u>File</u></strong> --&gt; <strong><u>Settings</u></strong>下的<u><strong>Appearance</strong></u>，在右侧勾选上“<strong><u>Override default fonts by</u></strong>”，然后点应用，我的就可以看到中文了，然后我选择了<strong><u>黑体</u></strong>，哈哈，搞定。</p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516151758202" alt=""><br></p>
+<p>参考 <a href="http://www.eoeandroid.com/thread-275485-1-1.html" rel="noopener" target="_blank">http://www.eoeandroid.com/thread-275485-1-1.html</a></p>
+<p><br></p>
+<p>在代码中使用中文如果提示<strong><em><span style="color:#ff0000;"> java: 未结束的字符串文字</span></em></strong></p>
+<p>则设置项目的字符编码，我是这么设置的</p>
+<p>File --&gt; Settings </p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130516153707095" alt=""><br></p>
+<p><strong><br></strong></p>
+<p><strong>搞定收工！</strong><br></p>
+<p><span style="font-size:24px;color:#ff0000;"><strong>转载请注明出处！</strong></span><br></p>
+<p style="text-align:center;"><br></p>
+<p style="text-align:center;"><br></p>
+<p style="text-align:center;"><br></p>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门1_UI布局/" data-id="cjorxdm08000xausls1nyxsq6" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门0_AndroidStudio/" data-id="cjoryg8sh000tf4slcgbn8ac4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -183,7 +187,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -194,7 +198,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -204,7 +208,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -213,7 +217,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -226,15 +230,11 @@
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -243,6 +243,10 @@
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

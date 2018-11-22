@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android基础入门8_SimpleAdapter之一" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门12_滑动菜单SlidingMenu" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/" class="article-date">
-  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" class="article-date">
+  <time datetime="2018-11-22T02:07:53.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/">移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu</a>
     </h1>
   
 
@@ -104,142 +104,166 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<div>SimpleAdapter</div>
- <br><h2>Activity</h2>
-<p><strong>主程序</strong></p>
-<p>listItem 中存放所有要显示的所有列数据，每 new <strong>一个map</strong>，即 在显示的列表中 新建<strong>一行</strong>数据，Title (自定义)、Image(自定义) 只是别名，分别对应 每一行的布局 item_layout 中的 资源 ID ， Title =&gt; R.id.item_text，Image =&gt; R.id.item_image。</p>
-<p><br></p>
-<pre><code class="language-java">package com.michael.training;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
+<p><strong><span style="font-size:18px;">注：本篇文章基于我以前发表的文章 <a href="http://blog.csdn.net/mkrcpp/article/details/11478011" rel="noopener" target="_blank"><span style="color:#ff0000;">Android 之 Fragment</span></a> 之上，稍作修改即可达到 炫酷的 滑动效果 :)</span></strong></p>
+<p></p>
+<div><span style="background-color:#c7edcc;"></span> </div>
+<div><span style="color:#ff0000;background-color:#c7edcc;"><strong><u>具体步骤如下:</u></strong></span></div>
+<h1>NO.1:    新建一个 内容布局，用于显示文章</h1>
+<div>            <span style="background-color:#c7edcc;">之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点哦。</span></div>
+<div><span style="background-color:#c7edcc;">            因为我们已不再使用之前的 main_layout.xml 了。</span></div>
+<div>            <span style="background-color:#c7edcc;">contentlayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_fragment"
+    android:name="com.example.myfragments.RightFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.2:    新建一个 菜单布局，用于显示菜单</h1>
+<div>            <span style="background-color:#c7edcc;">原因与第一步的原因相同 :)</span></div>
+<div>            <span style="background-color:#c7edcc;">menulayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_fragment"
+    android:name="com.example.myfragments.LeftFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.3:    下载并安装 SlidingMenu</h1>
+<div>            下载地址 <a href="https://github.com/jfeinstein10/SlidingMenu" rel="noopener" target="_blank">
+https://github.com/jfeinstein10/SlidingMenu</a> </div>
+<div><span></span>    打开 Eclipse ，将 SlidingMenu 导入。<br></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172748015" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172823500" alt=""></div>
+<div><span></span>    <img src="https://img-blog.csdn.net/20130924172828937" alt=""></div>
+<div><span></span>    </div>
+<div>            设置 项目 library 的属性，勾选 Is Library 。</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172946890" alt=""></div>
+<div>            </div>
+<div>            在自己的项目中引用 library 库，我的项目为 MyFragments</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172937390" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173043187" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173115390" alt=""></div>
+<div>            </div>
+<div> </div>
+<div>            由于 SlidingMenu 自带了 android-support-v4.jar，所以需要将自己项目中原有的 android-support-v4.jar 删掉。</div>
+<div>            成功导入后的截图为:</div>
+<div>            <img src="https://img-blog.csdn.net/20130924173121328" alt=""></div>
+<div>            ok，至此 SlidingMenu 已经成功引入，下面就开始使用吧 :)</div>
+<div> </div>
+<h1>NO.4:    使用 SlidingMenu</h1>
+<div>            只需要将 原 MainActivity.java 改写成如下代码即可</div>
+<div>
+<pre><code class="language-java">package com.example.myfragments;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-public class MainActivity extends Activity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_layout);
-		
-		ListView listView = (ListView)findViewById(R.id.mListView);
-		ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem = new ArrayList&lt;HashMap&lt;String, Object&gt;&gt;();
-		
-        HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
-        map.put("Title", "NO.1	开发环境搭建");
-        map.put("Image", R.drawable.item);
-        listItem.add(map);
+import android.view.Window;
+import android.view.WindowManager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+public class MainActivity extends Activity implements onItemSeletedListener{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   
+        requestWindowFeature(Window.FEATURE_NO_TITLE);   
         
-        map = null;
-        map = new HashMap&lt;String, Object&gt;();
-        map.put("Title", "NO.2	四大组件");
-        map.put("Image", R.drawable.item);
-        listItem.add(map);
-		
-		SimpleAdapter listAdapter = new SimpleAdapter(	this,
-								listItem,
-								R.layout.item_layout,
-								new String[] {"Title", "Image"},
-								new int[] {R.id.item_text,R.id.item_img});
-		listView.setAdapter(listAdapter);
-		listView.setOnItemClickListener(listener);
-	}
-	
-	OnItemClickListener listener=new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView&lt;?&gt; arg0, View arg1, int arg2,long arg3) {
-			Toast.makeText(getApplicationContext(),((Integer)arg2).toString()+"-----"+((Integer)arg2).toString(), Toast.LENGTH_SHORT).show();
-		}
-	};
-	
-	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-}
-</code></pre>
-<br><h2>main_layout.xml</h2>
-<div><strong>主页面布局</strong></div>
-<div>只放了个ListView。</div>
-<pre><code class="language-html">&lt;RelativeLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
-     xmlns:tools = "http://schemas.android.com/tools"
-     android:layout_width = "match_parent"
-     android:layout_height = "match_parent"
-     tools:context = ".MainActivity"  &gt;
-    &lt;ListView  
-         android:id = "@+id/mListView"
-         android:layout_width = "match_parent"
-         android:layout_height = "match_parent" /&gt;
-&lt;/RelativeLayout&gt;</code></pre>
-<h2>item_layout.xml</h2>
-<div><strong>item布局</strong></div>
-<div>即ListView中每一行显示的布局，我定义了一个图片和一个文本。</div>
-<pre><code class="language-html">&lt;? xml   version = "1.0"   encoding = "utf-8" ?&gt;
-&lt;RelativeLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
-     android:layout_width = "fill_parent"
-     android:layout_height = "match_parent"
-     android:layout_gravity = "center_vertical"   xmlns:tools = "http://schemas.android.com/tools"   tools:ignore = "HardcodedText" &gt;
-    &lt;ImageView
-         android:id = "@+id/item_img"
-         android:layout_width = "wrap_content"
-         android:layout_height = "wrap_content"
-         android:layout_alignParentTop = "true"
-         android:layout_marginLeft = "10dp"
-         android:src = "@drawable/item"
-         android:contentDescription = "imageflag"   /&gt;
-    &lt;TextView
-         android:id = "@+id/item_text"
-         android:layout_width = "wrap_content"
-         android:layout_height = "wrap_content"
-         android:layout_alignBottom = "@+id/item_img"
-         android:layout_alignParentRight = "true"
-         android:layout_alignParentTop = "true"
-         android:layout_marginTop = "4dp"
-         android:layout_marginLeft = "24dp"
-         android:layout_toRightOf = "@+id/item_img"
-         android:gravity = "center_vertical"
-         android:text = "环境搭建"
-         android:textStyle = "bold"   /&gt;
-&lt;/RelativeLayout&gt;</code></pre>
+        //开始设置滑动菜单
+        setContentView(R.layout.contentlayout);                     //设置正文的显示布局
+        //-------------------------------------------------------------------------------------
+        //NO.1    继承 SlidingActivity 方式
+        //setBehindContentView(R.layout.menulayout);                //设置左侧菜单的布局
+        //SlidingMenu menu = getSlidingMenu();
+        //-------------------------------------------------------------------------------------
+        //NO.2    非继承 SlidingActivity 方式
+        SlidingMenu menu = new SlidingMenu(this);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(R.layout.menulayout);                            //添加菜单
+        //-------------------------------------------------------------------------------------
+        
+        
+        menu.setMode(SlidingMenu.LEFT);                                //设置菜单位置
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);        //设置菜单打开方式
+                                                                    //TOUCHMODE_FULLSCREEN     全屏模式
+                                                                    //TOUCHMODE_MARGIN         边缘模式
+                                                                    //TOUCHMODE_NONE         不能通过手势打开
+        
+        
+        menu.setShadowWidth(12);                                    //设置渐变效果宽度    位于菜单 与 内容 之间
+        menu.setShadowDrawable(R.drawable.shadow);                    //设置菜单渐变效果
+        menu.setFadeDegree(0.9f);                                    //设置淡入程度       当滑出菜单时，渐变效果由0.9 - 0 淡入
+ 
+        menu.setBehindOffset(250);                                    //设置菜单滑出后 距离屏幕右边的长度(直接设置 dp)
+        //-------------------------------------------------------------------------------------
+        //设置结束
+        
+        
+        
+        
+        
+        //Fragment 一些代码增删改
+        //添加
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //LeftFragment leftfragment=new LeftFragment();
+        //fragmenttransaction.add(R.id.left_fragment, leftfragment);
+        //fragmenttransaction.commit();
+        //删除
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //Fragment leftfragment=fragmentmanager.findFragmentById(R.id.left_fragment);
+        //fragmenttransaction.remove(leftfragment);
+        //fragmenttransaction.commit();
+        //替换
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //fragmenttransaction.replace(R.id.left_fragment, new LeftFragment());
+        //fragmenttransaction.commit();
+    }
+    @Override
+    public void onItemSeleted(int position) {
+        RightFragment rightFragment=(RightFragment) getFragmentManager().findFragmentById(R.id.right_fragment);
+        
+        if(rightFragment != null)
+            rightFragment.update(position);
+    }
+}</code></pre>
+</div>
+<br><div>        上述代码中用到的 渐变设置为 R.drawable.shadow   该配置文件用到的颜色值见 文章  <a href="http://blog.csdn.net/mkrcpp/article/details/11563083" rel="noopener" target="_blank">Android ListView 之 SimpleAdapter 二 (包含 item 中按钮监听)</a> 中 第五节 color.xml 颜色值。</div>
+<div>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;shape xmlns:android="http://schemas.android.com/apk/res/android" &gt;
+    &lt;gradient
+        android:endColor="@color/darkblue"
+        android:centerColor="@color/darkgray"
+        android:startColor="@color/black" /&gt;
+&lt;/shape&gt;</code></pre>
+</div>
+<h1>NO.5:    滑动菜单效果展示</h1>
+<div>        <img src="https://img-blog.csdn.net/20130924173158859" alt=""></div>
+<div>        注意此处的渐变淡入效果</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173209000" alt=""></div>
+<div>        渐变效果为 由 黑色-深灰色-深蓝色 渐变。</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173248656" alt=""></div>
+<div>        </div>
+<br><p></p>
 <p><br></p>
-<h2>成果</h2>
-<img src="https://img-blog.csdn.net/20130806152000234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br><div><br></div>
-<div><br></div>
-<div><strong><span style="color:#ff0000;">转载请注明出处！</span></strong></div>
-<div><br></div>
-<div><br></div>
-<div><br></div>
-<div><span style="font-size:10pt;font-family:'Courier New';color:#e79e3c;"><strong><code></code></strong></span></div>
-<div><span style="font-size:10pt;font-family:'Courier New';color:#e79e3c;"><strong><code></code></strong></span></div>
+<p><span style="font-size:18px;color:#ff0000;"><strong><u>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></strong></span></p>
+<p><br></p>
+<p><br></p>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/" data-id="cjorxdn8v001iausleqskpzms" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" data-id="cjoryg8sm0010f4slgjo9eryq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -258,7 +282,7 @@ public class MainActivity extends Activity {
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -269,7 +293,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -279,7 +303,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -288,7 +312,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -301,15 +325,11 @@ public class MainActivity extends Activity {
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -318,6 +338,10 @@ public class MainActivity extends Activity {
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

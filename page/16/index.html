@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android基础入门15_Shape圆角输入框" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门2_Eclipse_导入_Android_源码" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android基础入门15_Shape圆角输入框/" class="article-date">
-  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/" class="article-date">
+  <time datetime="2018-11-22T02:07:51.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android基础入门15_Shape圆角输入框/">移动端_IOS【Android基础入门〖15〗】Shape圆角输入框</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/">移动端_IOS【Android基础入门〖2〗】Eclipse 导入 Android 源码</a>
     </h1>
   
 
@@ -104,159 +104,34 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<h1>1 简介</h1>
-<div>本文主要介绍通过 shape 来设置 EditText 的圆角。</div>
+<div>很多人都下载过下图中的 <strong>Sources for Android SDK</strong>，但是很少人知道怎么用 </div>
 <div> </div>
-<h1>2 shape 的设置</h1>
+<div><a href="http://images.cnblogs.com/cnblogs_com/xiaobo68688/201212/201212031435209268.png" rel="noopener" target="_blank"></a></div>
+<div> <img src="https://img-blog.csdn.net/20130927133653515" alt=""></div>
 <div> </div>
-<p>shape_life_search.xml <strong>放在 res/drawable 文件夹内</strong></p>
-<p></p>
-<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;shape xmlns:android="http://schemas.android.com/apk/res/android" &gt;
-    &lt;!-- 角度 --&gt;
-    &lt;corners android:radius="100dp"/&gt;
-    &lt;!-- 填充色 --&gt;
-    &lt;solid android:color="#ffffff"/&gt;
-    &lt;!-- 描边 设置线宽及颜色 --&gt;
-    &lt;stroke android:color="#cccacb"
-        android:width="1dp"/&gt;
-&lt;/shape&gt;</code></pre>
-<br><br><p></p>
-<div><span style="font-size:10pt;font-family:'Courier New';color:#008080;"><code></code></span></div>
-<h1>3 shape 的使用</h1>
-<div> </div>
-<div>在 activity_main.xml 主布局中如此使用</div>
-<div><br></div>
-<div>
-<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f5f5f5"
-    tools:ignore="HardcodedText,ContentDescription" &gt;
-    
-    &lt;!-- Head start --&gt;
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="#ff5a54"&gt;
-        &lt;ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/head_left" /&gt;
-        &lt;TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="周边生活"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"/&gt;
-        &lt;ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/head_right" /&gt;
-    &lt;/LinearLayout&gt;
-    &lt;!-- Head end   --&gt;
-    &lt;!-- Search start--&gt;
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_margin="10dp"&gt;
-        &lt;EditText
-            android:id="@+id/search_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/search_left"
-              android:background="@drawable/shape_life_search"
-              android:hint="请输入商户或地址"
-            android:padding="10dp"
-            android:textColorHint="#b7b7b7"
-            android:textStyle="bold"/&gt;
-    &lt;/LinearLayout&gt;
-    &lt;!-- Search end  --&gt;
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" &gt;
-        &lt;ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" /&gt;
-    &lt;/LinearLayout&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br><br></div>
-<h1>4 用到的资源</h1>
-<div> </div>
-<div>head_left.png</div>
-<div><img src="https://img-blog.csdn.net/20130926084900312" alt=""><br></div>
-<div>
-<div></div>
-</div>
-<div>head_right.png</div>
-<div><img src="https://img-blog.csdn.net/20130926084952109" alt=""><br></div>
-<div>
-<div></div>
-</div>
-<div>search_left.png</div>
-<div><img src="https://img-blog.csdn.net/20130926084910609" alt=""><br></div>
-<div>
+<div>下载完毕后可以再 Android SDK 根目录下看到 sources 文件夹内 有 android-18 的文件夹，里边就是 Android 4.3 的源码，如下图</div>
+<div> <img src="https://img-blog.csdn.net/20130927133706093" alt=""></div>
+<div><a href="http://images.cnblogs.com/cnblogs_com/xiaobo68688/201212/201212031435339899.png" rel="noopener" target="_blank"></a></div>
 <div></div>
 <div> </div>
-</div>
-<div> </div>
-<h1>5 隐藏标题栏</h1>
-<div> 
-<pre><code class="language-java">package com.ui;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Window;
-public class MainActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        //隐藏应用程序标题栏    (能看到手机通知栏)
-         requestWindowFeature(Window.FEATURE_NO_TITLE);                                                                             
-        //设置全屏            (手机通知栏也被隐藏)
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
-        setContentView(R.layout.activity_main);
-    }
-}</code></pre>
-<br></div>
-<h1>6 结果预览</h1>
-<div> </div>
-<div><strong><span style="color:#ff0000;">注：在 eclipse 的 layout 布局预览功能中，圆角不是很明显，但是安装到模拟器后就正常显示了，具体原因未知。</span></strong></div>
-<div> </div>
-<div>在 eclipse 中预览结果</div>
+<div>我们需要做的就是把 <strong><u>android-18 目录下的所有文件</u></strong> 拷贝 到  <strong>Adt-Bundle\sdk\platforms\android-18</strong>中新建的<strong><u>sources</u></strong><u> 文件夹内</u></div>
+<div> <img src="https://img-blog.csdn.net/20130927133704312" alt=""></div>
 <div></div>
-<div> <img src="https://img-blog.csdn.net/20130926084707343" alt=""></div>
-<div>在模拟器中的结果</div>
-<div></div>
-<div> <img src="https://img-blog.csdn.net/20130926084714546" alt=""></div>
-<div><br></div>
-<div><br></div>
-<div><br></div>
-<div><br></div>
-<div><br></div>
-<div><br></div>
-<div><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="font-size:14.44444465637207px;line-height:25.98958396911621px;"><strong> <span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u>注：转载请注明出处
- :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></span></strong></span></span><br></div>
-<div><br></div>
-<div><br></div>
 <div> </div>
-<div> </div>
+<div><strong><span style="color:#3333ff;">如果还不行，直接在提示找不到源码的页面，attach 到源码文件夹即可！</span></strong></div>
+<div><br></div>
+<div>ok,that's all :)</div>
+<div><br></div>
+<div><br></div>
+<div><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u><strong>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</strong></u></span></span><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
 <div> </div>
             </div>
 
@@ -264,7 +139,7 @@ public class MainActivity extends Activity {
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门15_Shape圆角输入框/" data-id="cjorxdos40023ausl0r3bhz7t" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/" data-id="cjoryg8tk001vf4slrz1v8o60" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -283,7 +158,7 @@ public class MainActivity extends Activity {
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/17/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/15/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/17/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -294,7 +169,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -304,7 +179,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -313,7 +188,7 @@ public class MainActivity extends Activity {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -326,15 +201,11 @@ public class MainActivity extends Activity {
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -343,6 +214,10 @@ public class MainActivity extends Activity {
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

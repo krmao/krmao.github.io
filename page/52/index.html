@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_数据结构与算法_03_直接插入排序" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_心情日记_从这里开始吧" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_数据结构与算法_03_直接插入排序/" class="article-date">
-  <time datetime="2018-11-22T01:34:45.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_心情日记_从这里开始吧/" class="article-date">
+  <time datetime="2018-11-22T02:07:45.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_数据结构与算法_03_直接插入排序/">移动端_IOS【数据结构与算法 03】直接插入排序</a>
+      <a class="article-title" href="/2018/11/22/移动端_心情日记_从这里开始吧/">移动端_IOS【心情日记】从这里开始吧</a>
     </h1>
   
 
@@ -104,103 +104,23 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
+<p><strong><span style="font-family:'Microsoft YaHei';"><span style="font-size:14px;">终于</span>，又有了开始的勇气，那就开始吧。</span></strong></p>
 <p></p>
-<h3 style="color:rgb(54,46,43);font-family:Arial;line-height:26px;">
-<span style="font-family:'Microsoft YaHei';">算法思想（从小到大排序）</span></h3>
-<div style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:26px;">
-<ul><li><span style="font-family:SimHei;">将待排序数组看左右两个序列，左序列有序，有序列无序。</span></li><li><span style="font-family:SimHei;">假设第一个数array[0]为有序列，那么array[1,N-1]为无序列.循环遍历无序列，找出array[i]在有序列中应该插入的位置,插入。</span></li><li><span style="font-family:SimHei;">例如一个乱序数组为{1,3,2,4 ， 假如有序列为 { 1,3 } 无序列循环到2时 ，那么2在有序列中的位置应该是1 - 3 中间 ， 所以 [ 3. . .2 ) 之间的所有数据右移 ， 即3右移的2的位置 ， 腾出了3原先所在的位置 ， 由2替代</span></li></ul></div>
-<p></p>
-<p><a href="http://blog.csdn.net/mkrcpp/article/details/39320797" rel="noopener" target="_blank"><strong>博客地址：http://blog.csdn.net/mkrcpp/article/details/39320797</strong></a><br></p>
-<p></p>
-<pre><code class="language-java">import java.util.Arrays;
-
-/***
- * @title 直接插入排序
- * @author michael.mao
- * @date 2014年9月16日 下午1:59:04
- * @version V1.0
- */
-public class InsertSort
-{
-	/***
-	 * @title 直接插入排序
-	 * @description 将待排序数组看左右两个序列，左序列有序，有序列无序。
-	 *              假设第一个数array[0]为有序列，那么array[1,N-1]为无序列.循环遍历无序列，找出array[i]
-	 *              在有序列中应该插入的位置,插入。&lt;br/&gt;
-	 *              例如一个乱序数组为{1,3,2,4 ， 假如有序列为 { 1,3 } 无序列循环到2时 ，
-	 *              那么2在有序列中的位置应该是1 - 3 中间 ， 所以 [ 3. . .2 ) 之间的所有数据右移 ， 即3
-	 *              右移的2的位置 ， 腾出了3原先所在的位置 ， 由2替代
-	 * @author michael.mao
-	 * @date 2014年9月16日 下午2:08:40
-	 * @version V1.0
-	 */
-	public static void execute(int[] array)
-	{
-		// 待插入的位置
-		int tmpV, j = 0;
-		// 循环无序列，次数为 N-1，默认有序列为 {array[0]}
-		for (int i = 1; i &lt; array.length; i++)
-		{
-			// 保存待插入的值
-			tmpV = array[i];
-			// 在有序列中找到合适的位置
-			for (j = 0; j &lt; i; j++)
-				if ( array[i] &lt; array[j] )
-					break;
-			// 如果array[i]比有序列中任何一个都大，则j退出循环时， j == i，则array[0,i]为有序列，无需插入
-			if ( j != i )
-			{
-				// 将[j,i-1]顺序右移，腾出array[j]位置
-				for (int k = i - 1; k &gt;= j; k--)
-					array[k + 1] = array[k];
-				// 插入
-				array[j] = tmpV;
-			}
-			System.err.println(i + "----" + Common.print(array));
-		}
-	}
-
-	// 循环测试次数
-	public static int LOOP_COUNT = 1;
-	public static int ARRAY_SIZE = 7;
-
-	public static void main(String[] args)
-	{
-		int[] mArray = Common.getArray(ARRAY_SIZE);
-		int allTime = 0;
-		for (int i = 0; i &lt; LOOP_COUNT; i++)
-		{
-			// 拷贝数组
-			int[] tmpArray = Arrays.copyOf(mArray, ARRAY_SIZE);
-			Common.print(tmpArray);
-			long tmpTime = System.currentTimeMillis();
-			execute(tmpArray);
-			Common.print(tmpArray);
-			allTime += System.currentTimeMillis() - tmpTime;
-		}
-		System.err.println("数组大小为(" + ARRAY_SIZE + ")的" + LOOP_COUNT + "次插入排序的平均耗时为：" + allTime / (float) LOOP_COUNT);
-	}
-}
-</code></pre><br><pre><code class="language-java">1----58 80 15 27 01 68 43 
-2----15 58 80 27 01 68 43 
-3----15 27 58 80 01 68 43 
-4----01 15 27 58 80 68 43 
-5----01 15 27 58 68 80 43 
-6----01 15 27 43 58 68 80</code></pre><br><pre><code class="language-java">数组大小为(10000)的100次直接插入排序的平均耗时为：17.58 ms</code></pre>
+<ul><li><span style="font-family:'Microsoft YaHei';color:rgb(0,153,0);font-weight:bold;">——  30岁之前，不玩 Dota。</span></li></ul><p></p>
 <p><br></p>
+<p><span style="color:rgb(255,0,0);"><em><span style="font-family:'Microsoft YaHei';"><span style="font-size:13px;line-height:19px;"><strong>引用:</strong></span><span style="font-size:13px;line-height:19px;"><a href="http://www.cnblogs.com/windwithlife/archive/2005/11/02/266761.html" rel="noopener" target="_blank">http://www.cnblogs.com/windwithlife/archive/2005/11/02/266761.html</a></span></span></em></span></p>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_数据结构与算法_03_直接插入排序/" data-id="cjorxdkl4000causlwck31wed" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_心情日记_从这里开始吧/" data-id="cjoryg8x9005bf4slqgqmiwby" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -219,7 +139,7 @@ public class InsertSort
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/51/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><a class="page-number" href="/page/54/">54</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/53/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/51/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="page-number" href="/page/51/">51</a><span class="page-number current">52</span><a class="page-number" href="/page/53/">53</a><a class="page-number" href="/page/54/">54</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/53/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -230,7 +150,7 @@ public class InsertSort
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -240,7 +160,7 @@ public class InsertSort
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -249,7 +169,7 @@ public class InsertSort
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -262,15 +182,11 @@ public class InsertSort
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -279,6 +195,10 @@ public class InsertSort
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

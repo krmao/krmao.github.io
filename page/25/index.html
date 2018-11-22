@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Django基础入门_Aptana提示功能和shell设置" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门16_XML解析" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Django基础入门_Aptana提示功能和shell设置/" class="article-date">
-  <time datetime="2018-11-22T01:34:51.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门16_XML解析/" class="article-date">
+  <time datetime="2018-11-22T02:07:50.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_Aptana提示功能和shell设置/">移动端_IOS【Django基础入门】Aptana提示功能和shell设置</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门16_XML解析/">移动端_IOS【Android基础入门〖16〗】XML解析</a>
     </h1>
   
 
@@ -104,34 +104,605 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p>1：以前用Aptana 开发 Django 一直没有代码提示功能，很不方便，今天无意间找到解决方案：</p>
-<p><span></span>在 自己的项目上 右击--&gt;Properties--&gt;PyDev - PYTHONPATH</p>
-<p><span></span>在 右边 Source Folders 中 点击 Add source folder ，选中自己的项目即可，重启eclipse。</p>
-<p>2：shell设置：</p>
-<p><span></span>在自己的项目上 右击--&gt;Django--&gt;Shell with django environment </p>
-<p><span></span>如果出现 ImportError: No module named myappname.settings 错误，</p>
-<p><span></span>做如下修改：</p>
-<p><span>在 自己的项目上 右击--&gt;Properties</span>--&gt;PyDev - Django</p>
-<p><span></span>在 Django settings module 的值 myappname.settings 修改为 settings 即可，重启eclipse。</p>
-<p>（如果没有成功，可能项目设置各有区别，我的建议是问题估计就在这，多多尝<span></span>试修改。）</p>
-<p>注：出现这个错误后，研究了好长时间，通过浏览国外的网站 说要 添加设置 DJANGO_SETTINGS_MODULE ，PYTHONPATH 等环境变量</p>
-<p><span></span>都没有成功，最后把 DJANGO_SETTINGS_MODULE ，PYTHONPATH 等环境变量删了，做如上第二步修改成功了。</p>
-<p><span></span>介于国内关于Django+Aptana(或者 Eclipse) 问题的资料甚少，特此记下，以供同道中人参考。</p>
+<p>====================================================================================================================================</p>
+<p>Sax 解析之初见：</p>
+<p>1，准备一个books.xml 内容可以在下文看到，我的目的就是解析它并在屏幕上打印出来。</p>
+<p>2，新建一个book 类 ，其属性 (id,name,price,publisher)  与 books.xml 里面的的标签  (id,name,price,publisher)  相一致。为了简单容易理解的获取books.xml里面的数据。           当然，并不是必须的，只是为了赋值方便，通俗易懂。</p>
+<p>3，实现一个处理器 class SaxParseXml extends DefaultHandler  。</p>
+<p>      a, 在 DefaultHandler 中重写了 startDocument ，用于开始解析 books.xml，可以在此新建一个List&lt;Book&gt;，以便获取各个book对象数据。 </p>
+<p>      b, 在 startElement     中开始解析 books.xml中 的元素 ，例如，每次 解析到 id 或者 name 时 都会触发一次 characters 进行解析，在characters 中 将获得数据 赋值给 book               类，从而得到数据，</p>
+<p>      c, endElement 结束一个元素(标签)的解析，将book对象加入List&lt;Book&gt;。</p>
+<p>      d, 在endDocument 中结束对 books.xml的解析。</p>
+<p>4，在MainActivity 中 </p>
+<p></p>
+<pre><code class="language-java">InputStream stream =getAssets().open("books.xml");
+SAXParser parser=SAXParserFactory.newInstance().newSAXParser();
+SaxParseXml parsexml=new SaxParseXml();
+parser.parse(stream,parsexml);</code></pre>
+读取books.xml进入 输入流对象 stream
+<p></p>
+<p>新建一个解析器对象 parser </p>
+<p>实例化自己的处理器 parsexml</p>
+<p>通过parser.parse(stream,parsexml) 实现用我们自己的处理器来解析xml</p>
+<p>====================================================================================================================================<br></p>
+<p>Dom 解析之初见：</p>
+<p>根据资料可以知道Dom解析将booksxml文件加载进内存中再进行遍历xml节点获取数据。基本的步骤大致如下：</p>
+<p>1，  创建一个 文档构造器 </p>
+<p></p>
+<pre><code class="language-java">	DocumentBuilder documentbuider = DocumentBuilderFactory.newInstance().newDocumentBuilder();//用来获取 xml 数据流。</code></pre>
+<p></p>
+<p><br></p>
+<p>2， 将获得 xm l数据流赋值给Document 文档对象document。</p>
+<p></p>
+<pre><code class="language-java">	Document document = documentbuider.parse(stream);</code></pre>
+<br><p></p>
+<p>3， 获取 xml 的 所有节点，并获取根节点</p>
 <p><span></span></p>
-<p><span></span> </p>
+<pre><code class="language-java">	Element element = document.getDocumentElement(); 
+	NodeList booknodes = element.getElementsByTagName("book");</code></pre>
+<br><p></p>
+<p>4,    遍历根节点，从每一个根节点中获得该根节点的所有子节点，再遍历该根节点的所有子节点，即两个嵌套循环。<span></span></p>
+<p><span></span></p>
+<pre><code class="language-java">		Element element = document.getDocumentElement();
+		NodeList booknodes = element.getElementsByTagName("book");//获取所有根节点
+		
+		for(int i =0; i &lt; booknodes.getLength(); i++){
+			
+			Element bookelement = (Element)booknodes.item(i);
+			Book book = new Book();
+			
+			NodeList childnodes = bookelement.getChildNodes();//获取该根节点的所有子节点
+			for(int j=0;j&lt;childnodes.getLength();j++){
+				if(childnodes.item(j).getNodeType() == Node.ELEMENT_NODE){
+					if("id".equals(childnodes.item(j).getNodeName())){
+						book.id=childnodes.item(j).getFirstChild().getNodeValue();//获取数据
+					}
+					else if("name".equals(childnodes.item(j).getNodeName())){
+						book.name=childnodes.item(j).getFirstChild().getNodeValue();
+					}
+					else if("price".equals(childnodes.item(j).getNodeName())){
+						book.price=childnodes.item(j).getFirstChild().getNodeValue();
+					}
+					else if("publisher".equals(childnodes.item(j).getNodeName())){
+						book.publisher=childnodes.item(j).getFirstChild().getNodeValue();
+					}					
+				}
+			}
+			list.add(book);
+		}</code></pre>
+<p></p>
+<p>====================================================================================================================================<br></p>
+<p>Pull 解析之初见：</p>
+<p>在我查阅所有的资料中，有一句话最为贴切：</p>
+<p>Pull解析与Sax解析很是接近，区别在于：Sax解析从进行到结束不受自己控制，属于把所有数据硬塞给你；Pull解析则不同，每解析一个book 都将需要手动 转到下一个解析事件，属于自己去要。</p>
+<p>基本的步骤大致如下：</p>
+<p>1，  创建一个 pull 解析器实例，并获取 xml 数据流，同时设置字符编码为 “UTF-8”<br></p>
+<p></p>
+<pre><code class="language-java">XmlPullParser pullparse = XmlPullParserFactory.newInstance().newPullParser();
+			pullparse.setInput(stream, "UTF-8");</code></pre>
+<br>
+2，  获得 pull 解析需要的事件类型，因为触发下一次xml解析需要自己手动进行
+<p></p>
+<p></p>
+<pre><code class="language-java">int eventype = pullparse.getEventType();</code></pre>
+<br>
+3，  遍历每一个事件类型，进行相应的解析操作
+<p></p>
+<p></p>
+<pre><code class="language-java">List&lt;Book&gt; books = null;
+Book book = null;
+			
+while(XmlPullParser.END_DOCUMENT!=eventype){
+				
+				String str = pullparse.getName();
+				switch (eventype) {
+				case XmlPullParser.START_DOCUMENT:
+					books = new ArrayList&lt;Book&gt;();
+					break;
+					
+                case XmlPullParser.START_TAG:  
+                    if(str.equals("book")){  
+                        book = new Book();  
+                    }
+                    else if(str.equals("id")){  
+                    	book.id=pullparse.nextText();  
+                    }
+                    else if(str.equals("name")){  
+                    	book.name=pullparse.nextText();  
+                    }  
+                    else if(str.equals("price")){  
+                    	book.price=pullparse.nextText();  
+                    }  
+                    else if(str.equals("publisher")){  
+                    	book.publisher=pullparse.nextText();  
+                    }
+                    break;  
+                  
+                case XmlPullParser.END_TAG:  
+                    if(str.equals("book")&amp;&amp;book!=null){  
+                    	books.add(book);  
+                    }                        
+                    break; 
+				default:
+					break;
+				}
+				eventype = pullparse.next();				
+			}			</code></pre>
+<p></p>
+<p>====================================================================================================================================<br></p>
+<p>具体代码实现如下：</p>
+<p><br>
+目录结构：</p>
+<p style="text-align:left;"><img src="http://my.csdn.net/uploads/201207/20/1342778019_1485.jpg" width="200" height="400" border="1" alt=""><br></p>
+<p><br></p>
+<p>第一步： Books.xml</p>
+<p></p>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;books&gt;
+	&lt;book&gt;
+		&lt;id&gt;1001&lt;/id&gt;
+		&lt;name&gt;Thinking In Java&lt;/name&gt;
+		&lt;price&gt;80.00&lt;/price&gt;
+		&lt;publisher&gt;人民邮电出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+	&lt;book&gt;
+		&lt;id&gt;1002&lt;/id&gt;
+		&lt;name&gt;Python核心编程&lt;/name&gt;
+		&lt;price&gt;89.00&lt;/price&gt;
+		&lt;publisher&gt;宝哥出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+	&lt;book&gt;
+		&lt;id&gt;1003&lt;/id&gt;
+		&lt;name&gt;C++程序设计语言&lt;/name&gt;
+		&lt;price&gt;99.00&lt;/price&gt;
+		&lt;publisher&gt;机械工业出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+	&lt;book&gt;
+		&lt;id&gt;1004&lt;/id&gt;
+		&lt;name&gt;HTML5&lt;/name&gt;
+		&lt;price&gt;35.00&lt;/price&gt;
+		&lt;publisher&gt;Matt出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+	&lt;book&gt;
+		&lt;id&gt;1005&lt;/id&gt;
+		&lt;name&gt;JavaScript高级编程&lt;/name&gt;
+		&lt;price&gt;85.00&lt;/price&gt;
+		&lt;publisher&gt;清华大学出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+		&lt;book&gt;
+		&lt;id&gt;1006&lt;/id&gt;
+		&lt;name&gt;C++沉思录&lt;/name&gt;
+		&lt;price&gt;91.00&lt;/price&gt;
+		&lt;publisher&gt;苏州职业大学出版社&lt;/publisher&gt;
+	&lt;/book&gt;
+&lt;/books&gt;</code></pre>
+<br>
+activity_main.xml
+<p></p>
+<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical" &gt;
+    &lt;LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2000"
+        android:orientation="vertical" &gt;
+        &lt;TextView
+            android:id="@+id/text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="22"
+            android:scrollbars="vertical"
+            android:text="@string/hello_world"
+            tools:context=".MainActivity" /&gt;
+    &lt;/LinearLayout&gt;
+
+
+    &lt;LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal" &gt;
+        &lt;Button
+            android:id="@+id/bt_sax"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/sax_parse" /&gt;
+        &lt;Button
+            android:id="@+id/bt_dom"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/dom_parse" /&gt;
+        &lt;Button
+            android:id="@+id/bt_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/pull_parse" /&gt;
+    &lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p><br></p>
+第二步：Book.java
+<p></p>
+<pre><code class="language-java">package com.example.matt;
+
+public class Book {
+	public String id;
+	public String name;
+	public String price;
+	public String publisher;
+
+}
+</code></pre>
+<br>
+第三步：SaxParseXml.java<br><p></p>
+<pre><code class="language-java">package com.example.matt;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class SaxParseXml extends DefaultHandler {
+
+	public List&lt;Book&gt; list;
+	public Book book;
+	public String str;
+
+	public void startDocument() throws SAXException {
+		list = new ArrayList&lt;Book&gt;();
+
+	}
+
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		if (qName.equals("book")) {
+			book = new Book();
+		}
+		this.str = qName;
+
+	}
+
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		if (qName.equals("book")) {
+			this.list.add(book);
+		}
+		this.str = null;
+	}
+
+	public void endDocument() throws SAXException {
+
+	}
+
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+
+		if (this.str != null) {
+			String data = new String(ch, start, length);
+			if (this.str.equals("id")) {
+				this.book.id = data;
+			} else if (this.str.equals("name")) {
+				this.book.name = data;
+			} else if (this.str.equals("price")) {
+				this.book.price = data;
+			} else if (this.str.equals("publisher")) {
+				this.book.publisher = data;
+			}
+
+		}
+
+	}
+
+}</code></pre>
+<p><br></p>
+<p>第四步：DomParseXml.java<br></p>
+<p></p>
+<pre><code class="language-java">package com.example.matt;
+
+import android.annotation.SuppressLint;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+@SuppressLint("ParserError")
+public class DomParseXml {
+
+	@SuppressLint("ParserError")
+	public List&lt;Book&gt;getbooks(InputStream stream) throws Exception{
+		List&lt;Book&gt;list = new ArrayList&lt;Book&gt;();
+		DocumentBuilder documentbuider = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		Document document = documentbuider.parse(stream);
+		
+		Element element = document.getDocumentElement();
+		
+		NodeList booknodes = element.getElementsByTagName("book");
+		
+		for(int i =0; i &lt; booknodes.getLength(); i++){
+			
+			Element bookelement = (Element)booknodes.item(i);
+			Book book = new Book();
+			
+			NodeList childnodes = bookelement.getChildNodes();
+			for(int j=0;j&lt;childnodes.getLength();j++){
+				if(childnodes.item(j).getNodeType() == Node.ELEMENT_NODE){
+					if("id".equals(childnodes.item(j).getNodeName())){
+						book.id=childnodes.item(j).getFirstChild().getNodeValue();
+					}
+					else if("name".equals(childnodes.item(j).getNodeName())){
+						book.name=childnodes.item(j).getFirstChild().getNodeValue();
+					}
+					else if("price".equals(childnodes.item(j).getNodeName())){
+						book.price=childnodes.item(j).getFirstChild().getNodeValue();
+					}
+					else if("publisher".equals(childnodes.item(j).getNodeName())){
+						book.publisher=childnodes.item(j).getFirstChild().getNodeValue();
+					}					
+				}
+			}
+			list.add(book);
+		}
+		stream.close();
+		return list;
+		
+	}
+
+}
+</code></pre>
+<p></p>
+<p><br></p>
+第五步：PullParseXml.java<br><pre><code class="language-java">package com.example.matt;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+public class PullParseXml {
+
+		public List&lt;Book&gt;getbooks(InputStream stream) throws Exception{
+			
+			XmlPullParser pullparse = XmlPullParserFactory.newInstance().newPullParser();
+			pullparse.setInput(stream, "UTF-8");
+			
+			int eventype = pullparse.getEventType();
+		    List&lt;Book&gt; books = null;
+			Book book = null;
+			
+			while(XmlPullParser.END_DOCUMENT!=eventype){
+				
+				String str = pullparse.getName();
+				switch (eventype) {
+				case XmlPullParser.START_DOCUMENT:
+					books = new ArrayList&lt;Book&gt;();
+					break;
+					
+                case XmlPullParser.START_TAG:  
+                    if(str.equals("book")){  
+                        book = new Book();  
+                    }
+                    else if(str.equals("id")){  
+                    	book.id=pullparse.nextText();  
+                    }
+                    else if(str.equals("name")){  
+                    	book.name=pullparse.nextText();  
+                    }  
+                    else if(str.equals("price")){  
+                    	book.price=pullparse.nextText();  
+                    }  
+                    else if(str.equals("publisher")){  
+                    	book.publisher=pullparse.nextText();  
+                    }
+                    break;  
+                  
+                case XmlPullParser.END_TAG:  
+                    if(str.equals("book")&amp;&amp;book!=null){  
+                    	books.add(book);  
+                    }                        
+                    break; 
+				default:
+					break;
+				}
+				eventype = pullparse.next();				
+			}			
+			stream.close();
+			return books;
+		}
+}
+</code></pre>
+<br><p>第六步：MainActivity.java</p>
+<p></p>
+<pre><code class="language-java">package com.example.matt;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.SAXException;
+import android.os.Bundle;
+import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+	public int back_count = 1;
+	public Button bt_sax;
+	public Button bt_dom;
+	public Button bt_pull;
+	public InputStream stream;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		back_count = 1;
+
+		bt_sax = (Button) findViewById(R.id.bt_sax);
+		bt_dom = (Button) findViewById(R.id.bt_dom);
+		bt_pull = (Button) findViewById(R.id.bt_pull);
+		
+		bt_sax.setOnClickListener(bt_listener);
+		bt_dom.setOnClickListener(bt_listener);
+		bt_pull.setOnClickListener(bt_listener);
+
+	}
+
+	public OnClickListener bt_listener = new OnClickListener() {
+		public void onClick(View v) {
+			TextView text = (TextView) findViewById(R.id.text);
+			text.setMovementMethod(ScrollingMovementMethod.getInstance());
+			List&lt;Book&gt; books=null;
+
+			try {
+				stream = getAssets().open("books.xml");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			switch (v.getId()) {
+			case R.id.bt_sax:
+				try {
+
+					SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+					SaxParseXml saxparse = new SaxParseXml();
+					parser.parse(stream, saxparse);
+					stream.close();
+					books = saxparse.list;
+					String str = "";
+					for (Book book : books) {
+						str += "&gt;&gt;&gt;id:" + book.id + "\n&gt;&gt;&gt;name:" + book.name
+								+ "\n&gt;&gt;&gt;price:" + book.price + "\n&gt;&gt;&gt;publisher:"
+								+ book.publisher + "\n\n";
+					}
+					text.setText("Sax解析:\n"+str);
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParserConfigurationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (FactoryConfigurationError e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+				
+			case R.id.bt_dom:
+				DomParseXml domparse = new DomParseXml();
+				try {
+					books = domparse.getbooks(stream);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String str = "";
+				for (Book book : books) {
+					str += "---id:" + book.id + "\n---name:" + book.name
+							+ "\n---price:" + book.price + "\n---publisher:"
+							+ book.publisher + "\n\n";
+
+				}
+				text.setText("Dom解析:\n"+str);
+				break;
+				
+			case R.id.bt_pull:
+				PullParseXml pullparse = new PullParseXml();
+				try {
+					books = pullparse.getbooks(stream);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String booklist = "";
+				for (Book book : books) {
+					booklist += "***id:" + book.id + "\n***name:" + book.name
+							+ "\n***price:" + book.price + "\n***publisher:"
+							+ book.publisher + "\n\n";
+
+				}
+				text.setText("Pull解析:\n"+booklist);
+				break;
+			}
+
+		}
+
+	};
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+			if (back_count == 1) {
+				Toast.makeText(this, "再按一次退出", 2000).show();
+				back_count++;
+			} else if (back_count == 2) {
+				finish();
+
+			}
+
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+}
+</code></pre>
+<br><br><p></p>
+<p><br></p>
+运行效果：
+<p><br></p>
+<p><img src="http://my.csdn.net/uploads/201207/20/1342778347_8604.jpg" width="230" height="390" alt=""><img src="http://my.csdn.net/uploads/201207/20/1342778370_3862.jpg" width="230" height="390" alt=""><img src="http://my.csdn.net/uploads/201207/20/1342778461_2104.jpg" width="230" height="390" alt=""><img src="http://my.csdn.net/uploads/201207/20/1342778409_9692.jpg" width="230" height="390" alt=""></p>
+<p><br></p>
+<p><img src="http://my.csdn.net/uploads/201207/20/1342778428_3086.jpg" width="230" height="390" alt=""></p>
+<p><br></p>
+<p>That's all .</p>
+<p><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);"><u><strong>转载请注明出处！</strong></u></span></span><br><br></p>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_Aptana提示功能和shell设置/" data-id="cjorxds0c0036auslhvnuqoe2" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门16_XML解析/" data-id="cjoryg8t1001ef4sl4yktlple" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -150,7 +721,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/24/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/26/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/24/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/26/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -161,7 +732,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -171,7 +742,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -180,7 +751,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -193,15 +764,11 @@
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -210,6 +777,10 @@
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

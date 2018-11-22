@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_PHP基础入门_配置Phpstorm与xampp" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门11_Fragment" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" class="article-date">
-  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门11_Fragment/" class="article-date">
+  <time datetime="2018-11-22T02:07:53.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
     </h1>
   
 
@@ -104,104 +104,219 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<div><strong>1 Xampp</strong> </div>
-<div><strong><br></strong></div>
-<div><a href="http://blog.csdn.net/jonathanlin2008/article/details/6210782%E2%80%8D" rel="noopener" target="_blank"></a></div>
-<div><strong>安装好xampp，配置 httpd.conf</strong> </div>
-<div>191/221 行 DocumentRoot 路径改为 "F:/PHP"  （我的工作空间）,以后项目就放在这个文件夹里。</div>
-<div></div>
-<div> </div>
-<div><strong>配置 php.ini</strong> </div>
-<div> </div>
-<div>Windows 下</div>
-<div>
-<pre><code class="language-python">[XDebug]
-zend_extension = "E:\Software\Develop\xampp\php\ext\php_xdebug.dll"
-xdebug.profiler_append = 0
-xdebug.profiler_enable = 1
-xdebug.profiler_enable_trigger = 0
-xdebug.profiler_output_dir = "E:\Software\Develop\xampp\tmp"
-xdebug.profiler_output_name = "cachegrind.out.%t-%s"
-xdebug.remote_enable = on
-xdebug.remote_handler = "dbgp"
-xdebug.remote_host = "127.0.0.1"
-xdebug.trace_output_dir = "E:\Software\Develop\xampp\tmp"
-xdebug.remote_port = 9000</code></pre>
-</div>
+<p></p>
+<h2>一  左侧列表展示</h2>
+<p></p>
+<h4>1.1  布局 left_fragment.xml</h4>
+<p></p>
+<pre><code class="language-html">&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:listSelector="@drawable/onitem_selected_bkcolor"/&gt;</code></pre>
+<p></p>
+<h4>1.2  ListSelector  <span style="color:rgb(255,0,0);">onitem_selected_bkcolor.xml</span></h4>
+<p></p>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;selector xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+    &lt;item 
+        android:state_window_focused="false"
+        android:drawable="@android:color/holo_green_dark"/&gt;
+    &lt;item
+        android:state_window_focused="true"
+        android:drawable="@android:color/holo_green_light"/&gt;
+&lt;/selector&gt;</code></pre>
+<br><h4>1.3  自定义 ListItem 布局 代替  android.R.layout.simple_list_item_1 </h4>
+<p></p>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:textColor="@android:color/black"/&gt;</code></pre>
+<br><h4>1.4  自定义 LeftFragment</h4>
+<p></p>
+<pre><code class="language-java">package com.example.myfragments;
+import android.app.Activity;
+import android.app.ListFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+//自定义回调函数
+interface onItemSeletedListener
+{
+    public void onItemSeleted(int position); 
+}
+public class LeftFragment extends ListFragment {
+    onItemSeletedListener mCallback;
+    
+    String[] data = {"item0","item1","item2","item3","item4","item5","item6","item7","item8","item9","item10","item11","item12","item13","item14","item15","item16"}; 
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        // TODO 自动生成的方法存根
+        return inflater.inflate(R.layout.left_fragment, container,false);
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO 自动生成的方法存根
+        setListAdapter(new ArrayAdapter&lt;String&gt;(getActivity(),  
+                   R.layout.listitem, data)); 
+        super.onActivityCreated(savedInstanceState);
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // TODO 自动生成的方法存根
+        mCallback.onItemSeleted(position);        
+    }
+    
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO 自动生成的方法存根
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented  
+        // the callback interface. If not, it throws an exception  
+        try {  
+            mCallback = (onItemSeletedListener) activity;  
+        } catch (ClassCastException e) {  
+            throw new ClassCastException("必须实现 onItemSeletedListener");
+        }  
+    }
+}</code></pre>
+<br><h2>二  右侧内容展示</h2>
+<h4>2.1  布局 right_fragment.xml  </h4>
+<p></p>
+<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText,UselessParent" &gt;
+    &lt;ScrollView 
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"&gt;
+        &lt;TextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请选择左侧边栏 :)"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="30sp" /&gt;
+    &lt;/ScrollView&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<br><h4>2.1  自定义 RightFragment    </h4>
+<p></p>
+<pre><code class="language-java">package com.example.myfragments;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+public class RightFragment extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        // TODO 自动生成的方法存根
+        return inflater.inflate(R.layout.right_fragment, container,false);
+    }
+    
+    //更新数据
+    public void update(int position)
+    {
+        TextView textview=(TextView)getActivity().findViewById(R.id.textview);
+        textview.setText("您选择了：" + String.valueOf(position)+"\n--------------"
+                +"\n大江东去浪淘尽，\n千古风流人物，\n故垒西边，\n人道是，\n三国周郎赤壁，\n乱石穿空，\n惊涛拍岸，\n卷起千堆雪，\n江山如画，\n一时多少豪杰。"
+                +"\n遥想公瑾当年，\n小乔初嫁了，\n雄姿英发，\n羽扇纶巾，\n谈笑间，\n樯橹灰飞烟灭，\n故国神游，\n多情应笑我，\n早生华发，\n人间如梦，\n一樽还酹江月。");
+    }
+}</code></pre>
+<br><h2>三  添加到 main_layout.xml 中，附着于 Activity 显示</h2>
+<h4>3.1  布局 main_layout.xml</h4>
+<p></p>
+<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:ignore="DisableBaselineAlignment" &gt;
+    &lt;fragment
+        android:id="@+id/left_fragment"
+        android:name="com.example.myfragments.LeftFragment"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"/&gt;
+    &lt;View 
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_dark"/&gt;
+    &lt;fragment
+        android:id="@+id/right_fragment"
+        android:name="com.example.myfragments.RightFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<br><h4>3.2  MainActivity</h4>
+<p></p>
+<pre><code class="language-java">package com.example.myfragments;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+public class MainActivity extends Activity implements onItemSeletedListener{
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   
+        requestWindowFeature(Window.FEATURE_NO_TITLE);   
+        setContentView(R.layout.main_layout);     
+        
+//        //添加
+//        FragmentManager fragmentmanager=getFragmentManager();
+//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+//        LeftFragment leftfragment=new LeftFragment();
+//        fragmenttransaction.add(R.id.left_fragment, leftfragment);
+//        fragmenttransaction.commit();
+//        //删除
+//        FragmentManager fragmentmanager=getFragmentManager();
+//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+//        Fragment leftfragment=fragmentmanager.findFragmentById(R.id.left_fragment);
+//        fragmenttransaction.remove(leftfragment);
+//        fragmenttransaction.commit();
+//        //替换
+//        FragmentManager fragmentmanager=getFragmentManager();
+//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+//        fragmenttransaction.replace(R.id.left_fragment, new LeftFragment());
+//        fragmenttransaction.commit();
+    }
+    @Override
+    public void onItemSeleted(int position) {
+        RightFragment rightFragment=(RightFragment) getFragmentManager().findFragmentById(R.id.right_fragment);
+        
+        if(rightFragment != null)
+            rightFragment.update(position);
+    }
+}</code></pre>
+ <br><h2>四  结果展示</h2>
 <div><br></div>
-<div>重启 Apache </div>
+<div><span></span>      <img src="https://img-blog.csdn.net/20130909145229984" alt=""></div>
 <div> </div>
-<div>如果是Linux 需要下载 xdebug</div>
-<div><a href="http://code.activestate.com/komodo/remotedebugging/" rel="noopener" target="_blank">http://code.activestate.com/komodo/remotedebugging/</a></div>
-<div> </div>
-<div>解压后找到合适版本的xdebug.so并将其复制到/opt/lampp/lib/php/extensions/中。然后修改/opt/lampp/etc/php.ini文件，</div>
-<div>在其最后加上</div>
-<div><code></code>
-<div>
-<div><br></div>
-<div>
-<pre><code class="language-python">[XDebug]
-zend_extension="/opt/lampp/lib/php/extensions/xdebug.so"
-xdebug.remote_enable=true
-xdebug.remote_host=127.0.0.1
-xdebug.remote_port=9000
-xdebug.remote_handler=dbgp
-xdebug.profiler_enable=1
-xdebug.profiler_output_dir="/opt/lampp/tmp"</code></pre>
-<br></div>
-</div>
-</div>
-<div>lampp restart</div>
-<div><br></div>
-<div><strong>2 PhpStorm</strong></div>
-<div> </div>
-<div><strong>2.1    进入File&gt;Settings&gt;PHP&gt;Servers，添加一个 Server</strong> </div>
-<div> </div>
-<div><code></code>
-<div>
-<div>
-<pre><code class="language-python">Name     :  localhost
-Host     :  localhost
-Port     :  80
-Debugger :  Xdebuger</code></pre>
-</div>
-<br></div>
-</div>
-<div> </div>
-<div><strong>2.2    进入File&gt;Settings&gt;PHP&gt;Debug</strong></div>
-<div> </div>
-<div>
-<pre><code class="language-python">Debug port    :    9000</code></pre>
-</div>
-<br><div> </div>
-<div><strong>2.3    打开 Edit Configurations</strong></div>
-<div> </div>
-<div align="left"></div>
-<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
-<div><br></div>
-<div><strong><u>添加一个 PHP Web Application</u></strong></div>
-<div><strong><u><br></u></strong></div>
-<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170419953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
-<div align="left"></div>
-<div> </div>
-<div>运行时 就用这个 Web 运行调试，搞定。</div>
-<div>还不行就试试修改 上图中的Defaults，我把 server都改成了自己的localhost ,浏览器改成了firefox。</div>
-<div><br></div>
-<div>成果就是设置好断点,</div>
-<div>debug 运行，或者直接 shift + F9</div>
-<div>则会自动打开火狐浏览器并且停留在断点处。</div>
+<div>    </div>
+<div><span style="font-size:18px;color:rgb(255,0,0);"><u><strong>转载请注明出处 :)</strong></u></span></div>
 <div><br></div>
 <div><br></div>
-<div><strong><span style="font-size:18px;">以后遇到新问题是将更新本文档，免得后面人又得重新探索，也欢迎大家提出问题。</span></strong></div>
 <div> </div>
-<div><span style="font-size:18px;color:#ff0000;"><strong>转载请注明出处</strong></span></div>
-<div><br></div>
 <div> </div>
             </div>
 
@@ -209,7 +324,7 @@ Debugger :  Xdebuger</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" data-id="cjorxdvy80046auslew71i8v6" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门11_Fragment/" data-id="cjoryg8sk000wf4slwby9ng58" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -228,7 +343,7 @@ Debugger :  Xdebuger</code></pre>
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -239,7 +354,7 @@ Debugger :  Xdebuger</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -249,7 +364,7 @@ Debugger :  Xdebuger</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -258,7 +373,7 @@ Debugger :  Xdebuger</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -271,15 +386,11 @@ Debugger :  Xdebuger</code></pre>
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -288,6 +399,10 @@ Debugger :  Xdebuger</code></pre>
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

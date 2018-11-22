@@ -7,18 +7,18 @@
   
   <title>移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制 | NEVER TOO OLD TO LEARN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+  <meta name="description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和getT">
 <meta name="keywords" content="移动端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制">
 <meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/index.html">
 <meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
-<meta property="og:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+<meta property="og:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和getT">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-22T01:34:53.000Z">
+<meta property="og:updated_time" content="2018-11-22T02:07:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制">
-<meta name="twitter:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+<meta name="twitter:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和getT">
   
   
     <link rel="icon" href="/favicon.png">
@@ -81,7 +81,7 @@
         <section id="main"><article id="post-移动端_Android基础入门10_BaseAdapter中convertView回收的机制" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/" class="article-date">
-  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
+  <time datetime="2018-11-22T02:07:51.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -106,7 +106,6 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
@@ -259,7 +258,7 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/" data-id="cjorxdnra001oauslcitv7ajm" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/" data-id="cjoryg8s8000pf4slt179msui" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -271,19 +270,19 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
     
 <nav id="article-nav">
   
-    <a href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/11/22/移动端_Android基础入门3_四大组件之Activity/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          移动端_IOS【Django基础入门】Ckeditor Wins7下图片上传及显示的路径问题
+          移动端_IOS【Android基础入门〖3〗】四大组件之Activity
         
       </div>
     </a>
   
   
-    <a href="/2018/11/22/移动端_Android基础入门15_Shape圆角输入框/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">移动端_IOS【Android基础入门〖15〗】Shape圆角输入框</div>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖2〗】Eclipse 导入 Android 源码</div>
     </a>
   
 </nav>
@@ -306,7 +305,7 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
 <script src="/js/md5.js"></script>
 <script>
 
-	var idPrimary = '移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制' + '-' + 'Thu Nov 22 2018 09:34:53 GMT+0800';
+	var idPrimary = '移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制' + '-' + 'Thu Nov 22 2018 10:07:51 GMT+0800';
 	var idMD5 = md5(idPrimary);
 
 	var gitment = new Gitment({
@@ -329,7 +328,7 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -339,7 +338,7 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -348,7 +347,7 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -361,15 +360,11 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -378,6 +373,10 @@ view的setTag和getTag方法其实很简单，在实际编写代码的时候一�
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android框架进阶03_ThinkAndroid框架总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_心情日记_总有一天你将破蛹而出" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/" class="article-date">
-  <time datetime="2018-11-22T01:34:49.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_心情日记_总有一天你将破蛹而出/" class="article-date">
+  <time datetime="2018-11-22T02:07:47.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/">移动端_IOS【Android框架进阶〖03〗】ThinkAndroid框架总结</a>
+      <a class="article-title" href="/2018/11/22/移动端_心情日记_总有一天你将破蛹而出/">移动端_IOS【心情日记】总有一天你将破蛹而出</a>
     </h1>
   
 
@@ -104,61 +104,62 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p style="text-align:center;"><span style="font-family:'Microsoft YaHei';color:rgb(54,46,43);line-height:25.98958396911621px;"><strong>/**************************************************************************************************</strong></span></p>
-<p style="text-align:center;"></p>
-<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
-<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<span style="color:rgb(106,57,6);"></span><a href="http://blog.csdn.net/mkrcpp/article/details/13170649" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/20993533" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/20993533</a></span></strong></span></p>
-<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
-<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
-<span></span>
-<p><br></p>
+<blockquote style="line-height:26px;border:none;">
+<blockquote style="font-family:Arial;font-size:14px;border:none;">
 <blockquote style="border:none;">
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">用多了框架，觉得也没什么太难的东西，前提是只要我们彻头彻尾的理解了它们。</span></p>
+<p>
+<br></p>
+<p>
+<span style="font-family:'Microsoft YaHei';font-size:16px;"><span style="color:#ff0000;">总有一天你将破蛹而出，成长得比人们期待的还要<strong>美丽</strong>。</span></span></p>
 </blockquote>
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">TA的框架整体来说：</span></p>
-<p></p>
-<ul><li><span style="font-family:'Microsoft YaHei';font-size:12px;">优点：减少了大量的重复代码，提供了简洁的机制，特别是 docommand，得心应手。这个网络请求有一个bug，就是当网络类型转换时，超时设置不管用。</span></li><li><span style="font-family:'Microsoft YaHei';font-size:12px;">缺点：有代码入侵量，很多东西都没用到，文档不全，比如 download ，一直没用过，缓存也没用过，图片也没用过，都是自己写的。</span></li></ul><p></p>
+</blockquote>
+<blockquote style="font-family:Arial;font-size:14px;border:none;">
 <blockquote style="border:none;">
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">我最喜欢的应该是其注解机制了，做的最好的应该是 command 注册机制，以后可能有很多command，繁重任务的command ，udp请求，快速请求等。</span></p>
+<p>
+<span style="font-family:'Microsoft YaHei';font-size:16px;color:rgb(0,153,0);">但这个过程会很痛，会很辛苦，有时候还会觉得</span><span style="font-family:'Microsoft YaHei';font-size:16px;"><strong><span style="color:#666666;">灰心</span></strong></span><span style="font-family:'Microsoft YaHei';font-size:16px;color:rgb(0,153,0);">。</span></p>
 </blockquote>
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">我综合了final 框架和 TA 框架的注解机制，自己实现了一套框架，命名为 mdevil，基类前缀为M，例如MApplication，总监说我很自恋.....反正是自己用的，无所谓 :)</span></p>
+</blockquote>
+<blockquote style="font-family:Arial;font-size:14px;border:none;">
 <blockquote style="border:none;">
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">在这套框架里，拥有了最称手的注解资源绑定机制(个人认为)，然后对于orm，感觉对TA的orm相当不爽，搞的那么复杂，至于final的没去研究，感觉不优美。于是决定采用 OrmLite。拥有完善的文档！在实际项目使用中，有一个需求是使用复合主键，OrmLite虽然没有提供，却提供了唯一性约束，能达到同样的效果，有可能ormlite的性能会慢一点点，但我喜欢：）</span></p>
+<p>
+<span style="color:#3333ff;"><span style="font-family:'Microsoft YaHei';font-size:16px;">面对着<strong>汹涌</strong></span><span style="font-family:'Microsoft YaHei';font-size:16px;">而来的<strong>现实</strong>，</span><span style="font-family:'Microsoft YaHei';font-size:16px;">觉得自己<strong>渺小</strong>无力。</span></span></p>
+</blockquote>
+</blockquote>
+<blockquote style="font-family:Arial;font-size:14px;border:none;">
+<blockquote style="border:none;">
+<p>
+<span style="color:#ff9900;"><span style="font-family:'Microsoft YaHei';font-size:16px;"><strong>但</strong>这，也是生命的一部分。</span><span style="font-family:'Microsoft YaHei';font-size:16px;"><strong>做好</strong>现在你能做的，然后，一切都会好的。</span></span></p>
+</blockquote>
+</blockquote>
+<blockquote style="font-family:Arial;font-size:14px;border:none;">
+<blockquote style="border:none;">
+<p>
+<span style="font-family:'Microsoft YaHei';font-size:16px;"><span style="color:#00cccc;">我们都将</span><strong>孤独地</strong><span style="color:#00cccc;">长</span></span><span style="color:rgb(0,204,204);font-family:'Microsoft YaHei';font-size:16px;">大，不要害怕。</span></p>
+</blockquote>
 </blockquote>
 <blockquote style="border:none;">
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">当真正理解一个应用从开始到形成的时候，就觉得一切皆有可能了。</span></p>
-</blockquote>
 <blockquote style="border:none;">
-<p><span style="font-family:'Microsoft YaHei';font-size:12px;">前路漫漫，Android只是一个开始！</span></p>
+<p style="font-family:Arial;font-size:14px;">
+<span style="font-family:'Microsoft YaHei';font-size:16px;"><span></span>                                                          —— 寂地《踮脚张望的时光》</span></p>
+<p style="font-family:Arial;font-size:14px;">
+<span style="font-family:'Microsoft YaHei';font-size:16px;"><br></span></p>
+<p>
+<span style="font-family:'Microsoft YaHei';font-size:14px;">转自大神 <a href="http://blog.csdn.net/zhmxy555/article/details/7563469" rel="noopener" target="_blank">http://blog.csdn.net/zhmxy555/article/details/7563469</a></span></p>
 </blockquote>
-<p><br></p>
-<p></p>
-<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
-<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>*******<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>*******</strong></span></strong></span>**********************************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>************</strong></span></strong></span>*******</strong></span></p>
-<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
-<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<span style="color:rgb(106,57,6);"></span><a href="http://blog.csdn.net/mkrcpp/article/details/13170649" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/20993533" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/20993533</a></span></strong></span></p>
-<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
-<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
-<br><p><br></p>
-<p><br></p>
-<p><span></span></p>
-<p><span></span></p>
-<p><span></span></p>
-<p><span></span></p>
-<p><span></span></p>
+</blockquote>
+</blockquote>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/" data-id="cjorxdram002uausl73kwkjdv" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_心情日记_总有一天你将破蛹而出/" data-id="cjoryg8x70057f4slesvg0fv7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -177,7 +178,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/36/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/38/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/36/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/38/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -188,7 +189,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -198,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -207,7 +208,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -220,15 +221,11 @@
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -237,6 +234,10 @@
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

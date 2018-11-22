@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_MFC基础入门_LabJack的研究" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Django基础入门_空间数据库查询" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_MFC基础入门_LabJack的研究/" class="article-date">
-  <time datetime="2018-11-22T01:34:51.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Django基础入门_空间数据库查询/" class="article-date">
+  <time datetime="2018-11-22T02:07:50.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_MFC基础入门_LabJack的研究/">移动端_IOS【MFC基础入门】LabJack的研究</a>
+      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_空间数据库查询/">移动端_IOS【Django基础入门】空间数据库查询</a>
     </h1>
   
 
@@ -104,487 +104,99 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p>MyLabJackDlg.h</p>
+<p>1 ：在views.py中</p>
+<p>//阿里云地图之地址转地理坐标    <a href="http://ditu.aliyun.com/jsdoc/geocode_api.html" rel="noopener" target="_blank">
+http://ditu.aliyun.com/jsdoc/geocode_api.html</a>  里面有返回的数据格式。<br></p>
+<p>//参考geopy</p>
 <p></p>
-<pre><code class="language-cpp">// MyLabJackDlg.h : 头文件
-//
+<pre><code class="language-python">address = smart_str(city.name + address).replace(' ','')import traceback
+import xml.dom.minidom
+from urllib2 import urlopen
+from sys import version_info
+from apps.address.models import City
+from apps.org.models import Vresource
+from django.utils.encoding import smart_str
+from xml.parsers.expat import ExpatError
 
-#pragma once
-#include "afxwin.h"
-#include &lt;stdio.h&gt;
-#include &lt;windows.h&gt;
-#include "C:\Program Files (x86)\LabJack\Drivers\LabJackUD.h"
+################################Quick Search###########################################
+def search(request):
+    qs = Vresource.objects.all()
+    q = request.GET.get('q', '')
+    result = util.ali_getlocation(q)
+    result = simplejson.loads(result)
+    distance = request.GET.get('distance', '1')
+    
+    if q != '':
+        myfilter = Q()
+        q = q.split(" ")
+        
+        for i in q:
+            myfilter = myfilter|Q(name__icontains=i)|Q(address__icontains=i)|Q(traffic_info__icontains=i)
+            
+        if result['level'] != -1:
+            geom = fromstr("POINT(%s %s)" % (result['lon'],result['lat']))
+            distance_from_point = {'km':distance}
+            qs = qs.filter(geometry__distance_lte=(geom, D(**distance_from_point)))         
+            myfilter = myfilter|Q(geometry__distance_lte=(geom, D(**distance_from_point)))   
+             
+        qs = qs.filter(myfilter)
+    return render_to_response('org/search.html', {'results':qs}, context_instance=RequestContext(request))
 
+###############################ali_getlocation##########################################
 
-// CMyLabJackDlg 对话框
-class CMyLabJackDlg : public CDialogEx
-{
-// 构造
-public:
-	CMyLabJackDlg(CWnd* pParent = NULL);	// 标准构造函数
+def ali_getlocation(address, city_id=1):
+    try:
+        city = City.objects.get(id=city_id)
+        address = smart_str(city.name + address).replace(' ','').replace(' ','')
+        page = urlopen('http://gc.ditu.aliyun.com/geocoding?a=%s' %address)
+        page = decode_page(page)
+        return page
+    except:
+        print "Unexpected error:"
+        tb = traceback.format_exc()
+        print tb
+        
+def get_encoding(page, contents=None):
+    # TODO: clean up Py3k support
+    if version_info &lt; (3, 0):
+        charset = page.headers.getparam("charset") or None
+    else:
+        charset = page.headers.get_param("charset") or None
+    if charset:
+        return charset
 
-// 对话框数据
-	enum { IDD = IDD_MYLABJACK_DIALOG };
+    if contents:
+        try:
+            return xml.dom.minidom.parseString(contents).encoding
+        except ExpatError:
+            pass
 
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
-
-
-// 实现
-protected:
-	HICON m_hIcon;
-
-	// 生成的消息映射函数
-	virtual BOOL OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
-	DECLARE_MESSAGE_MAP()
-public:
-	CString Edit_AIN0;
-	CString Edit_AIN1;
-	CString Edit_AIN2;
-	CString Edit_AIN3;
-	CButton bt_start;
-	CButton bt_stop;
-
-	double StartAIN0;
-	double StartAIN1;
-	bool setvalue;
-	bool timerstate;
-
-	LJ_ERROR lngErrorcode;
-	LJ_HANDLE lngHandle;
-	double dblValue;
-	long lngValue;
-
-	long lngBinary;
-
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
-
-	CString Edit_SAIN0;
-	CString Edit_SAIN1;
-	CString Edit_Arcsin0;
-	CString Edit_Arcsin1;
-	CButton bt_setvalue;
-	void ErrorHandler (LJ_ERROR lngErrorcode, long lngLineNumber, long lngIteration);
-};
+def decode_page(page):
+    contents = page.read()
+    # HTTP 1.1 defines iso-8859-1 as the 'implied' encoding if none is given
+    encoding = get_encoding(page, contents) or 'iso-8859-1'
+    # TODO: clean up Py3k support
+    if version_info &lt; (3, 0):
+        return unicode(contents, encoding=encoding).encode('utf-8')
+    else:
+        return str(contents, encoding=encoding)        
+########################################################################################    
 </code></pre>
-<p></p>
-<p>MyLabJackDlg.cpp</p>
-<pre><code class="language-cpp">// MyLabJackDlg.cpp : 实现文件
-//
-
-#include "stdafx.h"
-#include "MyLabJack.h"
-#include "MyLabJackDlg.h"
-#include "afxdialogex.h"
-#include &lt;math.h&gt;
-#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-using namespace std;
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
-// 用于应用程序“关于”菜单项的 CAboutDlg 对话框
-
-class CAboutDlg : public CDialogEx
-{
-public:
-	CAboutDlg();
-
-// 对话框数据
-	enum { IDD = IDD_ABOUTBOX };
-
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-
-// 实现
-protected:
-	DECLARE_MESSAGE_MAP()
-};
-
-CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
-{
-}
-
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-}
-
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-	ON_WM_MOVING()
-END_MESSAGE_MAP()
-
-
-// CMyLabJackDlg 对话框
-
-
-
-
-CMyLabJackDlg::CMyLabJackDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CMyLabJackDlg::IDD, pParent)
-	, Edit_SAIN0(_T(""))
-	, Edit_SAIN1(_T(""))
-	, Edit_Arcsin0(_T(""))
-	, Edit_Arcsin1(_T(""))
-{
-	m_hIcon = AfxGetApp()-&gt;LoadIcon(IDR_MAINFRAME);
-	Edit_AIN0 = _T("");
-}
-
-void CMyLabJackDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-
-	DDX_Control(pDX, IDC_BUTTON1, bt_start);
-	DDX_Control(pDX, IDC_BUTTON2, bt_stop);
-	DDX_Text(pDX, IDC_EDIT1, Edit_AIN0);
-	DDV_MaxChars(pDX, Edit_AIN0, 30);
-	DDX_Text(pDX, IDC_EDIT2, Edit_AIN1);
-	DDV_MaxChars(pDX, Edit_AIN1, 30);
-	DDX_Text(pDX, IDC_EDIT3, Edit_AIN2);
-	DDV_MaxChars(pDX, Edit_AIN2, 30);
-	DDX_Text(pDX, IDC_EDIT4, Edit_AIN3);
-	DDV_MaxChars(pDX, Edit_AIN3, 30);
-	DDX_Text(pDX, IDC_EDIT5, Edit_SAIN0);
-	DDV_MaxChars(pDX, Edit_SAIN0, 30);
-	DDX_Text(pDX, IDC_EDIT6, Edit_SAIN1);
-	DDV_MaxChars(pDX, Edit_SAIN1, 30);
-	DDX_Text(pDX, IDC_EDIT7, Edit_Arcsin0);
-	DDV_MaxChars(pDX, Edit_Arcsin0, 30);
-	DDX_Text(pDX, IDC_EDIT8, Edit_Arcsin1);
-	DDX_Control(pDX, IDC_BUTTON3, bt_setvalue);
-}
-
-BEGIN_MESSAGE_MAP(CMyLabJackDlg, CDialogEx)
-	ON_WM_SYSCOMMAND()
-	ON_WM_PAINT()
-	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &amp;CMyLabJackDlg::OnBnClickedButton1)
-	ON_WM_TIMER()
-	ON_BN_CLICKED(IDC_BUTTON2, &amp;CMyLabJackDlg::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &amp;CMyLabJackDlg::OnBnClickedButton3)
-END_MESSAGE_MAP()
-
-//This is our simple error handling function that is called after every UD
-//function call.  This function displays the errorcode and string description
-//of the error.  It also has a line number input that can be used with the
-//macro __LINE__ to display the line number in source code that called the
-//error handler.  It also has an iteration input is useful when processing
-//results in a loop (getfirst/getnext).
-void CMyLabJackDlg::ErrorHandler (LJ_ERROR lngErrorcode, long lngLineNumber, long lngIteration)
-{
-	char err[255];
-
-	if (lngErrorcode != LJE_NOERROR)
-	{
-		ErrorToString(lngErrorcode,err);
-		CString str;
-		str.Format("Error number = %d\nError string = %s\nSource line number = %d\nIteration = %d\n\n",lngErrorcode ,err ,lngLineNumber ,lngIteration);
-		MessageBox(str.GetString());
-
-		if(lngErrorcode &gt; LJE_MIN_GROUP_ERROR)
-		{
-			exit(0);
-		}
-   }
-}
-
-
-
-// CMyLabJackDlg 消息处理程序
-
-BOOL CMyLabJackDlg::OnInitDialog()
-{
-	CDialogEx::OnInitDialog();
-
-	// 将“关于...”菜单项添加到系统菜单中。
-
-	// IDM_ABOUTBOX 必须在系统命令范围内。
-	ASSERT((IDM_ABOUTBOX &amp; 0xFFF0) == IDM_ABOUTBOX);
-	ASSERT(IDM_ABOUTBOX &lt; 0xF000);
-
-	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != NULL)
-	{
-		BOOL bNameValid;
-		CString strAboutMenu;
-		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
-		ASSERT(bNameValid);
-		if (!strAboutMenu.IsEmpty())
-		{
-			pSysMenu-&gt;AppendMenu(MF_SEPARATOR);
-			pSysMenu-&gt;AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
-		}
-	}
-
-	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
-	//  执行此操作
-	SetIcon(m_hIcon, TRUE);			// 设置大图标
-	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
-	// TODO: 在此添加额外的初始化代码
-	double dblValue=0;
-	long lngValue=0;
-	LJ_HANDLE lngHandle=0;
-	setvalue=false;
-	timerstate=false;
-	CString tmp;
-	StartAIN0=2.482;
-	StartAIN1=2.472;
-	UpdateData(1);
-
-	tmp.Format("%f",StartAIN0);
-	Edit_SAIN0=tmp;
-	tmp.Format("%f",StartAIN1);
-	Edit_SAIN1=tmp;
-	UpdateData(0);
-
-	fstream out;
-	out.open("e:\\test.txt",ios::app|ios::in);
-	out.seekg(ios::beg);
-
-	if(out.rdbuf()-&gt;sgetc()==char_traits&lt;char&gt;::eof())
-		out&lt;&lt;"systemtime"&lt;&lt;'\t'&lt;&lt;"arcsin(AIN0)"&lt;&lt;'\t'&lt;&lt;"arcsin(AIN1)"&lt;&lt;endl;
-
-	out.close();
-
-	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
-}
-
-void CMyLabJackDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-	if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-	{
-		CAboutDlg dlgAbout;
-		dlgAbout.DoModal();
-	}
-	else
-	{
-		CDialogEx::OnSysCommand(nID, lParam);
-	}
-}
-
-// 如果向对话框添加最小化按钮，则需要下面的代码
-//  来绘制该图标。对于使用文档/视图模型的 MFC 应用程序，
-//  这将由框架自动完成。
-
-void CMyLabJackDlg::OnPaint()
-{
-	if (IsIconic())
-	{
-		CPaintDC dc(this); // 用于绘制的设备上下文
-
-		SendMessage(WM_ICONERASEBKGND, reinterpret_cast&lt;WPARAM&gt;(dc.GetSafeHdc()), 0);
-
-		// 使图标在工作区矩形中居中
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
-		CRect rect;
-		GetClientRect(&amp;rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
-
-		// 绘制图标
-		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
-		CDialogEx::OnPaint();
-	}
-}
-
-//当用户拖动最小化窗口时系统调用此函数取得光标
-//显示。
-HCURSOR CMyLabJackDlg::OnQueryDragIcon()
-{
-	return static_cast&lt;HCURSOR&gt;(m_hIcon);
-}
-
-
-void CMyLabJackDlg::OnBnClickedButton1() //开启定时器1
-{
-	// TODO: 在此添加控件通知处理程序代码
-	if(timerstate==false)
-	{
-		SetTimer(1,60,NULL);//启动定时器1,定时时间是60ms
-		timerstate=true;
-	}
-}
-
-
-void CMyLabJackDlg::OnTimer(UINT_PTR nIDEvent)
-{
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	//写入文件
-	ofstream out;
-	out.open("e:\\test.txt",ios::app);
-	CString strtime;
-	SYSTEMTIME st;
-	GetLocalTime(&amp;st);
-	strtime.Format("%2d%2d%2d%3d",st.wHour,st.wMinute,st.wSecond,st.wMilliseconds);
-	out&lt;&lt;strtime&lt;&lt;'\t';
-	//Open the first found LabJack U3.
-	lngErrorcode = OpenLabJack (LJ_dtU3, LJ_ctUSB, "1", 1, &amp;lngHandle);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-
-	//Start by using the pin_configuration_reset IOType so that all
-	//pin assignments are in the factory default condition.
-	lngErrorcode = ePut (lngHandle, LJ_ioPIN_CONFIGURATION_RESET, 0, 0, 0);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-
-	CString ss;
-	UpdateData(1);
-	/*****************************************************************************/
-	//Take a single-ended measurement from AIN0.
-	lngBinary = 0;
-	lngErrorcode = eAIN (lngHandle, 0, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-	ss.Format(TEXT("%f"),dblValue);
-	Edit_AIN0=ss;
-	//反正弦
-	dblValue=asin((dblValue-StartAIN0)/1.2);
-	if(dblValue&gt;1)
-	{
-		dblValue=1;
-	}
-	else if(dblValue&lt;-1)
-	{
-		dblValue=-1;
-	}
-	ss.Format(TEXT("%f"),dblValue);
-	Edit_Arcsin0=ss;
-	out&lt;&lt;ss&lt;&lt;'\t';
-
-	lngErrorcode = eAIN (lngHandle, 1, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-	ss.Format(TEXT("%f"),dblValue);
-
-	Edit_AIN1=ss;	
-	//反正弦
-	dblValue=asin((dblValue-StartAIN1)/1.2);
-	if(dblValue&gt;1)
-	{
-		dblValue=1;
-	}
-	else if(dblValue&lt;-1)
-	{
-		dblValue=-1;
-	}
-	ss.Format(TEXT("%f"),dblValue);
-	Edit_Arcsin1=ss;
-	out&lt;&lt;ss&lt;&lt;'\t'&lt;&lt;endl;
-
-	lngErrorcode = eAIN (lngHandle, 2, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-	ss.Format(TEXT("%f"),dblValue);
-	Edit_AIN2=ss;
-	lngErrorcode = eAIN (lngHandle, 3, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-	ss.Format(TEXT("%f"),dblValue);
-	Edit_AIN3=ss;
-
-	UpdateData(0);
-	/*****************************************************************************/
-	CDialogEx::OnTimer(nIDEvent);
-
-	
-	out.close();
-
-}
-
-
-void CMyLabJackDlg::OnBnClickedButton2()				//关闭定时器1。
-{
-	// TODO: 在此添加控件通知处理程序代码
-
-	if(timerstate==true)
-	{
-		KillTimer(1); //关闭定时器1。
-		timerstate=false;
-	}
-
-}
-
-void CMyLabJackDlg::OnBnClickedButton3()//设置初值
-{
-	// TODO: 在此添加控件通知处理程序代码
-	//Open the first found LabJack U3.
-	if(timerstate==true)
-	{
-		KillTimer(1); //关闭定时器1。
-		timerstate=false;
-	}
-	bt_start.EnableWindow(false);
-	bt_stop.EnableWindow(false);
-	bt_setvalue.EnableWindow(false);
-	bt_setvalue.SetWindowTextA("请等待10s...");
-	lngErrorcode = OpenLabJack (LJ_dtU3, LJ_ctUSB, "1", 1, &amp;lngHandle);
-	ErrorHandler(lngErrorcode, __LINE__, 0);
-	double A0[10],A1[10];
-
-	for(int i=0;i&lt;10;i++)
-	{
-		//Take a single-ended measurement from AIN0.
-		lngBinary = 0;
-		lngErrorcode = eAIN (lngHandle, 0, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-		ErrorHandler(lngErrorcode, __LINE__, 0);
-		A0[i]=dblValue;
-		//Take a single-ended measurement from AIN1.
-		lngErrorcode = eAIN (lngHandle, 1, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
-		ErrorHandler(lngErrorcode, __LINE__, 0);
-		A1[i]=dblValue;
-		Sleep(1000);
-	}
-	for(int i=0;i&lt;10;i++)
-	{
-		StartAIN0+=A0[i];
-		StartAIN1+=A1[i];
-	}
-	StartAIN0 /= 10.0;
-	StartAIN1 /= 10.0;
-	setvalue=true;
-
-	CString tmp;
-	UpdateData(1);
-
-	tmp.Format("%f",StartAIN0);
-	Edit_SAIN0=tmp;
-	tmp.Format("%f",StartAIN1);
-	Edit_SAIN1=tmp;
-	UpdateData(0);
-	bt_start.EnableWindow(true);
-	bt_stop.EnableWindow(true);
-	bt_setvalue.EnableWindow(true);
-	bt_setvalue.SetWindowTextA("重设初值(10s)");
-}</code></pre>
-<br>
-结果：
-<p></p>
-<p><img src="http://img.my.csdn.net/uploads/201212/25/1356411205_8771.png" alt=""><br></p>
-<p><br></p>
-<strong><span style="font-size:24px;color:#ff0000;">转载请注明出处！</span></strong>
-<p><br><br></p>
+<p>2 ：输出</p>
+<pre><code class="language-python">{"cityName":"","address":"江苏省,苏州市,虎丘区,","level":5,"alevel":2,"lat":31.28723,"lon":120.55216}</code></pre>
+<h3><span style="font-family:'KaiTi_GB2312';font-size:18px;color:#ff0000;font-weight:normal;background-color:rgb(255,255,204);">转载请注明出处！</span></h3>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_MFC基础入门_LabJack的研究/" data-id="cjorxdvqb0040auslfhkzsphf" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_空间数据库查询/" data-id="cjoryg8vs003nf4slv7x3etkl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -603,7 +215,7 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -614,7 +226,7 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -624,7 +236,7 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -633,7 +245,7 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -646,15 +258,11 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -663,6 +271,10 @@ void CMyLabJackDlg::OnBnClickedButton3()//设置初值
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

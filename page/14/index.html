@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门3_四大组件之Activity" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" class="article-date">
-  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门3_四大组件之Activity/" class="article-date">
+  <time datetime="2018-11-22T02:07:52.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/">移动端_IOS【Django基础入门】Ckeditor Wins7下图片上传及显示的路径问题</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门3_四大组件之Activity/">移动端_IOS【Android基础入门〖3〗】四大组件之Activity</a>
     </h1>
   
 
@@ -104,93 +104,192 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p>1：在 virtualenv 库里 安装 django-ckeditor<br><br></p>
-<p>      F:\workspace\fx_lib 是我的 第三方库的路径，也可用  pip install django-ckeditor<strong> </strong>进行安装<span></span></p>
-<p></p>
-<pre><code class="language-python">pypm -E F:\workspace\fx_lib install django-ckeditor</code></pre>
-<br><p>2：设置 settings.py</p>
-<p></p>
-<pre><code class="language-python">CKEDITOR_MEDIA_PREFIX="/site_media/media/ckeditor/"
-CKEDITOR_UPLOAD_PATH = os.path.join(PROJECT_ROOT,"site_media" , "media/uploads").replace("\\",'/')
-CKEDITOR_UPLOAD_PREFIX=os.path.join(PROJECT_ROOT,"/site_media/media/uploads").replace("/","\\")
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar':[        
-            ['Source','-','Save','NewPage','Preview','-','Templates'],        
-            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'],        
-            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],        
-            ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'], 
-            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],        
-            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],        
-            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],        
-            ['Link','Unlink','Anchor'],        
-            ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],        
-            ['Styles','Format','Font','FontSize'],        
-            ['TextColor','BGColor'],        
-            ['Maximize','ShowBlocks','-','About']        
-        ],
-        'width': 650,
-        'height': 200,
-        'toolbarCanCollapse': False,
-    },
+<h1>1 简介</h1>
+<div>Activity (活动) 即应用程序 显示的 界面。可以通过两种方式 设置显示的内容 1：纯代码方式<span></span>2：xml 布局方式</div>
+<div>无论哪一种方式，都是通过 setContentView 来设置显示的内容。</div>
+<div><br></div>
+<div>使用步骤</div>
+<div>基本上四大组件创建步骤都一样</div>
+<div>1：自定义 组件（Activity）</div>
+<div>2：注册</div>
+<div>3：使用</div>
+<div><br></div>
+<h1>2 生命周期图</h1>
+<div><br></div>
+<p><img src="https://img-blog.csdn.net/20130924222051921" alt=""></p>
+<p><br></p>
+<h1>3  新建一个自定义的Activity</h1>
+<div>index.java</div>
+<div>
+<pre><code class="language-java">package com.demo;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+public class index extends Activity{
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO 自动生成的方法存根
+        super.onCreate(savedInstanceState);
+        Intent intent=this.getIntent();
+        TextView text=new TextView(this);
+        text.setText(intent.getStringExtra("str"));
+        setContentView(text);//设置显示的内容，这里是代码生成的 TextView 对象
+    }
+    @Override
+    public void onBackPressed() {
+        // 拦截返回按钮
+        Intent intent=new Intent();创建 intent 绑定要传送的数据
+        Bundle bundle=new Bundle();
+        bundle.putString("s1", "恭喜你跳成功了");
+        bundle.putString("s2", "然后赶紧回家睡觉吧");
+        intent.putExtra("bundle", bundle);
+        setResult(0, intent);//通过 intent 返回数据
+        this.finish();
+    }
 }</code></pre>
+</div>
+<h3>
+</h3><div>
+<h1>4  注册Activity</h1>
+</div>
+<div><span style="font-weight:normal;">AndroidManifest.xml</span></div>
+<div>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myprovider"
+    android:versionCode="1"
+    android:versionName="1.0" &gt;
+
+    &lt;uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" /&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" &gt;
+        &lt;activity
+            android:name="com.myprovider.MainActivity"
+            android:label="@string/app_name" &gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+        &lt;provider
+            android:name="com.myprovider.MyProvider"
+            android:authorities="com.michael"
+            android:exported="true"/&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</code></pre>
+<br></div>
+
+<h1>5  MainActivity (主 Activity)</h1>
+<div>MainActivity.java</div>
+<div>
+<pre><code class="language-java">package com.demo; 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends Activity {
+    EditText edit1;
+    String str;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        edit1=(EditText)findViewById(R.id.edit1);
+        edit1.setText(str);
+        
+        Button btn=(Button)findViewById(R.id.btn1);
+        btn.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO 自动生成的方法存根
+                Intent intent=new Intent();
+                intent.putExtra("str", "我跳跃成功！哈哈");
+                intent.setClass(MainActivity.this, index.class);
+                //startActivity(intent);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO 自动生成的方法存根
+        super.onActivityResult(requestCode, resultCode, data);
+        Bundle bundle=data.getBundleExtra("bundle");
+        edit1.setText(bundle.getString("s1")+bundle.getString("s2"));
+    }
+    
+    @Override
+    protected void onStart() {
+        // TODO 自动生成的方法存根
+        super.onStart();
+        Log.i("demo", "onStart");
+    }
+    @Override
+    protected void onRestart() {
+        // TODO 自动生成的方法存根
+        super.onRestart();
+        Log.i("demo", "onRestart");
+    }
+    @Override
+    protected void onResume() {
+        // TODO 自动生成的方法存根
+        super.onResume();
+        Log.i("demo", "onResume");
+    }
+    @Override
+    protected void onPause() {
+        // TODO 自动生成的方法存根
+        super.onPause();
+        Log.i("demo", "onPause");
+    }
+    @Override
+    protected void onStop() {
+        // TODO 自动生成的方法存根
+        super.onStop();
+        Log.i("demo", "onStop");
+    }
+    @Override
+    protected void onDestroy() {
+        // TODO 自动生成的方法存根
+        super.onDestroy();
+        Log.i("demo", "onDestroy");
+        
+        str=edit1.getText().toString();
+    }
+}</code></pre>
+<br></div>
+<div><br></div>
+<p><span style="color:rgb(255,0,0);font-family:Arial;font-size:17.77777862548828px;line-height:25.98958396911621px;"><u><strong>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</strong></u></span><br></p>
 <p><br></p>
-<p>3：发布之前部署静态文件</p>
-<p></p>
-<pre><code class="language-python">python manage.py collectstatic</code></pre>
-<p></p>
 <p><br></p>
-<p>4：在 admin 里使用 ckeditor</p>
-<p>models.py</p>
-<p></p>
-<pre><code class="language-python">from ckeditor.fields import RichTextField 
-class Course(models.Model):
-    coursecontent = RichTextField(verbose_name=_('coursecontent'))</code></pre>
-<br><p>5：在网页中使用 ckeditor</p>
-<p>forms.py</p>
-<p></p>
-<pre><code class="language-python">from ckeditor.widgets import CKEditorWidget
-class AddCourseForm(forms.ModelForm):
-    coursecontent = forms.CharField(label=_('coursecontent')   ,widget=CKEditorWidget())</code></pre>
-<p>如图：</p>
-<p><img src="http://my.csdn.net/uploads/201207/10/1341884122_4262.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"></p>
-<p><br></p>
-<p>6：问题</p>
-<p>在 windows 下 会出现 下图 的问题 ，图片能上传 但是不能预览显示 ，查看 图片 的html代码 发现 路劲有问题 </p>
-<p><img src="http://my.csdn.net/uploads/201207/10/1341884434_5440.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"><br></p>
-<p>研究了好长时间 发现 如下信息：<br><a href="https://github.com/brentrojas/django-ckeditor/commit/ce41e5219c9cd8f4ea1d7d339499ca61bdab7d65" rel="noopener" target="_blank">https://github.com/brentrojas/django-ckeditor/commit/ce41e5219c9cd8f4ea1d7d339499ca61bdab7d65</a><br>
-原来这是 windows下的bug<br>
-那么我们只要 在库中做出相应的修改即可<br>
-如下图：<br></p>
-<p><img src="http://my.csdn.net/uploads/201207/10/1341884685_5863.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"></p>
-<p>在模板中 去掉 ckeditor 造成的 html 标签：<br>
-只需要做出如下修改：</p>
-<pre><code class="language-html">						{% autoescape off %}
-						{{courseinfo.coursecontent}}
-						{% endautoescape %}</code></pre>
-<p>至此，在django中可以正常使用 ckeditor了。</p>
-<p><br></p>
-<p><span style="font-family:'KaiTi_GB2312';font-size:18px;color:#ff0000;background-color:rgb(255,255,204);">转载请注明出处!</span></p>
-<p><br></p>
-<p><br></p>
-<pre></pre>
-<pre></pre>
-<pre></pre>
-<pre></pre>
             </div>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" data-id="cjorxds34003causljlwzfr2q" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门3_四大组件之Activity/" data-id="cjoryg8tl001zf4slze76zku7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -209,7 +308,7 @@ class AddCourseForm(forms.ModelForm):
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -220,7 +319,7 @@ class AddCourseForm(forms.ModelForm):
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -230,7 +329,7 @@ class AddCourseForm(forms.ModelForm):
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -239,7 +338,7 @@ class AddCourseForm(forms.ModelForm):
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -252,15 +351,11 @@ class AddCourseForm(forms.ModelForm):
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -269,6 +364,10 @@ class AddCourseForm(forms.ModelForm):
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>

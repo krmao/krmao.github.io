@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_Android基础入门11_Fragment" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门6_四大组件之ContentProvider" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/22/移动端_Android基础入门11_Fragment/" class="article-date">
-  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+    <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/" class="article-date">
+  <time datetime="2018-11-22T02:07:53.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
     </h1>
   
 
@@ -104,219 +104,233 @@
       
         
 <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
-<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
 <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
 
 <div class="htmledit_views" id="content_views">
                 
-<p></p>
-<h2>一  左侧列表展示</h2>
-<p></p>
-<h4>1.1  布局 left_fragment.xml</h4>
-<p></p>
-<pre><code class="language-html">&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
-    android:listSelector="@drawable/onitem_selected_bkcolor"/&gt;</code></pre>
-<p></p>
-<h4>1.2  ListSelector  <span style="color:rgb(255,0,0);">onitem_selected_bkcolor.xml</span></h4>
-<p></p>
-<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;selector xmlns:android="http://schemas.android.com/apk/res/android"&gt;
-    &lt;item 
-        android:state_window_focused="false"
-        android:drawable="@android:color/holo_green_dark"/&gt;
-    &lt;item
-        android:state_window_focused="true"
-        android:drawable="@android:color/holo_green_light"/&gt;
-&lt;/selector&gt;</code></pre>
-<br><h4>1.3  自定义 ListItem 布局 代替  android.R.layout.simple_list_item_1 </h4>
-<p></p>
-<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:gravity="center_vertical"
-    android:paddingLeft="10dp"
-    android:textColor="@android:color/black"/&gt;</code></pre>
-<br><h4>1.4  自定义 LeftFragment</h4>
-<p></p>
-<pre><code class="language-java">package com.example.myfragments;
+<h1>简介</h1>
+<div>简而言之，ContentProvider 向别的应用程序提供数据(联系人这个应用程序提供了 它的 ContentProvider)，ContentResolver 从<strong>别的应用程序</strong>(已提供ContentProvider)获取、修改、添加数据(我们可以通过ContentResolver 来操纵联系人中的数据)。</div>
+<div> </div>
+<h1>说明</h1>
+<div>既然是四大组件之一，那么创建步骤基本相同</div>
+<div>1: 自定义 ContentProvider</div>
+<div>2: 注册</div>
+<div>3: 使用</div>
+<div> </div>
+<h1>1    自定义ContentProvider</h1>
+<p> MyProvider.java</p>
+<h6>
+</h6><pre><code class="language-java"><span style="font-weight:normal;">package com.myprovider;
+import android.content.ContentProvider;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+public class MyProvider extends ContentProvider{
+    DatabaseHelper dbhelper;
+    SQLiteDatabase db;
+    
+    UriMatcher UMatcher=new UriMatcher(UriMatcher.NO_MATCH);
+    
+    @Override
+    public boolean onCreate() {
+        // TODO 自动生成的方法存根
+        dbhelper=new DatabaseHelper(getContext(), "michael", null, 1);
+        
+        UMatcher.addURI("com.michael", "michael", 1);
+        UMatcher.addURI("com.michael", "michael/#", 2);
+        db=dbhelper.getWritableDatabase();
+        return true;
+    }
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        // TODO 自动生成的方法存根
+        Cursor cursor;
+        
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            cursor= db.query("michael", projection, selection, selectionArgs, null, null, sortOrder);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;    
+            
+            cursor =db.query("michael", projection, myselection, selectionArgs, null, null, sortOrder);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return cursor;
+    }
+    @Override
+    public String getType(Uri uri) {
+        // TODO 自动生成的方法存根
+        return null;
+    }
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        // TODO 自动生成的方法存根
+        long id =db.insert("michael", "username", values);
+        return ContentUris.withAppendedId(uri, id);
+    }
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        // TODO 自动生成的方法存根
+        int num;
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            num=db.delete("michael", selection, selectionArgs);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;
+            
+            num= db.delete("michael", myselection, selectionArgs);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return num;
+    }
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // TODO 自动生成的方法存根
+        int num;
+        
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            num=db.update("michael", values, selection, selectionArgs);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;
+            num=db.update("michael", values, myselection, selectionArgs);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return num;
+    }
+}</span></code></pre>
+
+<h1>2    封装的 SQLiteOpenHelper 用以操作数据库</h1>
+<p>DatabaseHelper.java</p>
+<h6>
+</h6><pre><code class="language-java"><span style="font-weight:normal;">package com.myprovider;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+public class DatabaseHelper extends SQLiteOpenHelper {
+    public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        //创建数据库
+        db.execSQL("create table michael(_id integer primary key autoincrement ,username text);");
+        
+        //初始数据
+        ContentValues values=new ContentValues();
+        values.put("username", "张三");
+        db.insert("michael", "username", values);
+        values.put("username", "李四");
+        db.insert("michael", "username", values);
+        values.put("username", "王五");
+        db.insert("michael", "username", values);
+        values.put("username", "赵六");
+        db.insert("michael", "username", values);
+    }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //升级数据库
+        db.execSQL("drop table if exists michael;");
+        this.onCreate(db);
+    }
+}</span></code></pre>
+
+<h1>3    注册</h1>
+<p>AndroidManifest.xml</p>
+<div>
+<pre><code class="language-html">&lt;provider
+    android:name="com.myprovider.MyProvider"
+    android:authorities="com.michael"
+    android:exported="true"/&gt;</code></pre>
+<br></div>
+<h1>4    访问数据    (在别的应用程序中亦同)</h1>
+<div>意思是，你新建一个项目，具备如下代码，仍然能操作访问 上述项目中的数据 。 这就是 ContentProvider 的神奇之处 :)</div>
+<div><br></div>
+<p>4.1 MainActivity.java</p>
+<div>
+<pre><code class="language-java">package com.myprovider;
 import android.app.Activity;
-import android.app.ListFragment;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-//自定义回调函数
-interface onItemSeletedListener
-{
-    public void onItemSeleted(int position); 
-}
-public class LeftFragment extends ListFragment {
-    onItemSeletedListener mCallback;
-    
-    String[] data = {"item0","item1","item2","item3","item4","item5","item6","item7","item8","item9","item10","item11","item12","item13","item14","item15","item16"}; 
-    
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        // TODO 自动生成的方法存根
-        return inflater.inflate(R.layout.left_fragment, container,false);
-    }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        // TODO 自动生成的方法存根
-        setListAdapter(new ArrayAdapter&lt;String&gt;(getActivity(),  
-                   R.layout.listitem, data)); 
-        super.onActivityCreated(savedInstanceState);
-    }
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO 自动生成的方法存根
-        mCallback.onItemSeleted(position);        
-    }
-    
-    @Override
-    public void onAttach(Activity activity) {
-        // TODO 自动生成的方法存根
-        super.onAttach(activity);
-        // This makes sure that the container activity has implemented  
-        // the callback interface. If not, it throws an exception  
-        try {  
-            mCallback = (onItemSeletedListener) activity;  
-        } catch (ClassCastException e) {  
-            throw new ClassCastException("必须实现 onItemSeletedListener");
-        }  
-    }
-}</code></pre>
-<br><h2>二  右侧内容展示</h2>
-<h4>2.1  布局 right_fragment.xml  </h4>
-<p></p>
-<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
-    android:orientation="vertical"
-    tools:ignore="HardcodedText,UselessParent" &gt;
-    &lt;ScrollView 
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"&gt;
-        &lt;TextView
-            android:id="@+id/textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="请选择左侧边栏 :)"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textSize="30sp" /&gt;
-    &lt;/ScrollView&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br><h4>2.1  自定义 RightFragment    </h4>
-<p></p>
-<pre><code class="language-java">package com.example.myfragments;
-import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-public class RightFragment extends Fragment {
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        // TODO 自动生成的方法存根
-        return inflater.inflate(R.layout.right_fragment, container,false);
-    }
-    
-    //更新数据
-    public void update(int position)
-    {
-        TextView textview=(TextView)getActivity().findViewById(R.id.textview);
-        textview.setText("您选择了：" + String.valueOf(position)+"\n--------------"
-                +"\n大江东去浪淘尽，\n千古风流人物，\n故垒西边，\n人道是，\n三国周郎赤壁，\n乱石穿空，\n惊涛拍岸，\n卷起千堆雪，\n江山如画，\n一时多少豪杰。"
-                +"\n遥想公瑾当年，\n小乔初嫁了，\n雄姿英发，\n羽扇纶巾，\n谈笑间，\n樯橹灰飞烟灭，\n故国神游，\n多情应笑我，\n早生华发，\n人间如梦，\n一樽还酹江月。");
-    }
-}</code></pre>
-<br><h2>三  添加到 main_layout.xml 中，附着于 Activity 显示</h2>
-<h4>3.1  布局 main_layout.xml</h4>
-<p></p>
-<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:ignore="DisableBaselineAlignment" &gt;
-    &lt;fragment
-        android:id="@+id/left_fragment"
-        android:name="com.example.myfragments.LeftFragment"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"/&gt;
-    &lt;View 
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_dark"/&gt;
-    &lt;fragment
-        android:id="@+id/right_fragment"
-        android:name="com.example.myfragments.RightFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br><h4>3.2  MainActivity</h4>
-<p></p>
-<pre><code class="language-java">package com.example.myfragments;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-public class MainActivity extends Activity implements onItemSeletedListener{
+import android.widget.SimpleCursorAdapter;
+public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   
-        requestWindowFeature(Window.FEATURE_NO_TITLE);   
-        setContentView(R.layout.main_layout);     
+        setContentView(R.layout.activity_main);
         
-//        //添加
-//        FragmentManager fragmentmanager=getFragmentManager();
-//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
-//        LeftFragment leftfragment=new LeftFragment();
-//        fragmenttransaction.add(R.id.left_fragment, leftfragment);
-//        fragmenttransaction.commit();
-//        //删除
-//        FragmentManager fragmentmanager=getFragmentManager();
-//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
-//        Fragment leftfragment=fragmentmanager.findFragmentById(R.id.left_fragment);
-//        fragmenttransaction.remove(leftfragment);
-//        fragmenttransaction.commit();
-//        //替换
-//        FragmentManager fragmentmanager=getFragmentManager();
-//        FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
-//        fragmenttransaction.replace(R.id.left_fragment, new LeftFragment());
-//        fragmenttransaction.commit();
-    }
-    @Override
-    public void onItemSeleted(int position) {
-        RightFragment rightFragment=(RightFragment) getFragmentManager().findFragmentById(R.id.right_fragment);
+        ContentResolver resolver=this.getContentResolver();
+        Uri uri=Uri.parse("content://com.michael/michael");
+        ContentValues values=new ContentValues();
+        values.put("username", "霸王龙");
+        resolver.insert(uri, values);
+        values.put("username", "巨无霸");
+        resolver.insert(uri, values);
+        values.put("username", "擎天柱");
+        resolver.insert(uri, values);
+        values.put("username", "大黄蜂");
+        resolver.insert(uri, values);
         
-        if(rightFragment != null)
-            rightFragment.update(position);
+        Cursor cursor=resolver.query(uri, new String[]{"_id","username"}, null, null, null);
+        SimpleCursorAdapter adapter=new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"_id","username"}, new int[]{android.R.id.text1,android.R.id.text2}, 0);
+    
+        ListView listview=(ListView)findViewById(R.id.listview);
+        listview.setAdapter(adapter);
     }
 }</code></pre>
- <br><h2>四  结果展示</h2>
+<br></div>
+<p>4.2 activity_main.xml 布局文件</p>
+<div>
+<pre><code class="language-html">&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+<br></div>
+<h1>5    效果截图</h1>
 <div><br></div>
-<div><span></span>      <img src="https://img-blog.csdn.net/20130909145229984" alt=""></div>
+<div> <img src="https://img-blog.csdn.net/20130924220111437" alt=""></div>
 <div> </div>
-<div>    </div>
-<div><span style="font-size:18px;color:rgb(255,0,0);"><u><strong>转载请注明出处 :)</strong></u></span></div>
-<div><br></div>
-<div><br></div>
+<div> </div>
+<div> <span style="font-size:18px;color:#ff0000;"><strong><u>转载请注明出处，毕竟代码是一个一个敲出来的 :)</u></strong></span></div>
+<div> </div>
+<div> </div>
 <div> </div>
 <div> </div>
             </div>
@@ -325,7 +339,7 @@ public class MainActivity extends Activity implements onItemSeletedListener{
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门11_Fragment/" data-id="cjorxdnwr001rausl3htn6j4t" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/" data-id="cjoryg8u0002af4slk63gx3an" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
@@ -344,7 +358,7 @@ public class MainActivity extends Activity implements onItemSeletedListener{
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -355,7 +369,7 @@ public class MainActivity extends Activity implements onItemSeletedListener{
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -365,7 +379,7 @@ public class MainActivity extends Activity implements onItemSeletedListener{
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -374,7 +388,7 @@ public class MainActivity extends Activity implements onItemSeletedListener{
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">72</span></li></ul>
     </div>
   </div>
 
@@ -387,15 +401,11 @@ public class MainActivity extends Activity implements onItemSeletedListener{
       <ul>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
-          </li>
-        
-          <li>
             <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+            <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
           </li>
         
           <li>
@@ -404,6 +414,10 @@ public class MainActivity extends Activity implements onItemSeletedListener{
         
           <li>
             <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门11_Fragment/">移动端_IOS【Android基础入门〖11〗】Fragment</a>
           </li>
         
       </ul>
