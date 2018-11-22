@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1  自定义 SurfaceView WarView.java  (世界战场)            package com.mytank; import java.util.Vector; import android.content.Context; import android.graphics.Canvas; import android.g">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门7_SurfaceView坦克大战之世界地图/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="1  自定义 SurfaceView WarView.java  (世界战场)            package com.mytank; import java.util.Vector; import android.content.Context; import android.graphics.Canvas; import android.g">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20130913152228015">
+<meta property="og:image" content="https://img-blog.csdn.net/20131027162839640">
+<meta property="og:updated_time" content="2018-11-22T01:34:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图">
+<meta name="twitter:description" content="1  自定义 SurfaceView WarView.java  (世界战场)            package com.mytank; import java.util.Vector; import android.content.Context; import android.graphics.Canvas; import android.g">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20130913152228015">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android基础入门7_SurfaceView坦克大战之世界地图" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门7_SurfaceView坦克大战之世界地图/" class="article-date">
+  <time datetime="2018-11-22T01:34:55.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>1  自定义 SurfaceView</h1>
+<p>WarView.java  (世界战场)           </p>
+<pre><code class="language-java">package com.mytank;
+import java.util.Vector;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+public class WarView extends SurfaceView implements SurfaceHolder.Callback {
+    SurfaceHolder mholder;
+    boolean run_flag;
+    Canvas canvas;
+    DrawThread thread;
+    
+    Vector&lt;Wall&gt;walllist=new Vector&lt;Wall&gt;();
+    
+    int row;//行
+    int col;//列
+    int warmap[][];
+    
+    float x=10,y=10;
+    
+    public WarView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mholder=this.getHolder();
+        
+        if(mholder!=null)
+            mholder.addCallback(this);
+    }
+    
+    //初始化地图
+    public void initmap()
+    {
+        //0 空， 1 墙
+        for(int i=0;i&lt;col;i++)
+        {
+            warmap[0][i]=1;
+            warmap[1][i]=1;
+            Wall wall=new Wall(0,i);
+            walllist.add(wall);
+            wall=new Wall(1,i);
+            walllist.add(wall);
+        }
+        for(int i=0;i&lt;10;i++)
+        {
+            warmap[i][10]=1;
+            warmap[i][11]=1;
+            Wall wall=new Wall(i,10);
+            walllist.add(wall);
+            wall=new Wall(i,11);
+            walllist.add(wall);
+        }
+    }
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        run_flag=true;
+        row=this.getHeight()/Common.CELL_LENGTH;
+        col=this.getWidth()/Common.CELL_LENGTH;
+        warmap=new int[row][col];
+        thread=new DrawThread();
+        initmap();
+        thread.start();
+    }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO 自动生成的方法存根
+        x=event.getX();
+        y=event.getY();
+        
+        
+        /*  备注:  一定要将return super.onTouchEvent(event)修改为return true
+         *  原因： 
+         *        1: 父类的onTouchEvent(event)方法没有做任何处理，并且返回了false。;
+         *        2: 一旦返回false，将不再收到 MotionEvent.ACTION_MOVE 及 MotionEvent.ACTION_UP 事件;
+         */
+        return true;
+    }
+ 
+    //自定义 界面绘制 线程
+    class DrawThread extends Thread
+    {
+        @Override
+        public void run() {
+            
+            //画刷
+            Paint paint=new Paint();
+            paint.setStyle(Style.FILL);
+            paint.setColor(Color.rgb(255, 0, 0));    //红绿蓝
+            
+            Paint bkpaint=new Paint();
+            bkpaint.setStyle(Style.FILL);            //设置填充方式
+            bkpaint.setColor(Color.rgb(2,17,17));    //红绿蓝
+            
+            while(run_flag)
+            {
+                //锁定画布
+                canvas=mholder.lockCanvas();
+                if (canvas == null)
+                    continue;
+                
+                //绘制背景
+                canvas.drawRect(0, 0, Common.CELL_LENGTH*col, Common.CELL_LENGTH*row, bkpaint);
+                
+                //绘制手势跟踪
+                canvas.drawCircle(x, y, 15, paint);
+                
+                //绘制墙壁
+                for(int i=0;i&lt;walllist.size();i++)
+                    walllist.get(i).Draw(canvas);
+                
+                //取消锁定
+                mholder.unlockCanvasAndPost(canvas);
+            }
+        }
+    }
+    
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    }
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        run_flag=false;        //关闭界面绘制线程
+    }
+}</code></pre>
+<p></p>
+<h1>2  在布局中使用自定义的 WarView</h1>
+<p>main_layout.xml</p>
+<p></p>
+<pre><code class="language-html">&lt;FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+    &lt;com.mytank.WarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/&gt;
+&lt;/FrameLayout&gt;</code></pre>
+<p></p>
+<h1>3  封装的 墙块类</h1>
+<p>Wall.java</p>
+<p></p>
+<pre><code class="language-java">package com.mytank;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Paint.Style;
+/**
+ * @author michael.mao
+ * @description 封装的 墙块类，包含自绘制方法
+ */
+public class Wall {
+    
+    public int mrow;    //该墙壁所在行
+    public int mcol;
+    Paint inPaint;        //墙壁内边框画刷
+    Paint outPaint;
+    Rect inRect;
+    Rect outRect;
+    
+    public Wall(int row, int col)
+    {
+        this.mrow=row;
+        this.mcol=col;
+        
+        inPaint=new Paint();
+        inPaint=new Paint();
+        inPaint.setStyle(Style.FILL);
+        inPaint .setColor(Color.rgb(86, 53, 35));//红绿蓝
+        
+        outPaint=new Paint();
+        outPaint=new Paint();
+        outPaint.setStyle(Style.STROKE);
+        outPaint.setColor(Color.rgb(98, 98, 98));
+        
+        inRect=new Rect( mcol*Common.CELL_LENGTH+1,mrow*Common.CELL_LENGTH+1,
+                       ( mcol+1)*Common.CELL_LENGTH-1,(mrow+1)*Common.CELL_LENGTH-1);
+        outRect=new Rect( mcol*Common.CELL_LENGTH,mrow*Common.CELL_LENGTH,
+                        ( mcol+1)*Common.CELL_LENGTH,(mrow+1)*Common.CELL_LENGTH);
+    }
+    
+    public void Draw(Canvas canvas)
+    {
+        canvas.drawRect(inRect,inPaint);
+        canvas.drawRect(outRect,outPaint);
+    }
+}</code></pre>
+<br><p></p>
+<h1>4  常量值</h1>
+<p>Common.java</p>
+<p></p>
+<pre><code class="language-java">package com.mytank;
+public class Common {
+    public static int CELL_LENGTH=10;    //块宽    战场被分成 M行 N 列, CELL_LENGTH==行高==列宽
+}</code></pre>
+<p></p>
+<h1>5  主类</h1>
+<div dir="ltr">MainActivity.java</div>
+<div dir="ltr">
+<pre><code class="language-java">package com.mytank;
+import android.os.Bundle;
+import android.app.Activity;
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_layout);
+    }
+}</code></pre>
+</div>
+<h1>6    结果展示</h1>
+<div> </div>
+<div>
+<div>             <img src="https://img-blog.csdn.net/20130913152228015" alt="" width="368" height="319"></div>
+</div>
+<div>             <img src="https://img-blog.csdn.net/20131027162839640" width="240" height="427" alt=""></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><span style="font-size:18px;color:#ff0000;"><strong><u>转载请注明出处 :)</u></strong></span></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门7_SurfaceView坦克大战之世界地图/" data-id="cjorxdn47001fausl5692q7ip" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门11_Fragment/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖11〗】Fragment
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图' + '-' + 'Thu Nov 22 2018 09:34:55 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_系统新装" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门8_SimpleAdapter之一" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_系统新装/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/" class="article-date">
+  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_系统新装/">安装_CENTOS_系统新装</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</a>
     </h1>
   
 
@@ -102,17 +102,147 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-升级"><a href="#1-升级" class="headerlink" title="1 升级"></a>1 升级</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum upgrade -y</span><br></pre></td></tr></table></figure>
-<h5 id="关于-upgrade-与-update-参考大神见解"><a href="#关于-upgrade-与-update-参考大神见解" class="headerlink" title="关于 upgrade 与 update 参考大神见解"></a><a href="https://segmentfault.com/q/1010000011264410" target="_blank" rel="noopener">关于 upgrade 与 update 参考大神见解</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">其实我更推荐用yum upgrade取代yum update，yum update只更新系统中已有的软件包，不会更新内核软件包(kernel-这个包)，yum upgrade是更彻底的update，会分析包的废弃关系，可以跨小版本升级（比如从centos 7.1升级到centos 7.4），除了做了yum update完全相同的事之外，还会更新kernel-的包，也会卸载掉已经废弃的包。</span><br><span class="line"></span><br><span class="line">新部署系统需要yum update/upgrade是因为yum不会给你解决依赖冲突(但是apt会)。</span><br><span class="line"></span><br><span class="line">举个例子，你的系统中已经安装了kernel-2.6.32.500，但是你要安装的某个软件包依赖于kernel-2.6.32.600，此时yum会报错退出，告诉你依赖不满足，并不会升级kernel包(只是举个例子而已，实际上几乎没有软件包直接依赖于kernel包)，所以你只能yum update/upgrade一次，把系统中所有的软件包全部更新，这样满足新部署的软件包的依赖。</span><br><span class="line"></span><br><span class="line">在debian/ubuntu的系统中，apt会对这种情况自动处理，会自动升级依赖的软件包。</span><br><span class="line"></span><br><span class="line">换句话来说，对于新部署的服务器，也是推荐upgrade全部的软件包，已获得最新的安全补丁。即使对于已经上线的服务器，也是推荐定期打安全漏洞补丁，减少漏洞带来的侵害。</span><br></pre></td></tr></table></figure>
-<h3 id="2-不能-ping通-解析-域名-但是能-ping通-ip-参考链接"><a href="#2-不能-ping通-解析-域名-但是能-ping通-ip-参考链接" class="headerlink" title="2 不能 ping通* (解析)域名,但是能 ping通 ip 参考链接"></a>2 不能 <strong>ping通*</strong> (解析)域名,但是能 <strong>ping通</strong> ip <a href="https://newbug.top/centos%E4%B8%8D%E8%83%BD%E8%A7%A3%E6%9E%90%E5%9F%9F%E5%90%8D/" target="_blank" rel="noopener">参考链接</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line"></span><br><span class="line"># 在文件的最后加上dns的设置比如：DNS1=8.8.8.8</span><br><span class="line"># 114.114.114.114和8.8.8.8，这两个DNS都可以，不用担心因ISP运营商导致的DNS劫持等问题，而且都是免费提供给用户使用的。</span><br><span class="line"># 114.114.114.114是国内移动、电信和联通通用的DNS，如果你的服务器位于海外，建议使用谷歌的DNS</span><br><span class="line"># 8.8.8.8是谷歌提供的DNS，该地址是全球通用的，如果你的服务器位于大陆，请不要使用。</span><br><span class="line"></span><br><span class="line">DNS1=8.8.8.8</span><br><span class="line"></span><br><span class="line"># 重启网卡</span><br><span class="line">sudo service network restart</span><br></pre></td></tr></table></figure>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<div>SimpleAdapter</div>
+ <br><h2>Activity</h2>
+<p><strong>主程序</strong></p>
+<p>listItem 中存放所有要显示的所有列数据，每 new <strong>一个map</strong>，即 在显示的列表中 新建<strong>一行</strong>数据，Title (自定义)、Image(自定义) 只是别名，分别对应 每一行的布局 item_layout 中的 资源 ID ， Title =&gt; R.id.item_text，Image =&gt; R.id.item_image。</p>
+<p><br></p>
+<pre><code class="language-java">package com.michael.training;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_layout);
+		
+		ListView listView = (ListView)findViewById(R.id.mListView);
+		ArrayList&lt;HashMap&lt;String, Object&gt;&gt; listItem = new ArrayList&lt;HashMap&lt;String, Object&gt;&gt;();
+		
+        HashMap&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put("Title", "NO.1	开发环境搭建");
+        map.put("Image", R.drawable.item);
+        listItem.add(map);
+        
+        map = null;
+        map = new HashMap&lt;String, Object&gt;();
+        map.put("Title", "NO.2	四大组件");
+        map.put("Image", R.drawable.item);
+        listItem.add(map);
+		
+		SimpleAdapter listAdapter = new SimpleAdapter(	this,
+								listItem,
+								R.layout.item_layout,
+								new String[] {"Title", "Image"},
+								new int[] {R.id.item_text,R.id.item_img});
+		listView.setAdapter(listAdapter);
+		listView.setOnItemClickListener(listener);
+	}
+	
+	OnItemClickListener listener=new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView&lt;?&gt; arg0, View arg1, int arg2,long arg3) {
+			Toast.makeText(getApplicationContext(),((Integer)arg2).toString()+"-----"+((Integer)arg2).toString(), Toast.LENGTH_SHORT).show();
+		}
+	};
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+}
+</code></pre>
+<br><h2>main_layout.xml</h2>
+<div><strong>主页面布局</strong></div>
+<div>只放了个ListView。</div>
+<pre><code class="language-html">&lt;RelativeLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
+     xmlns:tools = "http://schemas.android.com/tools"
+     android:layout_width = "match_parent"
+     android:layout_height = "match_parent"
+     tools:context = ".MainActivity"  &gt;
+    &lt;ListView  
+         android:id = "@+id/mListView"
+         android:layout_width = "match_parent"
+         android:layout_height = "match_parent" /&gt;
+&lt;/RelativeLayout&gt;</code></pre>
+<h2>item_layout.xml</h2>
+<div><strong>item布局</strong></div>
+<div>即ListView中每一行显示的布局，我定义了一个图片和一个文本。</div>
+<pre><code class="language-html">&lt;? xml   version = "1.0"   encoding = "utf-8" ?&gt;
+&lt;RelativeLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
+     android:layout_width = "fill_parent"
+     android:layout_height = "match_parent"
+     android:layout_gravity = "center_vertical"   xmlns:tools = "http://schemas.android.com/tools"   tools:ignore = "HardcodedText" &gt;
+    &lt;ImageView
+         android:id = "@+id/item_img"
+         android:layout_width = "wrap_content"
+         android:layout_height = "wrap_content"
+         android:layout_alignParentTop = "true"
+         android:layout_marginLeft = "10dp"
+         android:src = "@drawable/item"
+         android:contentDescription = "imageflag"   /&gt;
+    &lt;TextView
+         android:id = "@+id/item_text"
+         android:layout_width = "wrap_content"
+         android:layout_height = "wrap_content"
+         android:layout_alignBottom = "@+id/item_img"
+         android:layout_alignParentRight = "true"
+         android:layout_alignParentTop = "true"
+         android:layout_marginTop = "4dp"
+         android:layout_marginLeft = "24dp"
+         android:layout_toRightOf = "@+id/item_img"
+         android:gravity = "center_vertical"
+         android:text = "环境搭建"
+         android:textStyle = "bold"   /&gt;
+&lt;/RelativeLayout&gt;</code></pre>
+<p><br></p>
+<h2>成果</h2>
+<img src="https://img-blog.csdn.net/20130806152000234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br><div><br></div>
+<div><br></div>
+<div><strong><span style="color:#ff0000;">转载请注明出处！</span></strong></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><span style="font-size:10pt;font-family:'Courier New';color:#e79e3c;"><strong><code></code></strong></span></div>
+<div><span style="font-size:10pt;font-family:'Courier New';color:#e79e3c;"><strong><code></code></strong></span></div>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_系统新装/" data-id="cjoqptotr000ampsl0nbrnqio" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/" data-id="cjorxdn8v001iausleqskpzms" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -128,7 +258,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -139,7 +269,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -149,7 +279,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -158,7 +288,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -171,23 +301,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

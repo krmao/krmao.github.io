@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_ANDROID_SDK" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门12_滑动菜单SlidingMenu" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_ANDROID_SDK/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" class="article-date">
+  <time datetime="2018-11-22T01:34:55.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_ANDROID_SDK/">安装_CENTOS_ANDROID_SDK</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/">移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu</a>
     </h1>
   
 
@@ -102,38 +102,172 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-下载地址-https-developer-android-com-studio-index-html-downloads"><a href="#1-下载地址-https-developer-android-com-studio-index-html-downloads" class="headerlink" title="1 下载地址 https://developer.android.com/studio/index.html#downloads"></a>1 下载地址 <a href="https://developer.android.com/studio/index.html#downloads" target="_blank" rel="noopener">https://developer.android.com/studio/index.html#downloads</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/packages/</span><br><span class="line">wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip</span><br></pre></td></tr></table></figure>
-<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><ul>
-<li><p>解压到指定目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip /opt/software/packages/sdk-tools-linux-3859397.zip -d /opt/software/sdks/android/sdk</span><br><span class="line">cd /opt/software/sdks/android/sdk/tools/bin</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检查需要安装的 sdk 版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Sdk and tools</span><br><span class="line">minSdkVersion = 15</span><br><span class="line">targetSdkVersion = 25</span><br><span class="line">compileSdkVersion = 27</span><br><span class="line">buildToolsVersion = &quot;27.0.3&quot;</span><br><span class="line"></span><br><span class="line">// App dependencies</span><br><span class="line">supportLibraryVersion = &quot;27.0.2&quot;</span><br><span class="line">constraintLayoutVersion = &quot;1.0.2&quot;</span><br><span class="line">multidex = &quot;1.0.2&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行安装命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./sdkmanager --help</span><br><span class="line"></span><br><span class="line"># echo y | 通过管道模式直接确认,不需要等会儿手动输入 y 确认</span><br><span class="line">echo y | ./sdkmanager &quot;build-tools;27.0.3&quot; &quot;platforms;android-27&quot; &quot;platform-tools&quot; &quot;ndk-bundle&quot; &quot;extras;android;m2repository&quot; &quot;extras;google;m2repository&quot; &quot;extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2&quot; &quot;tools&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>默认安装的目录结构 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"># /opt/software/sdks/android/sdk</span><br><span class="line">[root@localhost android]# tree -L 3</span><br><span class="line">.</span><br><span class="line">└── sdk</span><br><span class="line">    ├── build-tools</span><br><span class="line">    │   └── 27.0.3</span><br><span class="line">    ├── emulator</span><br><span class="line">    │   ├── bin64</span><br><span class="line">    │   ├── emulator</span><br><span class="line">    │   ├── emulator64-arm</span><br><span class="line">    │   ├── emulator64-crash-service</span><br><span class="line">    │   ├── emulator64-mips</span><br><span class="line">    │   ├── emulator64-x86</span><br><span class="line">    │   ├── emulator-check</span><br><span class="line">    │   ├── lib</span><br><span class="line">    │   ├── lib64</span><br><span class="line">    │   ├── mksdcard</span><br><span class="line">    │   ├── NOTICE.txt</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── qemu</span><br><span class="line">    │   ├── resources</span><br><span class="line">    │   └── source.properties</span><br><span class="line">    ├── extras</span><br><span class="line">    │   ├── android</span><br><span class="line">    │   ├── google</span><br><span class="line">    │   └── m2repository</span><br><span class="line">    ├── licenses</span><br><span class="line">    │   └── android-sdk-license</span><br><span class="line">    ├── ndk-bundle</span><br><span class="line">    │   ├── build</span><br><span class="line">    │   ├── CHANGELOG.md</span><br><span class="line">    │   ├── meta</span><br><span class="line">    │   ├── ndk-build</span><br><span class="line">    │   ├── ndk-depends</span><br><span class="line">    │   ├── ndk-gdb</span><br><span class="line">    │   ├── ndk-stack</span><br><span class="line">    │   ├── ndk-which</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── platforms</span><br><span class="line">    │   ├── prebuilt</span><br><span class="line">    │   ├── python-packages</span><br><span class="line">    │   ├── README.md</span><br><span class="line">    │   ├── shader-tools</span><br><span class="line">    │   ├── simpleperf</span><br><span class="line">    │   ├── source.properties</span><br><span class="line">    │   ├── sources</span><br><span class="line">    │   ├── sysroot</span><br><span class="line">    │   └── toolchains</span><br><span class="line">    ├── patcher</span><br><span class="line">    │   └── v4</span><br><span class="line">    ├── platforms</span><br><span class="line">    │   └── android-27</span><br><span class="line">    ├── platform-tools</span><br><span class="line">    │   ├── adb</span><br><span class="line">    │   ├── api</span><br><span class="line">    │   ├── dmtracedump</span><br><span class="line">    │   ├── e2fsdroid</span><br><span class="line">    │   ├── etc1tool</span><br><span class="line">    │   ├── fastboot</span><br><span class="line">    │   ├── hprof-conv</span><br><span class="line">    │   ├── lib64</span><br><span class="line">    │   ├── make_f2fs</span><br><span class="line">    │   ├── mke2fs</span><br><span class="line">    │   ├── mke2fs.conf</span><br><span class="line">    │   ├── NOTICE.txt</span><br><span class="line">    │   ├── package.xml</span><br><span class="line">    │   ├── sload_f2fs</span><br><span class="line">    │   ├── source.properties</span><br><span class="line">    │   ├── sqlite3</span><br><span class="line">    │   └── systrace</span><br><span class="line">    └── tools</span><br><span class="line">        ├── android</span><br><span class="line">        ├── bin</span><br><span class="line">        ├── emulator</span><br><span class="line">        ├── emulator-check</span><br><span class="line">        ├── lib</span><br><span class="line">        ├── mksdcard</span><br><span class="line">        ├── monitor</span><br><span class="line">        ├── NOTICE.txt</span><br><span class="line">        ├── package.xml</span><br><span class="line">        ├── proguard</span><br><span class="line">        ├── source.properties</span><br><span class="line">        └── support</span><br><span class="line"></span><br><span class="line">38 directories, 42 files</span><br><span class="line">[root@localhost android]#</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line"># ANDROID_HOME START</span><br><span class="line">ANDROID_HOME=/opt/software/sdks/android/sdk</span><br><span class="line">PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:ANDROID_HOME/emulator</span><br><span class="line">export ANDROID_HOME PATH</span><br><span class="line"># ANDROID_HOME END</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ul>
-<li><p>Unsupported major.minor version 52.0 <a href="https://www.jianshu.com/p/9cde35b7faba" target="_blank" rel="noopener">点击查看如何安装 JDK1.8</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 需要安装 jdk 1.8 版本</span><br><span class="line">JDK 1.8 = 52</span><br><span class="line">JDK 1.7 = 51</span><br><span class="line">JDK 1.6 = 50</span><br><span class="line">JDK 1.5 = 49</span><br><span class="line">JDK 1.4 = 48</span><br><span class="line">JDK 1.3 = 47</span><br><span class="line">JDK 1.2 = 46</span><br><span class="line">JDK 1.1 = 45</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译 android 项目 报错 <strong>‘java.lang.RuntimeException: No server to serve request. Check logs for details.’</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 仔细查看编译日志</span><br><span class="line">AAPT err(Facade for 232115523): /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt: /lib64/libc.so.6: version `GLIBC_2.14&apos; not found (required by /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt)</span><br><span class="line">AAPT err(Facade for 232115523): /opt/software/sdks/android/sdk/build-tools/27.0.3/aapt: /lib64/libc.so.6: version `GLIBC_2.14&apos; not found (required by /opt/software/sdks/android/sdk/build-tools/27.0.3/lib64/libc++.so)</span><br><span class="line"></span><br><span class="line"># 查看系统是否已经安装 glibc 2.14</span><br><span class="line">strings /lib64/libc.so.6 |grep GLIBC</span><br><span class="line"></span><br><span class="line"># 发现不包含 2.14, 安装 glibc 2.14 版本应该可以解决问题</span><br><span class="line">yum install gcc g++</span><br><span class="line"></span><br><span class="line">cd /opt/software/packages/ &amp;&amp; wget wget http://ftp.gnu.org/gnu/glibc/glibc-2.14.tar.gz</span><br><span class="line">tar zxvf glibc-2.14.tar.gz</span><br><span class="line">cd glibc-2.14</span><br><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">../configure –prefix=/opt/glibc-2.14</span><br><span class="line">make -j4</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># /opt/software/packages/glibc-2.14/build/elf/ldconfig: Can&apos;t open configuration file /opt/software/glibc-2.14/etc/ld.so.conf: No such file or directory</span><br><span class="line">cp /etc/ld.so.conf /opt/software/glibc-2.14/etc/</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># make install 最后报 ld.so.conf: No such file or directory</span><br><span class="line">mkdir -p $prefix/etc</span><br><span class="line">touch $prefix/etc/ld.so.conf</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"># 重新查看系统是否已经安装 glibc 2.14</span><br><span class="line">strings /lib64/libc.so.6 |grep GLIBC</span><br><span class="line"># 我这里是仍然没有看到 2.14 :) 哈哈</span><br><span class="line"></span><br><span class="line"># 修改 aapt</span><br><span class="line">cd /opt/software/sdks/android/sdk/build-tools/27.0.3</span><br><span class="line">mv ./aapt ./aapt_</span><br><span class="line">vi ./aapt</span><br><span class="line"></span><br><span class="line">#!/bin/sh</span><br><span class="line">export LD_LIBRARY_PATH=/opt/software/glibc_2_14/lib &amp;&amp; &quot;$0&quot;_ $@</span><br><span class="line"></span><br><span class="line">chmod +x ./aapt</span><br><span class="line"></span><br><span class="line"># 对 ./aapt2 也做相同的处理,因为发现有的时候编译使用的是 aapt, 有的时候使用的是 aapt2</span><br><span class="line"></span><br><span class="line"># 重新build android 项目</span><br><span class="line">./gradlew clean assembleDebug --stacktrace</span><br><span class="line"></span><br><span class="line"># 编译成功 !!!</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p><strong><span style="font-size:18px;">注：本篇文章基于我以前发表的文章 <a href="http://blog.csdn.net/mkrcpp/article/details/11478011" rel="noopener" target="_blank"><span style="color:#ff0000;">Android 之 Fragment</span></a> 之上，稍作修改即可达到 炫酷的 滑动效果 :)</span></strong></p>
+<p></p>
+<div><span style="background-color:#c7edcc;"></span> </div>
+<div><span style="color:#ff0000;background-color:#c7edcc;"><strong><u>具体步骤如下:</u></strong></span></div>
+<h1>NO.1:    新建一个 内容布局，用于显示文章</h1>
+<div>            <span style="background-color:#c7edcc;">之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点哦。</span></div>
+<div><span style="background-color:#c7edcc;">            因为我们已不再使用之前的 main_layout.xml 了。</span></div>
+<div>            <span style="background-color:#c7edcc;">contentlayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_fragment"
+    android:name="com.example.myfragments.RightFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.2:    新建一个 菜单布局，用于显示菜单</h1>
+<div>            <span style="background-color:#c7edcc;">原因与第一步的原因相同 :)</span></div>
+<div>            <span style="background-color:#c7edcc;">menulayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_fragment"
+    android:name="com.example.myfragments.LeftFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.3:    下载并安装 SlidingMenu</h1>
+<div>            下载地址 <a href="https://github.com/jfeinstein10/SlidingMenu" rel="noopener" target="_blank">
+https://github.com/jfeinstein10/SlidingMenu</a> </div>
+<div><span></span>    打开 Eclipse ，将 SlidingMenu 导入。<br></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172748015" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172823500" alt=""></div>
+<div><span></span>    <img src="https://img-blog.csdn.net/20130924172828937" alt=""></div>
+<div><span></span>    </div>
+<div>            设置 项目 library 的属性，勾选 Is Library 。</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172946890" alt=""></div>
+<div>            </div>
+<div>            在自己的项目中引用 library 库，我的项目为 MyFragments</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172937390" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173043187" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173115390" alt=""></div>
+<div>            </div>
+<div> </div>
+<div>            由于 SlidingMenu 自带了 android-support-v4.jar，所以需要将自己项目中原有的 android-support-v4.jar 删掉。</div>
+<div>            成功导入后的截图为:</div>
+<div>            <img src="https://img-blog.csdn.net/20130924173121328" alt=""></div>
+<div>            ok，至此 SlidingMenu 已经成功引入，下面就开始使用吧 :)</div>
+<div> </div>
+<h1>NO.4:    使用 SlidingMenu</h1>
+<div>            只需要将 原 MainActivity.java 改写成如下代码即可</div>
+<div>
+<pre><code class="language-java">package com.example.myfragments;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+public class MainActivity extends Activity implements onItemSeletedListener{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   
+        requestWindowFeature(Window.FEATURE_NO_TITLE);   
+        
+        //开始设置滑动菜单
+        setContentView(R.layout.contentlayout);                     //设置正文的显示布局
+        //-------------------------------------------------------------------------------------
+        //NO.1    继承 SlidingActivity 方式
+        //setBehindContentView(R.layout.menulayout);                //设置左侧菜单的布局
+        //SlidingMenu menu = getSlidingMenu();
+        //-------------------------------------------------------------------------------------
+        //NO.2    非继承 SlidingActivity 方式
+        SlidingMenu menu = new SlidingMenu(this);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(R.layout.menulayout);                            //添加菜单
+        //-------------------------------------------------------------------------------------
+        
+        
+        menu.setMode(SlidingMenu.LEFT);                                //设置菜单位置
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);        //设置菜单打开方式
+                                                                    //TOUCHMODE_FULLSCREEN     全屏模式
+                                                                    //TOUCHMODE_MARGIN         边缘模式
+                                                                    //TOUCHMODE_NONE         不能通过手势打开
+        
+        
+        menu.setShadowWidth(12);                                    //设置渐变效果宽度    位于菜单 与 内容 之间
+        menu.setShadowDrawable(R.drawable.shadow);                    //设置菜单渐变效果
+        menu.setFadeDegree(0.9f);                                    //设置淡入程度       当滑出菜单时，渐变效果由0.9 - 0 淡入
+ 
+        menu.setBehindOffset(250);                                    //设置菜单滑出后 距离屏幕右边的长度(直接设置 dp)
+        //-------------------------------------------------------------------------------------
+        //设置结束
+        
+        
+        
+        
+        
+        //Fragment 一些代码增删改
+        //添加
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //LeftFragment leftfragment=new LeftFragment();
+        //fragmenttransaction.add(R.id.left_fragment, leftfragment);
+        //fragmenttransaction.commit();
+        //删除
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //Fragment leftfragment=fragmentmanager.findFragmentById(R.id.left_fragment);
+        //fragmenttransaction.remove(leftfragment);
+        //fragmenttransaction.commit();
+        //替换
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //fragmenttransaction.replace(R.id.left_fragment, new LeftFragment());
+        //fragmenttransaction.commit();
+    }
+    @Override
+    public void onItemSeleted(int position) {
+        RightFragment rightFragment=(RightFragment) getFragmentManager().findFragmentById(R.id.right_fragment);
+        
+        if(rightFragment != null)
+            rightFragment.update(position);
+    }
+}</code></pre>
+</div>
+<br><div>        上述代码中用到的 渐变设置为 R.drawable.shadow   该配置文件用到的颜色值见 文章  <a href="http://blog.csdn.net/mkrcpp/article/details/11563083" rel="noopener" target="_blank">Android ListView 之 SimpleAdapter 二 (包含 item 中按钮监听)</a> 中 第五节 color.xml 颜色值。</div>
+<div>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;shape xmlns:android="http://schemas.android.com/apk/res/android" &gt;
+    &lt;gradient
+        android:endColor="@color/darkblue"
+        android:centerColor="@color/darkgray"
+        android:startColor="@color/black" /&gt;
+&lt;/shape&gt;</code></pre>
+</div>
+<h1>NO.5:    滑动菜单效果展示</h1>
+<div>        <img src="https://img-blog.csdn.net/20130924173158859" alt=""></div>
+<div>        注意此处的渐变淡入效果</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173209000" alt=""></div>
+<div>        渐变效果为 由 黑色-深灰色-深蓝色 渐变。</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173248656" alt=""></div>
+<div>        </div>
+<br><p></p>
+<p><br></p>
+<p><span style="font-size:18px;color:#ff0000;"><strong><u>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></strong></span></p>
+<p><br></p>
+<p><br></p>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_ANDROID_SDK/" data-id="cjoqptot80002mpsl5tchl4nt" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" data-id="cjorxdo8e001uausl8eeljvai" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -149,7 +283,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -160,7 +294,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -170,7 +304,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -179,7 +313,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -192,23 +326,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android框架进阶〖04〗】MDevil 之 网络模块 Volley | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于 Android 应用开发，基于网络请求的开源框架有不少，我喜欢用的就是 AsyncHttpClient，UniversalImageLoader。原想法是在框架中封装一套通用的请求与返回接口，那么以后项目底层不管用什么框架进行网络请求，都不会修改业务层代码，实现业务与基本功能的分离，方便后期的优化，扩展。后来跟阿里的一位朋友聊到这块，谈到and">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android框架进阶〖04〗】MDevil 之 网络模块 Volley">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android框架进阶04_MDevil_之_网络模块_Volley/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="对于 Android 应用开发，基于网络请求的开源框架有不少，我喜欢用的就是 AsyncHttpClient，UniversalImageLoader。原想法是在框架中封装一套通用的请求与返回接口，那么以后项目底层不管用什么框架进行网络请求，都不会修改业务层代码，实现业务与基本功能的分离，方便后期的优化，扩展。后来跟阿里的一位朋友聊到这块，谈到and">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-22T01:34:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android框架进阶〖04〗】MDevil 之 网络模块 Volley">
+<meta name="twitter:description" content="对于 Android 应用开发，基于网络请求的开源框架有不少，我喜欢用的就是 AsyncHttpClient，UniversalImageLoader。原想法是在框架中封装一套通用的请求与返回接口，那么以后项目底层不管用什么框架进行网络请求，都不会修改业务层代码，实现业务与基本功能的分离，方便后期的优化，扩展。后来跟阿里的一位朋友聊到这块，谈到and">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android框架进阶04_MDevil_之_网络模块_Volley" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android框架进阶04_MDevil_之_网络模块_Volley/" class="article-date">
+  <time datetime="2018-11-22T01:34:47.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android框架进阶〖04〗】MDevil 之 网络模块 Volley
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p>对于 Android 应用开发，基于网络请求的开源框架有不少，我喜欢用的就是 AsyncHttpClient，UniversalImageLoader。原想法是在框架中封装一套通用的请求与返回接口，那么以后项目底层不管用什么框架进行网络请求，都不会修改业务层代码，实现业务与基本功能的分离，方便后期的优化，扩展。后来跟阿里的一位朋友聊到这块，谈到android端的网络请求，觉得一款牛逼的应用，尤其的是网络请求模块，应该有一套自己的东西，而不是用别人的，突然觉得很有道理，有必要选择一套自己网络框架，方便以后做老大
+ ：）</p>
+<p>首先想到一些内存，省电，线程池等诸多关键因素，再集合当前的一些开源框架，发现 AsyncHttpClient 也是有bug 的，而且如果用 AsyncHttpClient，对于listview等网络请求，我还得引入诸如 UniversalImageLoader 来对图片进行专门的处理，以前用过volley ,觉得很不错，没有深入研究，现在研究了下，发现也是有一些问题的，比如不能进行上传下载大文件，没有进度等，不过 volley 对 android做了很多优化，不支持大文件上传下载也是有原因的，比如设置了扫描线程的优先级，使之更省电，对
+ 2.2 以上和以下版本的网络请求做了分别处理，2.2以下用了AndroidHttpClient，2.3以上使用了  HttpUrlConnection，具体原因见 <a href="http://blog.csdn.net/guolin_blog/article/details/12452307" rel="noopener" target="_blank">http://blog.csdn.net/guolin_blog/article/details/12452307</a> 。觉得 Android
+ 系统是谷歌推出的，Volley 是谷歌工程师在 2013 I/O大会上推出的，最正统，遂决定研究 volley ，扩展 volley 。</p>
+<p>看了两天，发现 volley 在启动时，缓存了 主线程的 Handler，那么以后无论在主线程 or 子线程执行 volley网络请求，返回执行 onResponse 时都是主线程在执行，这是特性之一，然后接着发现 volley 初始化时开启了5个扫描线程，其中1个 缓存扫描线程，4个非缓存扫描线程，当添加一个请求时，先检查缓存是否已经有了，有则直接返回，否则再执行网络请求，这里应该就是对多图片请求的优化，volley 看翻译意思是 “万箭齐发”，寓意为加载图片像万箭齐射一样快，后期有空看能不能再搞个
+ 下载上传进度 功能，那就完美了。</p>
+<p><br></p>
+<p>随着对volley的深入，觉得不适合讲上传下载大文件集合在volley中，一共只有四个网络线程，大文件耗时的话会严重影响其他的，继续研究中。</p>
+<p><br></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶04_MDevil_之_网络模块_Volley/" data-id="cjorxdrfz002xausldeph198b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_MFC基础入门_OpenCV人脸检测与马赛克/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【MFC基础入门】OpenCV人脸检测与马赛克
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_IOS编程_00_The_Swift_Programming_Language/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【IOS编程 00】The Swift Programming Language</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android框架进阶〖04〗】MDevil 之 网络模块 Volley' + '-' + 'Thu Nov 22 2018 09:34:47 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

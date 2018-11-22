@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【PHP基础入门】配置Phpstorm与xampp | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1 Xampp    安装好xampp，配置 httpd.conf  191/221 行 DocumentRoot 路径改为 &quot;F:/PHP&quot;  （我的工作空间）,以后项目就放在这个文件夹里。    配置 php.ini    Windows 下  [XDebug] zend_extension = &quot;E:\Software\Develop\xamp">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【PHP基础入门】配置Phpstorm与xampp">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="1 Xampp    安装好xampp，配置 httpd.conf  191/221 行 DocumentRoot 路径改为 &quot;F:/PHP&quot;  （我的工作空间）,以后项目就放在这个文件夹里。    配置 php.ini    Windows 下  [XDebug] zend_extension = &quot;E:\Software\Develop\xamp">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://img-blog.csdn.net/20130712170419953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2018-11-22T01:34:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【PHP基础入门】配置Phpstorm与xampp">
+<meta name="twitter:description" content="1 Xampp    安装好xampp，配置 httpd.conf  191/221 行 DocumentRoot 路径改为 &quot;F:/PHP&quot;  （我的工作空间）,以后项目就放在这个文件夹里。    配置 php.ini    Windows 下  [XDebug] zend_extension = &quot;E:\Software\Develop\xamp">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_PHP基础入门_配置Phpstorm与xampp" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" class="article-date">
+  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【PHP基础入门】配置Phpstorm与xampp
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<div><strong>1 Xampp</strong> </div>
+<div><strong><br></strong></div>
+<div><a href="http://blog.csdn.net/jonathanlin2008/article/details/6210782%E2%80%8D" rel="noopener" target="_blank"></a></div>
+<div><strong>安装好xampp，配置 httpd.conf</strong> </div>
+<div>191/221 行 DocumentRoot 路径改为 "F:/PHP"  （我的工作空间）,以后项目就放在这个文件夹里。</div>
+<div></div>
+<div> </div>
+<div><strong>配置 php.ini</strong> </div>
+<div> </div>
+<div>Windows 下</div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension = "E:\Software\Develop\xampp\php\ext\php_xdebug.dll"
+xdebug.profiler_append = 0
+xdebug.profiler_enable = 1
+xdebug.profiler_enable_trigger = 0
+xdebug.profiler_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.profiler_output_name = "cachegrind.out.%t-%s"
+xdebug.remote_enable = on
+xdebug.remote_handler = "dbgp"
+xdebug.remote_host = "127.0.0.1"
+xdebug.trace_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.remote_port = 9000</code></pre>
+</div>
+<div><br></div>
+<div>重启 Apache </div>
+<div> </div>
+<div>如果是Linux 需要下载 xdebug</div>
+<div><a href="http://code.activestate.com/komodo/remotedebugging/" rel="noopener" target="_blank">http://code.activestate.com/komodo/remotedebugging/</a></div>
+<div> </div>
+<div>解压后找到合适版本的xdebug.so并将其复制到/opt/lampp/lib/php/extensions/中。然后修改/opt/lampp/etc/php.ini文件，</div>
+<div>在其最后加上</div>
+<div><code></code>
+<div>
+<div><br></div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension="/opt/lampp/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=true
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+xdebug.remote_handler=dbgp
+xdebug.profiler_enable=1
+xdebug.profiler_output_dir="/opt/lampp/tmp"</code></pre>
+<br></div>
+</div>
+</div>
+<div>lampp restart</div>
+<div><br></div>
+<div><strong>2 PhpStorm</strong></div>
+<div> </div>
+<div><strong>2.1    进入File&gt;Settings&gt;PHP&gt;Servers，添加一个 Server</strong> </div>
+<div> </div>
+<div><code></code>
+<div>
+<div>
+<pre><code class="language-python">Name     :  localhost
+Host     :  localhost
+Port     :  80
+Debugger :  Xdebuger</code></pre>
+</div>
+<br></div>
+</div>
+<div> </div>
+<div><strong>2.2    进入File&gt;Settings&gt;PHP&gt;Debug</strong></div>
+<div> </div>
+<div>
+<pre><code class="language-python">Debug port    :    9000</code></pre>
+</div>
+<br><div> </div>
+<div><strong>2.3    打开 Edit Configurations</strong></div>
+<div> </div>
+<div align="left"></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div><br></div>
+<div><strong><u>添加一个 PHP Web Application</u></strong></div>
+<div><strong><u><br></u></strong></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170419953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div align="left"></div>
+<div> </div>
+<div>运行时 就用这个 Web 运行调试，搞定。</div>
+<div>还不行就试试修改 上图中的Defaults，我把 server都改成了自己的localhost ,浏览器改成了firefox。</div>
+<div><br></div>
+<div>成果就是设置好断点,</div>
+<div>debug 运行，或者直接 shift + F9</div>
+<div>则会自动打开火狐浏览器并且停留在断点处。</div>
+<div><br></div>
+<div><br></div>
+<div><strong><span style="font-size:18px;">以后遇到新问题是将更新本文档，免得后面人又得重新探索，也欢迎大家提出问题。</span></strong></div>
+<div> </div>
+<div><span style="font-size:18px;color:#ff0000;"><strong>转载请注明出处</strong></span></div>
+<div><br></div>
+<div> </div>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" data-id="cjorxdvy80046auslew71i8v6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖0〗】AndroidStudio
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门8_SimpleAdapter之一/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖8〗】SimpleAdapter之一</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【PHP基础入门】配置Phpstorm与xampp' + '-' + 'Thu Nov 22 2018 09:34:56 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0  简介         BroadcastReceiver也就是“广播接收者”的意思，顾名思义，它就是用来接收来自系统和应用中的  广播。        在Android系统中，广播体现在方方面面，例如当开机完成后系统会产生一条广播，接收到这条广播  就能实现开机启动服务的功能；当网络状态改变时系统会产生一条广播，接收到这条广播就能及时地做出提">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门5_四大组件之BroadcastReceiver/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="0  简介         BroadcastReceiver也就是“广播接收者”的意思，顾名思义，它就是用来接收来自系统和应用中的  广播。        在Android系统中，广播体现在方方面面，例如当开机完成后系统会产生一条广播，接收到这条广播  就能实现开机启动服务的功能；当网络状态改变时系统会产生一条广播，接收到这条广播就能及时地做出提">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924224724921">
+<meta property="og:updated_time" content="2018-11-22T01:34:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver">
+<meta name="twitter:description" content="0  简介         BroadcastReceiver也就是“广播接收者”的意思，顾名思义，它就是用来接收来自系统和应用中的  广播。        在Android系统中，广播体现在方方面面，例如当开机完成后系统会产生一条广播，接收到这条广播  就能实现开机启动服务的功能；当网络状态改变时系统会产生一条广播，接收到这条广播就能及时地做出提">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20130924224724921">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android基础入门5_四大组件之BroadcastReceiver" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门5_四大组件之BroadcastReceiver/" class="article-date">
+  <time datetime="2018-11-22T01:34:54.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>0  简介</h1>
+<div>
+<div>       BroadcastReceiver也就是“广播接收者”的意思，顾名思义，它就是用来接收来自系统和应用中的 </div>
+<div>广播。</div>
+<div>       在Android系统中，广播体现在方方面面，例如当开机完成后系统会产生一条广播，接收到这条广播 </div>
+<div>就能实现开机启动服务的功能；当网络状态改变时系统会产生一条广播，接收到这条广播就能及时地做出提 </div>
+<div>示和保存数据等操作；当电池电量改变时，系统会产生一条广播，接收到这条广播就能在电量低时告知用户 </div>
+<div>及时保存进度，等等。</div>
+<div>       Android中的广播机制设计的非常出色，很多事情原本需要开发者亲自操作的，现在只需等待广播告 </div>
+<div>知自己就可以了，大大减少了开发的工作量和开发周期。</div>
+<div>
+<hr></div>
+</div>
+<h1>1  普通广播</h1>
+<div>
+<div>       普通广播对于多个接收者来说是完全异步的，通常每个接收者都无需等待即可以接收到广播，接收者相互之 </div>
+<div>间不会有影响。对于这种广播，接收者无法终止广播，即无法阻止其他接收者的接收动作。</div>
+<div><span style="color:#ff0000;"><strong>动态接收器高优先级 &gt; 动态接收器低优先级 &gt; 静态接收器高优先级 &gt; 静态接收器低优先级</strong></span></div>
+<div> </div>
+</div>
+<h3>    1.1 自定义广播 MyReceiver.java</h3>
+<div>
+<pre><code class="language-java">package com.broadcastreceiver;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+public class MyReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // TODO 自动生成的方法存根
+        Toast.makeText(context, intent.getAction()+intent.getStringExtra("message"), Toast.LENGTH_SHORT).show();
+    }
+}</code></pre>
+<br><br></div>
+<h3>    1.2 注册广播</h3>
+<div>
+<pre><code class="language-html">&lt;receiver android:name="com.broadcastreceiver.MyReceiver"&gt;
+    &lt;intent-filter &gt;
+        &lt;action android:name="michael.FIRSTRECEIVER"/&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;</code></pre>
+<br></div>
+<h3>    1.3 发送广播</h3>
+<div>
+<pre><code class="language-java">package com.broadcastreceiver;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        Button btn_send=(Button)findViewById(R.id.btn_send);
+        btn_send.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setAction("michael.FIRSTRECEIVER");
+                intent.putExtra("message", "我是神奇的广播消息！");
+                sendBroadcast(intent);
+            }
+        });
+    }
+}</code></pre>
+<br><br></div>
+<h1>2  有序广播</h1>
+<div>
+<div>       有序广播比较特殊，它每次只发送到优先级较高的接收者那里，然后由优先级高的接受者再传播到优先级低 </div>
+<div>的接收者那里，优先级高的接收者有能力终止这个广播</div>
+<div><strong><span style="color:#ff0000;">如果静态接收器的优先级高于动态接收器的优先级，那么还是静态接收器先接收到广播（比如接收短信）</span></strong></div>
+<div> </div>
+</div>
+<h3>    2.1 在前一节的基础上再新建个 广播 YourReceiver.java</h3>
+<div>
+<pre><code class="language-java">package com.broadcastreceiver;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+public class YourReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Bundle bundle=getResultExtras(true);
+        String first=bundle.getString("first");
+        Toast.makeText(context, "上一个接收器转播的数据为："+first, Toast.LENGTH_LONG).show();
+    }
+}</code></pre>
+<br><br></div>
+<div>   <strong> <span style="font-size:12px;">2.2 代码注册广播</span></strong></div>
+<div><br></div>
+<div>
+<pre><code class="language-java">package com.broadcastreceiver;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    YourReceiver yourreceiver=null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        yourreceiver=new YourReceiver();
+        Button btn_send=(Button)findViewById(R.id.btn_send);
+        btn_send.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setAction("michael.FIRSTRECEIVER");
+                intent.putExtra("message", "我是神奇的广播消息！");
+                sendBroadcast(intent);
+            }
+        });
+        
+        //代码动态注册广播
+        IntentFilter filter=new IntentFilter();
+        filter.addAction("michael.FIRSTRECEIVER");
+        filter.setPriority(10);
+        registerReceiver(yourreceiver, filter);
+    }
+    @Override
+    protected void onDestroy() {
+        //程序退出前取消注册广播
+        unregisterReceiver(yourreceiver);
+        super.onDestroy();
+    }
+}</code></pre>
+<br></div>
+<div><strong>广播的发送不局限于当前应用程序，其它程序发送广播的话也可接收到。</strong></div>
+<h1><span style="color:rgb(255,0,0);">2.3  接收优先级</span></h1>
+<div>
+<div>       静态接收器优先级低于动态接收器，也就是说，无论多么高级别的静态接收器和多么低级别的动态接收器都 </div>
+<div>接收同一广播，永远都是动态接收器先接收到(相对于普通广播)</div>
+<div>       动态接收器也可以设置优先级，高优先级的接收器会在低优先级的接收器之前接收到广播，同样优先级的动 </div>
+<div>态接收器,谁先注册到系统，谁就抢先接收到广播。</div>
+<div> </div>
+<div><strong><span style="color:#ff0000;"><u>举例：</u></span></strong></div>
+<div>
+<div>假设有如下优先级的5个接收器</div>
+<div>1.动态A（优先级=1）</div>
+<div>2.动态B（优先级=2）</div>
+<div>3.动态C（优先级=2）</div>
+<div>4.静态D（优先级=1）</div>
+<div>5.静态E（优先级=2）并且B先于C注册</div>
+<div> </div>
+<div><strong>普通广播接收的顺序</strong></div>
+<div><strong>B C A E D    (动态接收器高优先级 &gt; 动态接收器低优先级 &gt; 静态接收器高优先级 &gt; 静态接收器低优先级 )</strong></div>
+<div><strong>有序广播接收的顺序</strong></div>
+<div><strong>B C E A D    (如果静态接收器的优先级高于动态接收器的优先级，那么还是静态接收器先接收到广播)</strong></div>
+<div> </div>
+</div>
+</div>
+<div>这是在一片博客上看到的图，忘记原创地址了，罪过啊</div>
+<div><br></div>
+<div> </div>
+<div> <img src="https://img-blog.csdn.net/20130924224724921" alt=""></div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div><strong> <span style="color:rgb(255,0,0);font-family:Arial;font-size:17.77777862548828px;line-height:25.98958396911621px;"><u>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></span></strong></div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门5_四大组件之BroadcastReceiver/" data-id="cjorxdmr80019ausl8jjsgaq7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门4_四大组件之Service/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖4〗】四大组件之Service</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver' + '-' + 'Thu Nov 22 2018 09:34:54 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

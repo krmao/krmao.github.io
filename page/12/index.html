@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门4_四大组件之Service" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_Android基础入门4_四大组件之Service/" class="article-date">
+  <time datetime="2018-11-22T01:34:54.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/">服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门4_四大组件之Service/">移动端_IOS【Android基础入门〖4〗】四大组件之Service</a>
     </h1>
   
 
@@ -102,21 +102,271 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="公共接口"><a href="#公共接口" class="headerlink" title="公共接口"></a>公共接口</h3><p>发现书写 mapper对数据库进行增删改查 以及 controller 都是重复性操作，才有了本编文章，主要是利用反射自动生成 SQL 增删改查语句</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.ibatis.annotations.DeleteProvider</span><br><span class="line">import org.apache.ibatis.annotations.InsertProvider</span><br><span class="line">import org.apache.ibatis.annotations.Options</span><br><span class="line">import org.apache.ibatis.annotations.UpdateProvider</span><br><span class="line"></span><br><span class="line">interface HKBaseMapper&lt;T&gt; &#123;</span><br><span class="line">    @Options(useGeneratedKeys = true)</span><br><span class="line">    @InsertProvider(type = HKSqlProvider::class, method = &quot;insert&quot;)</span><br><span class="line">    fun insert(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @DeleteProvider(type = HKSqlProvider::class, method = &quot;delete&quot;)</span><br><span class="line">    fun delete(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @UpdateProvider(type = HKSqlProvider::class, method = &quot;update&quot;)</span><br><span class="line">    fun update(tableModel: T): Int</span><br><span class="line"></span><br><span class="line">    @SelecProvider(type = HKSqlProvider::class, method = &quot;select&quot;)</span><br><span class="line">    fun select(tableModel: T): MutableList&lt;T&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.ibatis.annotations.Mapper</span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">interface AdMapper : HKBaseMapper&lt;AdModel&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.logging.log4j.LogManager</span><br><span class="line">import org.apache.logging.log4j.Logger</span><br><span class="line"></span><br><span class="line">@Suppress(&quot;unused&quot;)</span><br><span class="line">class HKSqlProvider &#123;</span><br><span class="line">    private val logger: Logger = LogManager.getLogger(UserController::class.java.name)</span><br><span class="line"></span><br><span class="line">    fun insert(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;insert into $tableName (&quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(valueName).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;) values(&quot;) &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;)&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-insert --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun update(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;update $tableName set &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot;,&quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-update --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun delete(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;delete from $tableName where &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot; and &quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-delete --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun select(tableModel: Any?): String &#123;</span><br><span class="line">        val tableName = tableModel?.javaClass?.simpleName?.replace(&quot;Model&quot;, &quot;&quot;)?.toLowerUnderScoreFromUpperCamel()</span><br><span class="line">        val modelFields = HKReflectUtil.getFields(tableModel?.javaClass)</span><br><span class="line">        val valueNameList = ArrayList&lt;String&gt;()</span><br><span class="line">        val sqlString = StringBuilder(&quot;select * from $tableName where &quot;)</span><br><span class="line">        modelFields.forEach &#123; field -&gt; HKReflectUtil.getValue(field, tableModel)?.let &#123; valueNameList.add(field.name) &#125; &#125;</span><br><span class="line">        valueNameList.forEachIndexed &#123; index, valueName -&gt; sqlString.append(&quot;$valueName=#&#123;$valueName&#125;&quot;).append(if (index != valueNameList.size - 1) &quot; and &quot; else &quot;&quot;) &#125;</span><br><span class="line"></span><br><span class="line">        logger.warn(&quot;&quot;&quot;</span><br><span class="line">            ---------------------------------</span><br><span class="line">            mybatis-buildSql-select --&gt;</span><br><span class="line">            tableModel: $tableModel</span><br><span class="line">                   sql: $sqlString</span><br><span class="line">            ---------------------------------</span><br><span class="line">        &quot;&quot;&quot;)</span><br><span class="line">        return sqlString.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">import io.swagger.annotations.ApiOperation</span><br><span class="line">import org.springframework.web.bind.annotation.PostMapping</span><br><span class="line">import org.springframework.web.bind.annotation.RequestBody</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping</span><br><span class="line">import org.springframework.web.bind.annotation.RestController</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/ad&quot;)</span><br><span class="line">class AdController(val mapper: AdMapper) &#123;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;增加&quot;, notes = &quot;返回 ID&quot;)</span><br><span class="line">    @PostMapping(&quot;/insert&quot;)</span><br><span class="line">    fun insert(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKIdData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(HKIdData(mapper.insert(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;删除&quot;, notes = &quot;返回 受影响的行数&quot;)</span><br><span class="line">    @PostMapping(&quot;/delete&quot;)</span><br><span class="line">    fun delete(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKColumnData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response(HKColumnData(-1))</span><br><span class="line">        return HKResponse(HKColumnData(mapper.delete(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;修改&quot;, notes = &quot;返回 受影响的行数&quot;)</span><br><span class="line">    @PostMapping(&quot;/update&quot;)</span><br><span class="line">    fun update(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;HKColumnData&gt; &#123;</span><br><span class="line">        if (request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(HKColumnData(mapper.update(request.data!!)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ApiOperation(&quot;查询&quot;)</span><br><span class="line">    @PostMapping(&quot;/select&quot;)</span><br><span class="line">    fun select(@RequestBody request: HKRequest&lt;AdModel&gt;): HKResponse&lt;List&lt;AdModel&gt;&gt; &#123;</span><br><span class="line">        if (request.data == null || request.data == null) return HKCode.ERROR_PARAMS.response()</span><br><span class="line">        return HKResponse(mapper.select(request.data!!))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="反射工具类"><a href="#反射工具类" class="headerlink" title="反射工具类"></a>反射工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import java.lang.reflect.Field</span><br><span class="line">import java.lang.reflect.InvocationTargetException</span><br><span class="line">import kotlin.reflect.KClass</span><br><span class="line">import kotlin.reflect.full.companionObject</span><br><span class="line">import kotlin.reflect.full.companionObjectInstance</span><br><span class="line">import kotlin.reflect.full.declaredFunctions</span><br><span class="line"></span><br><span class="line">@Suppress(&quot;unused&quot;)</span><br><span class="line">object HKReflectUtil &#123;</span><br><span class="line">    private val TAG = &quot;[reflect]&quot;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 根据方法的名字调用方法，适合 object 定义的单例静态方法</span><br><span class="line">     */</span><br><span class="line">    @Throws(RuntimeException::class, IllegalAccessException::class, IllegalArgumentException::class, InvocationTargetException::class, NullPointerException::class, ExceptionInInitializerError::class)</span><br><span class="line">    fun invoke(clazz: KClass&lt;*&gt;?, methodName: String?, vararg params: Any?): Any? &#123;</span><br><span class="line">        if (clazz == null || methodName.isNullOrBlank()) throw RuntimeException(&quot;$&#123;TAG&#125; clazz:$clazz or methodName:$methodName is null&quot;)</span><br><span class="line">        val methods = clazz.java.kotlin.companionObject?.declaredFunctions?.filter &#123; it.name == methodName &amp;&amp; it.parameters.size - 1 == params.size &#125;</span><br><span class="line">        if (methods?.size ?: 0 &lt;= 0) throw RuntimeException(&quot;[callNativeMethod] the invoked method dose not exist :$methodName&quot;)</span><br><span class="line">        return methods!![0].call(clazz.companionObjectInstance, *params)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getFields(objectClass: Class&lt;*&gt;?): MutableList&lt;Field&gt; &#123;</span><br><span class="line">        var fieldList: MutableList&lt;Field&gt;? = null</span><br><span class="line">        try &#123;</span><br><span class="line">            fieldList = objectClass?.declaredFields?.toMutableList()</span><br><span class="line">            objectClass?.superclass?.declaredFields.let &#123; if (it != null) fieldList?.addAll(it) &#125;</span><br><span class="line">        &#125; catch (ignore: Exception) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        return fieldList ?: arrayListOf()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getValue(field: Field?, fromObject: Any?): Any? = try &#123;</span><br><span class="line">        field?.isAccessible = true</span><br><span class="line">        field?.get(fromObject)</span><br><span class="line">    &#125; catch (ignore: Exception) &#123;</span><br><span class="line">        null</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><p><img src="http://upload-images.jianshu.io/upload_images/2062311-b06f057d9274c144.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="swagger2"></p>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>1  生命周期图</h1>
+<div></div>
+<div> <img src="https://img-blog.csdn.net/20130924230320328" alt=""></div>
+<h1>2 第一种 非绑定方式 startService</h1>
+<h2>2.1 自定义 Service</h2>
+<div>
+<pre><code class="language-java">package com.demoservice;
+import android.app.Service;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+public class FirstService extends Service {
+    MediaPlayer mplayer;
+    Binder binder=new Binder();
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO 自动生成的方法存根
+        return binder;
+    }
+    @Override
+    public void onCreate() {
+        // TODO 自动生成的方法存根
+        super.onCreate();
+        mplayer=MediaPlayer.create(this, R.raw.music12);
+        Log.i("demo", "onCreate");
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onStartCommand");
+        mplayer.start();
+        return super.onStartCommand(intent, flags, startId);
+    }
+    @Override
+    public void onDestroy() {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onDestroy");
+        mplayer.stop();
+        super.onDestroy();
+    }
+}</code></pre>
+<br><h2>2.2 注册 Service</h2>
+</div>
+<p></p>
+<pre><code class="language-html">&lt;service
+    android:name="com.demoservice.FirstService"&gt;
+    &lt;intent-filter &gt;
+        &lt;action android:name="michael.FIRSTSERVICE"/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;</code></pre>
+<br><h2>2.3 开启/关闭 Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-java">package com.demoservice;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    Button btn_start,btn_stop;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btn_start=(Button)findViewById(R.id.btn_start);
+        btn_stop=(Button)findViewById(R.id.btn_stop);
+        
+        final Intent intent=new Intent();
+        intent.setAction("michael.FIRSTSERVICE");
+        
+        OnClickListener listener=new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO 自动生成的方法存根
+                if(v == btn_start)
+                {
+                    startService(intent);
+                }else if(v==btn_stop)
+                {
+                    stopService(intent);
+                }
+            }
+        };    
+        btn_start.setOnClickListener(listener);
+        btn_stop.setOnClickListener(listener);
+    }
+}</code></pre>
+<br><br><p></p>
+<h1>3 第二种 绑定方式 bindService</h1>
+<h2>3.1 自定义 Service</h2>
+<p></p>
+<pre><code class="language-java">package com.SecondService;
+import com.demoservice.R;
+import android.app.Service;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+public class SecondService extends Service {
+    int count;
+    boolean quit=false;
+    MediaPlayer mplayer;
+    MyBinder binder=new MyBinder();
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onBind");
+        mplayer.start();
+        
+        new Thread()
+        {
+            @Override
+            public void run() {
+                while(!quit)
+                {
+                    try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+                    count++;
+                    Log.i("demo", String.valueOf(count));
+                }
+            }
+        }.start();
+        return binder;
+    }
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("demo", "onUnbind");
+        quit=true;
+        return super.onUnbind(intent);
+    }
+    @Override
+    public void onRebind(Intent intent) {
+        Log.i("demo", "onRebind");
+        mplayer.start();
+        super.onRebind(intent);
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        quit=false;
+        mplayer=MediaPlayer.create(this, R.raw.music12);
+        Log.i("demo", "onCreate");
+    }
+    @Override
+    public void onDestroy() {
+        Log.i("demo", "onDestroy");
+        mplayer.stop();
+        quit=true;
+        super.onDestroy();
+    }
+    
+    class MyBinder extends Binder
+    {
+        public SecondService getService()
+        {
+            return SecondService.this;
+        }
+        public int getCount()
+        {
+            return count;
+        }
+    }
+}</code></pre>
+<br><h2>3.2 注册 Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-html">&lt;service
+    android:name="com.SecondService.SecondService"&gt;
+    &lt;intent-filter &gt;
+        &lt;action android:name="michael.SECONDSERVICE"/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;</code></pre>
+<br><h2>3.3 绑定/解绑Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-java">package com.SecondService;
+import com.demoservice.R;
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    SecondService mservice;
+    ServiceConnection conn=new ServiceConnection() {
+        
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            // TODO 自动生成的方法存根
+            Log.i("demo", "onServiceDisconnected");
+            mservice=null;
+        }
+        
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // TODO 自动生成的方法存根
+            Log.i("demo", "onServiceConnecteds");
+            mservice = ((SecondService.MyBinder)service).getService();
+        }
+    };
+    
+    Button btn_start,btn_stop,btn_get;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btn_start=(Button)findViewById(R.id.btn_start);
+        btn_get=(Button)findViewById(R.id.btn_get);
+        btn_stop=(Button)findViewById(R.id.btn_stop);
+        final Intent intent=new Intent();
+        intent.setAction("michael.SECONDSERVICE");
+        
+        OnClickListener listener=new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO 自动生成的方法存根
+                if(v == btn_start)
+                {
+                    bindService(intent, conn, BIND_AUTO_CREATE);
+                }else if(v==btn_stop)
+                {
+                    unbindService(conn);
+                }else if(v==btn_get)
+                {
+                    btn_get.setText(String.valueOf(mservice.binder.getCount()));
+                }
+            }
+        };    
+        btn_start.setOnClickListener(listener);
+        btn_stop.setOnClickListener(listener);
+        btn_get.setOnClickListener(listener);
+    }
+}</code></pre>
+<p></p>
+<p><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><strong><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u>转载请注明出处!</u></span></strong></span></p>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/服务端_SPRING_BOOT_KOTLIN_MYBATIS_COMMON_SQL_PROVIDER/" data-id="cjoqptouh000umpslte9ei3j8" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门4_四大组件之Service/" data-id="cjorxdmh40016auslg2npw3kx" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">SPRING-BOOT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service/">服务端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -132,7 +382,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -143,7 +393,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -153,7 +403,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -162,7 +412,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -175,23 +425,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

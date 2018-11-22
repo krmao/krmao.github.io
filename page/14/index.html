@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_IOS_文件操作" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/移动端_IOS_文件操作/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" class="article-date">
+  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/移动端_IOS_文件操作/">移动端_IOS_文件操作</a>
+      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/">移动端_IOS【Django基础入门】Ckeditor Wins7下图片上传及显示的路径问题</a>
     </h1>
   
 
@@ -102,16 +102,98 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="1：-拖拽需要打包的文件至工程为蓝色，勾选-Copy-items-if-needed-and-Create-folder-references"><a href="#1：-拖拽需要打包的文件至工程为蓝色，勾选-Copy-items-if-needed-and-Create-folder-references" class="headerlink" title="1： 拖拽需要打包的文件至工程为蓝色，勾选 Copy items if needed and Create folder references"></a>1： 拖拽需要打包的文件至工程为蓝色，勾选 Copy items if needed and Create folder references</h5><h5 id="2：TARGETS-gt-Build-Phases-gt-Copy-Bundle-Resources-gt-add-第一步的文件"><a href="#2：TARGETS-gt-Build-Phases-gt-Copy-Bundle-Resources-gt-add-第一步的文件" class="headerlink" title="2：TARGETS -&gt; Build Phases -&gt; Copy Bundle Resources -&gt; add 第一步的文件"></a>2：TARGETS -&gt; Build Phases -&gt; Copy Bundle Resources -&gt; add 第一步的文件</h5><h5 id="3：案例"><a href="#3：案例" class="headerlink" title="3：案例"></a>3：案例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">// 1、获取沙盒根目录let homeDir = NSHomeDirectory() as String</span><br><span class="line">let homeDir = NSHomeDirectory() as String</span><br><span class="line">print(&quot;[hybird]&quot;, &quot;homeDir&quot;, homeDir)</span><br><span class="line"></span><br><span class="line">// 2、获取 Documents 目录</span><br><span class="line">let docDirs = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray</span><br><span class="line">let docDir = docDirs[0] as! String</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;docDirs&quot;,docDirs)</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;docDir&quot;,docDir)</span><br><span class="line">// 3、获取 Caches 目录</span><br><span class="line">let cachesDirs = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) as NSArray</span><br><span class="line">let cachesDir = cachesDirs[0] as! String</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;cachesDirs&quot;,cachesDirs)</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;cachesDir&quot;,cachesDir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 4、获取 Library 目录</span><br><span class="line">let libDirs = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as NSArray</span><br><span class="line">let libDir = libDirs[0] as! String</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;libDirs&quot;,libDirs)</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;libDir&quot;,libDir)</span><br><span class="line"></span><br><span class="line">// 5、获取 tmp 目录</span><br><span class="line"></span><br><span class="line">let tmpDir = NSTemporaryDirectory() as String</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;tmpDir&quot;,tmpDir)</span><br><span class="line"></span><br><span class="line">// 6、初始化 fileManager</span><br><span class="line">let fileManager = FileManager.default</span><br><span class="line"></span><br><span class="line">// 7、使用 fileManager 创建目录</span><br><span class="line">let testDir = docDir + &quot;/test&quot;</span><br><span class="line"></span><br><span class="line">do &#123;</span><br><span class="line">    try  fileManager.createDirectory(atPath: testDir, withIntermediateDirectories: true, attributes: nil)</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">    print(&quot;[hybird]&quot;,&quot;createDirectory failure&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 8、使用 fileManager 创建文件</span><br><span class="line">let testFile1 = testDir + &quot;/test1.txt&quot;</span><br><span class="line">let testFile2 = testDir + &quot;/test2.txt&quot;</span><br><span class="line">fileManager.createFile(atPath: testFile1, contents: nil, attributes: nil)</span><br><span class="line">fileManager.createFile(atPath: testFile2, contents: nil, attributes: nil)</span><br><span class="line"></span><br><span class="line">// 9、使用 fileManager 获取目录下的文件名</span><br><span class="line">var files = fileManager.subpaths(atPath: testDir)</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;files:&quot;,files ?? &quot;&quot;)</span><br><span class="line">// 10、使用 fileManager 删除文件</span><br><span class="line">do &#123;</span><br><span class="line">    try fileManager.removeItem(atPath: testFile1)</span><br><span class="line">&#125; catch  &#123;</span><br><span class="line">    print(&quot;[hybird]&quot;,&quot;removeItem failure&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(&quot;[hybird]&quot;,&quot;Bundle.main.resourcePath&quot;,Bundle.main.resourcePath ?? &quot;null&quot;)</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;Bundle.main.bundlePath&quot;,Bundle.main.bundlePath)</span><br><span class="line"></span><br><span class="line">files = fileManager.subpaths(atPath: Bundle.main.bundlePath)</span><br><span class="line"></span><br><span class="line">print(&quot;[hybird]&quot;,&quot;============================================&quot;)</span><br><span class="line">for file in files! &#123;</span><br><span class="line">    print(&quot;[hybird]&quot;,&quot;file:&quot;,file)</span><br><span class="line">&#125;</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;============================================&quot;)</span><br><span class="line"></span><br><span class="line">let bundleZipPath = Bundle.main.path(forResource: &quot;bundle&quot;, ofType: &quot;zip&quot;, inDirectory: &quot;assets&quot;) ?? &quot;&quot;</span><br><span class="line">print(&quot;[hybird]&quot;,&quot;bundleZipPath:&quot;,bundleZipPath)</span><br></pre></td></tr></table></figure>
-<h5 id="4：输出"><a href="#4：输出" class="headerlink" title="4：输出"></a>4：输出</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">[hybird] homeDir /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630</span><br><span class="line">[hybird] docDirs (</span><br><span class="line">    &quot;/Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Documents&quot;</span><br><span class="line">)</span><br><span class="line">[hybird] docDir /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Documents</span><br><span class="line">[hybird] cachesDirs (</span><br><span class="line">    &quot;/Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Library/Caches&quot;</span><br><span class="line">)</span><br><span class="line">[hybird] cachesDir /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Library/Caches</span><br><span class="line">[hybird] libDirs (</span><br><span class="line">    &quot;/Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Library&quot;</span><br><span class="line">)</span><br><span class="line">[hybird] libDir /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/Library</span><br><span class="line">[hybird] tmpDir /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Data/Application/26A9A63E-FB26-4975-B2C9-CD71B0ECE630/tmp/</span><br><span class="line">[hybird] files: [&quot;test1.txt&quot;, &quot;test2.txt&quot;]</span><br><span class="line">[hybird] Bundle.main.resourcePath /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Bundle/Application/A4E96998-21EA-4EFB-9B13-B4FDBC16D9F0/fruit-shop-ios.app</span><br><span class="line">[hybird] Bundle.main.bundlePath /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Bundle/Application/A4E96998-21EA-4EFB-9B13-B4FDBC16D9F0/fruit-shop-ios.app</span><br><span class="line">[hybird] ============================================</span><br><span class="line">[hybird] file: _CodeSignature</span><br><span class="line">[hybird] file: _CodeSignature/CodeResources</span><br><span class="line">[hybird] file: assets</span><br><span class="line">[hybird] file: assets/bundle.zip</span><br><span class="line">[hybird] file: Assets.car</span><br><span class="line">[hybird] file: Base.lproj</span><br><span class="line">[hybird] file: Base.lproj/LaunchScreen.storyboardc</span><br><span class="line">[hybird] file: Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</span><br><span class="line">[hybird] file: Base.lproj/LaunchScreen.storyboardc/Info.plist</span><br><span class="line">[hybird] file: Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</span><br><span class="line">[hybird] file: Base.lproj/Main.storyboardc</span><br><span class="line">[hybird] file: Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib</span><br><span class="line">[hybird] file: Base.lproj/Main.storyboardc/Info.plist</span><br><span class="line">[hybird] file: Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib</span><br><span class="line">[hybird] file: Frameworks</span><br><span class="line">[hybird] file: Frameworks/libswiftCore.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftCoreFoundation.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftCoreGraphics.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftCoreImage.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftDarwin.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftDispatch.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftFoundation.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftMetal.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftObjectiveC.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftos.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftQuartzCore.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftSwiftOnoneSupport.dylib</span><br><span class="line">[hybird] file: Frameworks/libswiftUIKit.dylib</span><br><span class="line">[hybird] file: Frameworks/SnapKit.framework</span><br><span class="line">[hybird] file: Frameworks/SnapKit.framework/_CodeSignature</span><br><span class="line">[hybird] file: Frameworks/SnapKit.framework/_CodeSignature/CodeResources</span><br><span class="line">[hybird] file: Frameworks/SnapKit.framework/Info.plist</span><br><span class="line">[hybird] file: Frameworks/SnapKit.framework/SnapKit</span><br><span class="line">[hybird] file: fruit-shop-ios</span><br><span class="line">[hybird] file: Info.plist</span><br><span class="line">[hybird] file: libswiftRemoteMirror.dylib</span><br><span class="line">[hybird] file: PkgInfo</span><br><span class="line">[hybird] file: Podfile</span><br><span class="line">[hybird] ============================================</span><br><span class="line">[hybird] bundleZipPath: /Users/maokangren/Library/Developer/CoreSimulator/Devices/4001EB70-F821-4801-905D-49DA2DAF52C2/data/Containers/Bundle/Application/A4E96998-21EA-4EFB-9B13-B4FDBC16D9F0/fruit-shop-ios.app/assets/bundle.zip</span><br></pre></td></tr></table></figure>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p>1：在 virtualenv 库里 安装 django-ckeditor<br><br></p>
+<p>      F:\workspace\fx_lib 是我的 第三方库的路径，也可用  pip install django-ckeditor<strong> </strong>进行安装<span></span></p>
+<p></p>
+<pre><code class="language-python">pypm -E F:\workspace\fx_lib install django-ckeditor</code></pre>
+<br><p>2：设置 settings.py</p>
+<p></p>
+<pre><code class="language-python">CKEDITOR_MEDIA_PREFIX="/site_media/media/ckeditor/"
+CKEDITOR_UPLOAD_PATH = os.path.join(PROJECT_ROOT,"site_media" , "media/uploads").replace("\\",'/')
+CKEDITOR_UPLOAD_PREFIX=os.path.join(PROJECT_ROOT,"/site_media/media/uploads").replace("/","\\")
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar':[        
+            ['Source','-','Save','NewPage','Preview','-','Templates'],        
+            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker','Scayt'],        
+            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],        
+            ['Form','Checkbox','Radio','TextField','Textarea','Select','Button', 'ImageButton','HiddenField'], 
+            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],        
+            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],        
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],        
+            ['Link','Unlink','Anchor'],        
+            ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],        
+            ['Styles','Format','Font','FontSize'],        
+            ['TextColor','BGColor'],        
+            ['Maximize','ShowBlocks','-','About']        
+        ],
+        'width': 650,
+        'height': 200,
+        'toolbarCanCollapse': False,
+    },
+}</code></pre>
+<p><br></p>
+<p>3：发布之前部署静态文件</p>
+<p></p>
+<pre><code class="language-python">python manage.py collectstatic</code></pre>
+<p></p>
+<p><br></p>
+<p>4：在 admin 里使用 ckeditor</p>
+<p>models.py</p>
+<p></p>
+<pre><code class="language-python">from ckeditor.fields import RichTextField 
+class Course(models.Model):
+    coursecontent = RichTextField(verbose_name=_('coursecontent'))</code></pre>
+<br><p>5：在网页中使用 ckeditor</p>
+<p>forms.py</p>
+<p></p>
+<pre><code class="language-python">from ckeditor.widgets import CKEditorWidget
+class AddCourseForm(forms.ModelForm):
+    coursecontent = forms.CharField(label=_('coursecontent')   ,widget=CKEditorWidget())</code></pre>
+<p>如图：</p>
+<p><img src="http://my.csdn.net/uploads/201207/10/1341884122_4262.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"></p>
+<p><br></p>
+<p>6：问题</p>
+<p>在 windows 下 会出现 下图 的问题 ，图片能上传 但是不能预览显示 ，查看 图片 的html代码 发现 路劲有问题 </p>
+<p><img src="http://my.csdn.net/uploads/201207/10/1341884434_5440.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"><br></p>
+<p>研究了好长时间 发现 如下信息：<br><a href="https://github.com/brentrojas/django-ckeditor/commit/ce41e5219c9cd8f4ea1d7d339499ca61bdab7d65" rel="noopener" target="_blank">https://github.com/brentrojas/django-ckeditor/commit/ce41e5219c9cd8f4ea1d7d339499ca61bdab7d65</a><br>
+原来这是 windows下的bug<br>
+那么我们只要 在库中做出相应的修改即可<br>
+如下图：<br></p>
+<p><img src="http://my.csdn.net/uploads/201207/10/1341884685_5863.jpg" alt="" style="font-family:monospace;background-color:rgb(240,240,240);"></p>
+<p>在模板中 去掉 ckeditor 造成的 html 标签：<br>
+只需要做出如下修改：</p>
+<pre><code class="language-html">						{% autoescape off %}
+						{{courseinfo.coursecontent}}
+						{% endautoescape %}</code></pre>
+<p>至此，在django中可以正常使用 ckeditor了。</p>
+<p><br></p>
+<p><span style="font-family:'KaiTi_GB2312';font-size:18px;color:#ff0000;background-color:rgb(255,255,204);">转载请注明出处!</span></p>
+<p><br></p>
+<p><br></p>
+<pre></pre>
+<pre></pre>
+<pre></pre>
+<pre></pre>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/移动端_IOS_文件操作/" data-id="cjoqptoum0011mpslq4hp20cb" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" data-id="cjorxds34003causljlwzfr2q" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -127,7 +209,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -138,7 +220,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -148,7 +230,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -157,7 +239,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -170,23 +252,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

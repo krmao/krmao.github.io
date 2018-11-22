@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_JDK_1_8" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_JDK_1_8/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/" class="article-date">
+  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+      <a class="article-title" href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
     </h1>
   
 
@@ -102,20 +102,158 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-下载-JDK"><a href="#1-下载-JDK" class="headerlink" title="1 下载 JDK"></a>1 下载 <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">JDK</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/packages/</span><br><span class="line">wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; http://download.oracle.com/otn-pub/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
-<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 卸载 centos 默认安装的 open jdk</span><br><span class="line">[root@localhost jdk]# rpm -qa | grep java</span><br><span class="line">java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br><span class="line">tzdata-java-2018c-1.el6.noarch</span><br><span class="line">java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br><span class="line">[root@localhost jdk]#</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps tzdata-java-2018c-1.el6.noarch</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br><span class="line">[root@localhost jdk]# rpm -qa | grep java</span><br><span class="line">[root@localhost jdk]#</span><br><span class="line"></span><br><span class="line"># 安装 JDK 1.8</span><br><span class="line">mv jdk-8u161-linux-x64.tar.gz\?AuthParam\=1521635451_ad06a59373f1aebdda5baa55350799bd jdk-8u161.tar.gz</span><br><span class="line">tar -zxvf /opt/software/packages/jdk-8u161.tar.gz -C /opt/software/sdks/jdk/</span><br></pre></td></tr></table></figure>
-<h1 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="3 配置环境变量"></a>3 配置环境变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># JAVA_HOME START</span><br><span class="line">JAVA_HOME=/opt/software/sdks/jdk/jdk1.8.0_161</span><br><span class="line">JRE_HOME=$JAVA_HOME/jre</span><br><span class="line">CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</span><br><span class="line">export JAVA_HOME JRE_HOME CLASS_PATH PATH</span><br><span class="line"># JAVA_HOME END</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk1.8.0_161]# java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br><span class="line">[root@localhost jdk1.8.0_161]#</span><br></pre></td></tr></table></figure>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1><span style="font-size:24px;"><strong>目录结构</strong></span></h1>
+<pre><code class="language-plain">E:\Adaboost\
+
+   ---------positive\               //正样本文件夹
+			---------pimages\       //正样本图片所在文件夹
+			---------pos.dat        //正样本集描述文件
+			---------pos.vec        //正样本特征集描述文件
+
+   ---------nagative\               //负样本文件夹
+   			---------pimages\       //负样本图片所在文件夹
+   			---------nag.dat        //正样本集描述文件</code></pre>
+<h2><span style="font-size:18px;"><strong>正样本</strong></span></h2>
+<h2><strong>1  <span>收集样本</span></strong></h2>
+<p></p>
+<p><span></span>找617张带有车牌的图片，一开始设置大小 200*200 左右，报内存错误。<br><span></span>后来重做，即将617张图片中的车牌用画图软件截取下来，重新设置大小为60*17，并保存为bmp文件。<br><span></span>我这人比较懒，617张车牌的照片？其实还是不容易找的。<span style="font-family:monospace;background-color:rgb(240,240,240);">我是这样做的：</span><br></p>
+<h3>1.1 先收集类似图片</h3>
+<span></span>运用 网页图片保存能手 这个软件批量下载图片（这个软件找的好辛苦，试过其它的有的收费有的基本不能用）<br><span></span>我在百度图片搜的关键词有 “车牌” “车牌号” “苏州车牌” “江苏车牌” 等等，获取了近7000张的图片<br><span></span>
+<h3>1.2 利用以前写的小软件截取车牌</h3>
+<span></span>运用自己以前写的小程序：车牌图片截取软件（运用opencv基于纹理检测车牌，由于效果不太好，姑且用来为adboost提供辅助收集车牌图片），<br><span></span>设置好样本图片所在的输入路径，在设置好车牌输出路径，运行即可得到 <span style="color:#cc0000;">
+<strong><em>60*17 </em></strong></span>大小的<strong><span style="color:#ff6600;">bmp</span></strong>图片<br><span></span>下载地址： <a href="http://download.csdn.net/detail/mkr127/5374301" rel="noopener" target="_blank">http://download.csdn.net/detail/mkr127/5374301</a><br><span></span><strong><span style="color:#ff6600;">PS</span></strong><span></span>由于效果不怎么好吗，所以在出来的图片中你得删掉无用的图片，于是，几千张的图片我只收集到了617张车牌图片，哈哈，很麻烦的。<br><span></span><span style="color:#ff6600;"><strong>BUG</strong></span><span></span>这个小软件有bug，我懒得改，即图片太大如5400*2700有时会出错，还有每次运行的图片不要太多，不然会出错，将图片 2000张一组就没有问题。<br><span></span>当然，如果你不喜欢，可以自己手动截取。<br><span></span>
+<h3>1.3 将得到的617张正样本图片放在E:\Adaboost\positive\pimages\文件夹中</h3>
+<span></span>
+<h3>1.4 负样本图片</h3>
+<p>即不包含车牌的图片，我收集了几千张，用matlab 批量格式化为 200*200大小的bmp图片，放在E:\Adaboost\nagative\pimages\文件夹内</p>
+<span></span><span></span><span style="color:#cc0000;background-color:rgb(255,204,153);"><span></span><span></span></span><span></span><span></span>
+<h2><strong>2</strong><span> <span>
+</span></span>创建正负样本描述文件</h2>
+<h3>2.1 正样本描述文件</h3>
+<p><span></span>cd E:\Adaboost\positive<br><span></span>dir pimages /b &gt; pos.dat</p>
+<span></span>运用文本编辑软件对生成的文件 pos.dat 进行替换修改：<br><span></span>a: 将jpg 替换为 jpg 1 0 0 60 17<br><span></span>b: 选择所有，tab键，将tab 替换为图片所在路径<br><span></span>得:
+<p><span></span></p>
+<p></p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130515143600899" alt=""><br></p>
+<h3>2.1 <strong><span></span></strong><span></span>负样本描述文件</h3>
+<p><span></span><span></span></p>
+<p><span></span>cd E:\Adaboost\nagative<br><span></span>dir pimages /b &gt; nag.dat</p>
+<span></span>运用文本编辑软件对生成的文件 pos.dat 进行替换修改：<br><span></span>选择所有，tab键，将tab 替换为图片所在路径<br><span></span>得
+<p></p>
+<p style="text-align:center;"><img src="https://img-blog.csdn.net/20130515143557231" alt=""><br></p>
+<h2>3 设置环境变量</h2>
+<p><span></span>添加Opencv库中opencv_createsamples的环境变量，以便于在cmd中执行，在path中最后添加 ;C:\OpenCV\opencv\install\bin</p>
+<h2>4 创建正样本特征集描述文件</h2>
+<p><span></span>打开cmd，进入positive所在文件夹</p>
+<p><span></span>cd E:\Adaboost\positive<br><span></span>opencv_createsamples -vec pos.vec -info pos.dat -num 617 -w 60 -h 17<br><span></span>//-num 正样本数量 -w图像宽 -h高</p>
+<p><span></span>如下图所示</p>
+<span></span>
+<div style="text-align:center;"><img src="https://img-blog.csdn.net/20130515143604274" alt=""></div>
+<p><span></span></p>
+<p><span></span><span></span></p>
+<p><span></span>在E:\Adaboost\positive下生成pos.vec文件，即正样本特征集描述文件。</p>
+<h2>5<span> </span>开始训练</h2>
+<p>cd E:\Adaboost\nagative<br>
+opencv_haartraining -data trainout -vec e:\Adaboost\positive\pos.vec -bg nag.dat -npos 317 -nneg 300 -mem 40000 -mode ALL -w 60 -h 17<br>
+//-mem分配的内存大小 -w正样本宽 -h正样本高</p>
+<p>//-npos正样本数量，-nneg 负样本数量，至于为什么是这个值，最后将有分析。</p>
+<p><br></p>
+<span></span>
+<div style="text-align:center;"><img src="https://img-blog.csdn.net/20130515143606743" alt=""></div>
+<h2><span style="color:rgb(255,0,0);"><strong>6 遇到的错误</strong></span></h2>
+<p><span></span></p>
+<h3>6.1 内存不够的错误</h3>
+<span></span>那是因为正样本图片太大了，我改为60*17就正常了
+<p><span></span></p>
+<h3>6.2 OpenCV Error: Assertion failed (elements_read == 1)</h3>
+<span></span>原因：-nneg -npos 参数出错
+<p><span></span><strong><span style="color:#006600;">参考：</span></strong><br><span></span><a href="http://bbs.csdn.net/topics/390388465" rel="noopener" target="_blank">http://bbs.csdn.net/topics/390388465</a><br><span></span><a href="http://askbot.alekcac.webfactional.com/question/3085/why-always-opencv-error-assertion-failed-elements_read-1-in-unknown-function/" rel="noopener" target="_blank">http://askbot.alekcac.webfactional.com/question/3085/why-always-opencv-error-assertion-failed-elements_read-1-in-unknown-function/</a></p>
+<p><br><span></span>我英文不太好 - -!初步分析认为：<br><span></span>假如我有正样本总数 617 ，npos(正样本参数设置的大小，待定);负样本数 nneg 待定(我原有3000张左右), nstages 12<br><span></span></p>
+<p>617 &gt;= npos + (12-1)*0.001*npos +nneg</p>
+<span></span>那么假如分配 nneg=300，则<br><span></span>
+<p>npos&lt;= (617-300)/1.011 = 317</p>
+<span></span>
+<h3>6.3 再次测试</h3>
+<span></span>
+<p></p>
+<pre><code class="language-cpp">opencv_haartraining -data trainout -vec e:\Adaboost\positive\pos.vec -bg nag.dat -npos 317 -nneg 300 -mem 40000 -mode ALL -w 60 -h 17</code></pre>
+<br><p></p>
+<span></span>
+<p>问题搞定，我没有设置-nstages=12 也没错，额，待进一步研究。</p>
+<p><br></p>
+<p><span style="font-size:24px;color:#3333ff;"><span style="background-color:rgb(255,255,255);">结果</span></span></p>
+<p>跑到第四层的时候，跑了一天两夜，仍然是第4阶！哥不淡定了，查查估计是死循环了，网上说适当增加负样本，</p>
+<p>那么我在控制台中 Ctrl + C， 注意，是可以断开的，以前我一直不敢...原来在执行训练的话会自动加载 以前训练的级，估计这就是级联吧，都是自己摸索的，纯粹的供大家参考，有不到之处尽请谅解。</p>
+<p>我将负样本增至600</p>
+<p></p>
+<pre><code class="language-cpp">opencv_haartraining -data trainout -vec e:\Adaboost\positive\pos.vec -bg nag.dat -npos 317 -nneg 600-mem 40000 -mode ALL -w 60 -h 17</code></pre>
+<br><p></p>
+<p>这时候在很短的时间内跑到了第10阶。进一步探究中。</p>
+<p><br></p>
+<p>接上</p>
+<p><strong><span style="font-size:18px;background-color:rgb(51,102,255);">请注意</span></strong>，<strong>要确保 nag.dat 里面的数据大于600行</strong>，因为上一步执行到第10层时<span style="font-size:18px;color:#ff0000;"><strong>停止不动</strong></span>了</p>
+<p style="text-align:center;"><img src="" alt=""><br></p>
+<p>就停在这里，于是我找到 nag.dat(负样本描述文件)发现里面的数据只有300行，怪不得，于是我追加打到1269行，此时我再执行</p>
+<p><span style="font-family:monospace;background-color:rgb(240,240,240);">E:\Adaboost\nagative&gt;opencv_haartraining -data trainout -vec e:\Adaboost\positive\pos.vec -bg nag.dat -npos 317 -nneg 900 -mem 40000 -mode ALL -w 60 -h 17</span><br></p>
+<p></p>
+<p>继续向下训练</p>
+<p>截图为证</p>
+<p style="text-align:center;"><img src="" alt=""></p>
+<br><p><strong><u>报一下我的数据，pos.dat =617行,   pimages =617张     ,  nag.dat= 1269行 , nimages= 1269张</u></strong></p>
+<p><strong><u>trainout 训练到第十层</u></strong></p>
+<p style="text-align:center;"><img src="" alt=""><br></p>
+<p style="text-align:center;"><br></p>
+<p style="text-align:center;"><br></p>
+<p>继续向下探索，由于我对着个完全没有经验，如果大家觉得太过幼稚简单，可以移步，呵呵，纯当给像我这样的一无所知之人一个借鉴。</p>
+<p>仅此而已。</p>
+<p><br></p>
+<p><span style="font-size:18px;color:#ff6600;"><strong>训练结束</strong></span></p>
+<p style="text-align:center;"><img src="" alt=""><br></p>
+<p>得到 分类器：</p>
+<p><br></p>
+<p>这时我在增大负样本数到1269 发现到13级就训练结束了，和负样本数为900的没有区别，并且  E:\Adaboost\nagative\trainout.xml 自动更新覆盖为最新版，这下我就不用担心以前的成果白费了，当然，最好做个备份，E:\Adaboost\nagative\trainout 这里面的数据不要删，以后增加正负样本的数量的话我估计会自动累加，呵呵。</p>
+<p style="text-align:center;"><img src="" alt=""><br></p>
+<p><br></p>
+<p>接下来开始测试：利用之前写的人脸检测代码，将分类器改成我们测试的分类器，一切就容易起来！</p>
+<p>实验的结果还是挺差的，估计是样本太少了，我的正样本才600多，专业的最少都7-8000，也有可能是我的正样本图截的不好，用软件截的，没有手工的准确，再者就是网上的图片不行，真正好的样本还是比较少的。</p>
+<p>测试结果：</p>
+<p style="text-align:center;"><img src="" alt=""><img src="" alt=""><img src="https://img-blog.csdn.net/20130517124409378" alt=""><br></p>
+<p><br></p>
+<p>接下来就是增加样本数量，最后还不好的话，就增大样本质量，哈哈！</p>
+<p>如果以后有经历，就写个MFC通用的提取分类器的小程序，用来测试分类器的性能。</p>
+<p></p>
+<p><strong>本人写的通用小项目下载地址：可以提取分类器进行检测，大家必须配置好OpenCV环境和在源码中设置好分类器的路径。</strong></p>
+<p><a href="http://download.csdn.net/detail/mkr127/5397219" rel="noopener" target="_blank">http://download.csdn.net/detail/mkr127/5397219</a></p>
+<p><a href="http://download.csdn.net/detail/mkr127/5397219" rel="noopener" target="_blank"></a><br></p>
+<p>项目用到的正样本训练库，额，分有点高，毕竟是本人从几千张图片中一张一张筛选出来的...算是我的辛苦费吧，勿喷我......</p>
+<p><a href="http://download.csdn.net/detail/mkr127/5418861" rel="noopener" target="_blank">http://download.csdn.net/detail/mkr127/5418861</a><br></p>
+<p>60-17像素bmp车牌 共617张。</p>
+<p><br></p>
+<span></span>
+<h2>7 参考文章</h2>
+<p><span style="background-color:rgb(255,204,153);"><span style="font-size:24px;">基于Adaboost算法的车牌检测在OpenCV上的研究与实现.pdf </span></span></p>
+<p><span style="font-size:18px;"><strong>作者：邓育林</strong></span></p>
+<span></span><a href="http://wenku.baidu.com/view/5a3f464433687e21af45a971.html" rel="noopener" target="_blank">http://wenku.baidu.com/view/5a3f464433687e21af45a971.html</a><br><p><span style="font-weight:bold;"><span style="color:#ff0000;"><span style="font-size:18px;"><span></span><span></span><span></span>转载请注明出处！</span></span></span></p>
+<p><br></p>
+<div><span style="font-family:monospace;background-color:rgb(240,240,240);"><br></span></div>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_JDK_1_8/" data-id="cjoqptosz0000mpslhu79yl3q" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/" data-id="cjorxdvf5003xauslgmi4wsna" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -131,7 +269,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -142,7 +280,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -152,7 +290,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -161,7 +299,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -174,23 +312,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

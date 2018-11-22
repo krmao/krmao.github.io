@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/70/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-安装_CENTOS_JDK_1_8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/19/安装_CENTOS_JDK_1_8/" class="article-date">
+  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-下载-JDK"><a href="#1-下载-JDK" class="headerlink" title="1 下载 JDK"></a>1 下载 <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">JDK</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/software/packages/</span><br><span class="line">wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; http://download.oracle.com/otn-pub/java/jdk/8u162-b12/0da788060d494f5095bf8624735fa2f1/jdk-8u162-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+<h1 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 卸载 centos 默认安装的 open jdk</span><br><span class="line">[root@localhost jdk]# rpm -qa | grep java</span><br><span class="line">java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br><span class="line">tzdata-java-2018c-1.el6.noarch</span><br><span class="line">java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br><span class="line">[root@localhost jdk]#</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps java-1.7.0-openjdk-1.7.0.171-2.6.13.0.el6_9.x86_64</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps tzdata-java-2018c-1.el6.noarch</span><br><span class="line">[root@localhost jdk]# rpm -e --nodeps java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64</span><br><span class="line">[root@localhost jdk]# rpm -qa | grep java</span><br><span class="line">[root@localhost jdk]#</span><br><span class="line"></span><br><span class="line"># 安装 JDK 1.8</span><br><span class="line">mv jdk-8u161-linux-x64.tar.gz\?AuthParam\=1521635451_ad06a59373f1aebdda5baa55350799bd jdk-8u161.tar.gz</span><br><span class="line">tar -zxvf /opt/software/packages/jdk-8u161.tar.gz -C /opt/software/sdks/jdk/</span><br></pre></td></tr></table></figure>
+<h1 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="3 配置环境变量"></a>3 配置环境变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># JAVA_HOME START</span><br><span class="line">JAVA_HOME=/opt/software/sdks/jdk/jdk1.8.0_161</span><br><span class="line">JRE_HOME=$JAVA_HOME/jre</span><br><span class="line">CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</span><br><span class="line">export JAVA_HOME JRE_HOME CLASS_PATH PATH</span><br><span class="line"># JAVA_HOME END</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk1.8.0_161]# java -version</span><br><span class="line">java version &quot;1.8.0_161&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_161-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)</span><br><span class="line">[root@localhost jdk1.8.0_161]#</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_JDK_1_8/" data-id="cjor2bnux0005a7slcz7o6vde" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/69/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/71/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

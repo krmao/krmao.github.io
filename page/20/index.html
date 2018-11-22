@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/20/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-移动端_Android基础入门17_自定义标签_和_自定义组件" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门17_自定义标签_和_自定义组件/" class="article-date">
+  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门17_自定义标签_和_自定义组件/">移动端_IOS【Android基础入门〖17〗】自定义标签 和 自定义组件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>1    自定义标签</h1>
+<div>
+<div>这是我的模板项目目录</div>
+<div><br></div>
+<div> <img src="https://img-blog.csdn.net/20130930005121484" alt=""></div>
+<div></div>
+<div> </div>
+</div>
+<div>既然想像 android:text  那样使用自己的标签，那么首先得有标签。</div>
+<div>在 res/values/ 下我新建了个 <span style="color:#ff0000;"><strong>mm_tag.xml</strong></span> (切记不可出现大写，只能是 小写字母、数字、下划线)</div>
+<h2>第一步:    自定义 标签    </h2>
+<div>mm_tag.xml</div>
+<div>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;resources&gt;
+    &lt;declare-styleable name="GridItem"&gt;
+        &lt;attr name="bkground" format="reference|color"/&gt;
+        &lt;attr name="text1"    format="string"/&gt;
+        &lt;attr name="text2"    format="string"/&gt;
+        &lt;attr name="image"    format="reference|integer"/&gt;
+    &lt;/declare-styleable&gt;    
+&lt;/resources&gt;</code></pre>
+<br></div>
+<div>format 参考:</div>
+<div><strong>1. reference：参考某一资源ID</strong></div>
+<div><strong>2. color：颜色值</strong></div>
+<div><strong>3. boolean：布尔值</strong></div>
+<div><strong>4. dimension：尺寸值</strong></div>
+<div><strong>5. float：浮点值</strong></div>
+<div><strong>6. integer：整型值</strong></div>
+<div><strong>7. string：字符串</strong></div>
+<div><strong>8. fraction：百分数</strong></div>
+<div><strong>9. enum：枚举值</strong></div>
+<div>
+<pre><code class="language-html">//属性定义：
+&lt; declare -styleable name = "名称" &gt;
+    &lt;attr name = "orientation" &gt;
+        &lt;enum name = "horizontal" value = "0" /&gt;
+        &lt;enum name = "vertical" value = "1" /&gt;
+    &lt;/attr&gt;                      
+&lt;/ declare -styleable&gt;
+
+//属性使用：
+&lt;LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:orientation = "vertical"
+    android:layout_width = "fill_parent"
+    android:layout_height = "fill_parent"
+&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<br></div>
+<div>
+<div></div>
+<div><strong>10. flag：位或运算</strong></div>
+<div>
+<pre><code class="language-html">//属性定义：
+&lt; declare -styleable name = "名称" &gt;
+    &lt;attr name = "windowSoftInputMode" &gt;
+        &lt;flag name = "stateUnspecified" value = "0" /&gt;
+        &lt;flag name = "stateUnchanged" value = "1" /&gt;
+        &lt;flag name = "stateHidden" value = "2" /&gt;
+    &lt;/attr&gt;                
+&lt;/ declare -styleable&gt;
+
+//属性使用：
+&lt;activity
+    android: name = ".StyleAndThemeActivity"
+    android:label = "@string/app_name"
+    android:windowSoftInputMode = "stateUnspecified | stateUnchanged　|　stateHidden" &gt;
+    &lt;intent-filter&gt;
+        &lt; action android: name = "android.intent.action.MAIN" /&gt;
+        &lt;category android: name = "android.intent.category.LAUNCHER" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;</code></pre>
+<br></div>
+<div><code></code></div>
+<div><strong>11.注意：属性定义时可以指定多种类型值。</strong></div>
+<div>
+<pre><code class="language-html">//属性定义：
+&lt; declare -styleable name = "名称" &gt;
+    &lt;attr name = "background" format = "reference|color" /&gt;
+&lt;/ declare -styleable&gt;
+
+//属性使用：
+&lt;ImageView
+    android:layout_width = "42dip"
+    android:layout_height = "42dip"
+    android: background = "@drawable/图片ID|#00FF00" /&gt;</code></pre>
+</div>
+<h2><strong>第二步:    在自定义组件中获得标签传回的数据</strong></h2>
+</div>
+<div>比如我们在布局中使用自定义组件 GridItem:</div>
+<div>首先 声明好 标签的命名空间</div>
+<div>
+<pre><code class="language-html">xmlns:griditem = "http://schemas.android.com/apk/res/com.mm.template"
+//对比下 android 的命名空间:
+xmlns:android = "http://schemas.android.com/apk/res/android"</code></pre>
+</div>
+<div>发现只有 res/后面的不同，<strong>com.mm.template</strong> 是我的应用程序包名，通过<span style="color:#ff0000;"><strong>上文中的 项目目录图片</strong></span>可以看出来，</div>
+<div>griditem 是我随便想的一个命名空间的名字。</div>
+<div>接下来就是使用自定义组件</div>
+<div><code></code>
+<div>
+<pre><code class="language-html">&lt; com.mm.template.GridItem
+     griditem:image = "@drawable/mm_1"
+     android:padding = "5dp"
+     android:layout_width = "wrap_content"
+     android:layout_height = "wrap_content"
+     android:layout_weight = "1"
+     griditem:bkground = "@color/orange"
+     griditem:text1 = "Android"       griditem:text2 = "手机开发" /&gt;</code></pre>
+</div>
+</div>
+<div>其中 用到了我们的自定义标签：</div>
+<div>
+<pre><code class="language-html">griditem:image = "@drawable/mm_1"
+griditem:bkground = "@color/orange"
+griditem:text1 = "Android"
+griditem:text2 = "手机开发"</code></pre>
+</div>
+<div>怎么获取标签传回的数据呢呢？</div>
+<div>在自定义组件 GridItem 的实现代码中使用如下方法即可</div>
+<div>
+<pre><code class="language-java">public GridItem(Context context, AttributeSet attrs) {
+	super(context, attrs);
+	
+	TypedArray typedarray=context.obtainStyledAttributes(attrs, R.styleable.GridItem);
+	
+	bk_color =typedarray.getResourceId(R.styleable.GridItem_bkground, R.color.burlywood);
+	text1 =typedarray.getString(R.styleable.GridItem_text1);
+	text2 =typedarray.getString(R.styleable.GridItem_text2);
+	image=typedarray.getDrawable(R.styleable.GridItem_image);
+	
+	typedarray.recycle();
+
+	view=LayoutInflater.from(context).inflate(R.layout.mm_grid_item, this,true);
+	
+	layout=(LinearLayout)view.findViewById(R.id.item_layout);
+	textview1=(TextView)view.findViewById(R.id.text1);
+	textview2=(TextView)view.findViewById(R.id.text2);
+	imageview=(ImageView)view.findViewById(R.id.imageview);
+	
+	layout.setBackgroundResource(bk_color);	//设置背景色
+	textview1.setText(text1);				//设置第一行文字
+	textview2.setText(text2);				//设置第二行文字
+	imageview.setImageDrawable(image);		//设置图标
+}</code></pre>
+<br><br></div>
+<div><br></div>
+<div>即可获得 我们自定义标签传过来的数据，并且正确的在界面中显示出来。</div>
+<div>下面我将结合自定义 组件 GridItem 来一起讲。</div>
+<h1>2    自定义组件</h1>
+<div>我想实现一个组件，类似于这样的</div>
+<div> <img src="https://img-blog.csdn.net/20130930005131953" alt=""></div>
+<div></div>
+<div> </div>
+<div>方法有很多种，自定义布局即可，现在我想让它以组件的形式在 布局中直接 像 TextView 一样使用，</div>
+<div><br></div>
+<div><img src="https://img-blog.csdn.net/20130930005129125" alt=""><br></div>
+<div><br></div>
+<div></div>
+<div>那么就用到自定义组件。</div>
+<div>下面我将实现一个自定义组件 GridItem 实现。</div>
+<div> </div>
+<div><strong>一般都是继承于 Layout（我用继承于View时出现问题 ~~!）</strong></div>
+<div>GridItem.java</div>
+<div>
+<pre><code class="language-java">package com.mm.template;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class GridItem extends LinearLayout {
+	
+	private	int bk_color;	//背景色
+	private String text1;	//第一行文字
+	private String text2;	//第二行文字
+	private Drawable image;	//图标
+	
+	private LinearLayout layout;
+	private TextView textview1;
+	private TextView textview2;
+	private ImageView imageview;
+	
+	private View view;
+
+	public GridItem(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+		TypedArray typedarray=context.obtainStyledAttributes(attrs, R.styleable.GridItem);
+		
+		bk_color =typedarray.getResourceId(R.styleable.GridItem_bkground, R.color.burlywood);
+		text1 =typedarray.getString(R.styleable.GridItem_text1);
+		text2 =typedarray.getString(R.styleable.GridItem_text2);
+		image=typedarray.getDrawable(R.styleable.GridItem_image);
+		
+		typedarray.recycle();
+	
+		view=LayoutInflater.from(context).inflate(R.layout.mm_grid_item, this,true);
+		
+		layout=(LinearLayout)view.findViewById(R.id.item_layout);
+		textview1=(TextView)view.findViewById(R.id.text1);
+		textview2=(TextView)view.findViewById(R.id.text2);
+		imageview=(ImageView)view.findViewById(R.id.imageview);
+		
+		layout.setBackgroundResource(bk_color);	//设置背景色
+		textview1.setText(text1);				//设置第一行文字
+		textview2.setText(text2);				//设置第二行文字
+		imageview.setImageDrawable(image);		//设置图标
+	}
+
+}
+</code></pre>
+<br><span style="font-weight:bold;">这个自定义组件 GridItem 用到的布局文件</span></div>
+<div>mm_grid_item.xml</div>
+<div>
+<pre><code class="language-html">&lt;? xml   version = "1.0"    encoding = "utf-8" ?&gt;
+&lt; LinearLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
+     xmlns:tools = "http://schemas.android.com/tools"
+     android: id = "@+id/item_layout"
+     android:layout_width = "match_parent"
+     android:layout_height = "match_parent"
+     android:orientation = "vertical"
+     android: background = "@color/black"
+     android:padding = "3dp"
+     android:paddingLeft = "6dp"
+     tools:ignore = "HardcodedText,ContentDescription"    &gt;
+     &lt; TextView
+         android: id = "@+id/text1"
+         android:layout_weight = "1"
+          style = "@style/MM_TextView" /&gt;
+     &lt; TextView
+         android: id = "@+id/text2"
+         android:layout_weight = "1"
+         android:textSize = "12sp"
+          style = "@style/MM_TextView" /&gt;
+     &lt; ImageView
+         android: id = "@+id/imageview"
+         android:layout_width = "wrap_content"
+         android:layout_height = "0dp"
+         android:layout_gravity = "right"
+         android: src = "@drawable/mm_title_1"   
+         android:layout_weight = "2"
+         android:layout_marginTop = "10dp"
+         android:scaleType = "fitCenter" /&gt;
+    
+      &lt;!--图片缩放
+        android:scaleX="0.8"
+        android:scaleY="0.8" --&gt; &lt;/ LinearLayout &gt;</code></pre>
+</div>
+<h1>3    使用方法</h1>
+<div>在 <strong>main_layout.xml </strong>(我的主布局文件)中使用</div>
+<div>
+<pre><code class="language-html">&lt; LinearLayout   xmlns:android = "http://schemas.android.com/apk/res/android"
+     xmlns:tools = "http://schemas.android.com/tools"
+     xmlns:griditem = "http://schemas.android.com/apk/res/com.mm.template"
+     android:layout_width = "match_parent"
+     android:layout_height = "match_parent"
+     android: background = "@color/white"
+     android:orientation = "vertical"
+     tools:ignore = "HardcodedText,ContentDescription,NestedWeights"    &gt;
+    
+      &lt;!-- Head start --&gt;
+     &lt; LinearLayout
+         android:layout_width = "match_parent"
+         android:layout_height = "44dp"
+         android:orientation = "horizontal"
+         android:padding = "10dp"
+         android: background = "@color/red" &gt;
+         &lt; ImageView
+             android:layout_width = "wrap_content"
+             android:layout_height = "match_parent"
+             android: src = "@drawable/mm_title_1"    /&gt;
+         &lt; TextView
+             android:layout_width = "0dp"
+             android:layout_height = "match_parent"
+             android:layout_weight = "1"
+             android:gravity = "center"
+             android: text = "测试案例"
+             android:textStyle = "bold"
+             android:textSize = "16sp"
+             android:textColor = "@android:color/white" /&gt;
+         &lt; ImageView
+             android:layout_width = "wrap_content"
+             android:layout_height = "match_parent"
+             android: src = "@drawable/mm_title_2"    /&gt;
+     &lt;/ LinearLayout &gt;
+      &lt;!-- Head end   --&gt;
+    
+      &lt;!-- Search start--&gt;
+     &lt; LinearLayout
+         android:layout_width = "match_parent"
+         android:layout_height = "36dp"
+         android:orientation = "vertical"
+         android:paddingTop = "3dp"   
+         android:layout_margin = "8dp" &gt;
+         &lt; EditText
+             android: id = "@+id/search_edit"
+             android:layout_width = "match_parent"
+             android:layout_height = "match_parent"
+             android:drawableLeft = "@drawable/mm_search"
+               android: background = "@drawable/mm_shape_editview"
+               android:hint = "请输入关键字"
+             android:textSize = "16sp"
+             android:textColorHint = "@color/darkgray"
+             android:textStyle = "bold"
+             android:padding = "6dp" /&gt;
+     &lt;/ LinearLayout &gt;
+      &lt;!-- Search end  --&gt;
+      &lt;!-- GridItem start  --&gt;
+     &lt; LinearLayout  
+           android:layout_width = "match_parent"
+           android:layout_height = "0dp"
+           android:layout_weight = "1"
+           android:orientation = "horizontal"
+         android:layout_margin = "10dp" &gt;
+         &lt; com.mm.template.GridItem
+             griditem:image = "@drawable/mm_1"
+             android:padding = "5dp"
+               android:layout_width = "wrap_content"
+               android:layout_height = "wrap_content"
+               android:layout_weight = "1"
+               griditem:bkground = "@color/orange"
+               griditem:text1 = "Android"
+               griditem:text2 = "手机开发" /&gt;
+         &lt; com.mm.template.GridItem
+             griditem:image = "@drawable/mm_2"
+             android:padding = "5dp"
+               android:layout_width = "wrap_content"
+               android:layout_height = "wrap_content"
+               android:layout_weight = "1"
+               griditem:bkground = "@color/blueviolet"
+               griditem:text1 = "C++"
+               griditem:text2 = "编程语言" /&gt;
+         &lt; com.mm.template.GridItem
+             griditem:image = "@drawable/mm_3"
+             android:padding = "5dp"
+               android:layout_width = "wrap_content"
+               android:layout_height = "wrap_content"
+               android:layout_weight = "1"
+               griditem:bkground = "@color/blue"
+               griditem:text1 = "服务端"
+               griditem:text2 = "后台开发" /&gt;
+     &lt;/ LinearLayout &gt;
+      &lt;!-- GridItem end  --&gt; &lt;/ LinearLayout &gt;</code></pre>
+</div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div><span style="color:#ff0000;"><strong>也就是 &lt;com /&gt; 标签为我们自定义的 GridItem 组件。</strong></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h1>4    结果展示</h1>
+<div> </div>
+<div></div>
+<div> <img src="https://img-blog.csdn.net/20130930005132812" alt=""></div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div>参考<span style="font-size:12px;">来源： &lt;</span><a href="http://blog.sina.com.cn/s/blog_62ef2f14010105vi.html" rel="noopener" target="_blank"><span style="font-size:12px;">http://blog.sina.com.cn/s/blog_62ef2f14010105vi.html</span></a><small><span style="font-size:10px;">&gt;</span></small></div>
+<div> </div>
+<div> </div>
+<div><span style="font-weight:bold;"><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u>注：转载请注明出处
+ :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></span></span></span></span></div>
+<div><span style="font-weight:bold;"><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u><br></u></span></span></span></span></div>
+<div><span style="font-weight:bold;"><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u><br></u></span></span></span></span></div>
+<div><span style="font-weight:bold;"><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="font-size:14.44444465637207px;line-height:25.98958396911621px;"><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u><br></u></span></span></span></span></div>
+<div> </div>
+<div> </div>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门17_自定义标签_和_自定义组件/" data-id="cjorxdpo40029ausleloq8dgj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/19/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/21/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

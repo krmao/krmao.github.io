@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/37/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-移动端_Android框架进阶03_ThinkAndroid框架总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/" class="article-date">
+  <time datetime="2018-11-22T01:34:49.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/">移动端_IOS【Android框架进阶〖03〗】ThinkAndroid框架总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p style="text-align:center;"><span style="font-family:'Microsoft YaHei';color:rgb(54,46,43);line-height:25.98958396911621px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="text-align:center;"></p>
+<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<span style="color:rgb(106,57,6);"></span><a href="http://blog.csdn.net/mkrcpp/article/details/13170649" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/20993533" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/20993533</a></span></strong></span></p>
+<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+<span></span>
+<p><br></p>
+<blockquote style="border:none;">
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">用多了框架，觉得也没什么太难的东西，前提是只要我们彻头彻尾的理解了它们。</span></p>
+</blockquote>
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">TA的框架整体来说：</span></p>
+<p></p>
+<ul><li><span style="font-family:'Microsoft YaHei';font-size:12px;">优点：减少了大量的重复代码，提供了简洁的机制，特别是 docommand，得心应手。这个网络请求有一个bug，就是当网络类型转换时，超时设置不管用。</span></li><li><span style="font-family:'Microsoft YaHei';font-size:12px;">缺点：有代码入侵量，很多东西都没用到，文档不全，比如 download ，一直没用过，缓存也没用过，图片也没用过，都是自己写的。</span></li></ul><p></p>
+<blockquote style="border:none;">
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">我最喜欢的应该是其注解机制了，做的最好的应该是 command 注册机制，以后可能有很多command，繁重任务的command ，udp请求，快速请求等。</span></p>
+</blockquote>
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">我综合了final 框架和 TA 框架的注解机制，自己实现了一套框架，命名为 mdevil，基类前缀为M，例如MApplication，总监说我很自恋.....反正是自己用的，无所谓 :)</span></p>
+<blockquote style="border:none;">
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">在这套框架里，拥有了最称手的注解资源绑定机制(个人认为)，然后对于orm，感觉对TA的orm相当不爽，搞的那么复杂，至于final的没去研究，感觉不优美。于是决定采用 OrmLite。拥有完善的文档！在实际项目使用中，有一个需求是使用复合主键，OrmLite虽然没有提供，却提供了唯一性约束，能达到同样的效果，有可能ormlite的性能会慢一点点，但我喜欢：）</span></p>
+</blockquote>
+<blockquote style="border:none;">
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">当真正理解一个应用从开始到形成的时候，就觉得一切皆有可能了。</span></p>
+</blockquote>
+<blockquote style="border:none;">
+<p><span style="font-family:'Microsoft YaHei';font-size:12px;">前路漫漫，Android只是一个开始！</span></p>
+</blockquote>
+<p><br></p>
+<p></p>
+<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>*******<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>*******</strong></span></strong></span>**********************************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>************<span style="color:rgb(54,46,43);font-family:'Microsoft YaHei';line-height:25.984375px;text-align:center;"><strong>************</strong></span></strong></span>*******</strong></span></p>
+<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<span style="color:rgb(106,57,6);"></span><a href="http://blog.csdn.net/mkrcpp/article/details/13170649" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/20993533" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/20993533</a></span></strong></span></p>
+<p style="text-align:center;color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+<br><p><br></p>
+<p><br></p>
+<p><span></span></p>
+<p><span></span></p>
+<p><span></span></p>
+<p><span></span></p>
+<p><span></span></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶03_ThinkAndroid框架总结/" data-id="cjorxdram002uausl73kwkjdv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/36/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="page-number" href="/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/38/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

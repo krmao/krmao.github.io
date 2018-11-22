@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-安装_CENTOS_用户组管理" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_PHP基础入门_配置Phpstorm与xampp" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/安装_CENTOS_用户组管理/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" class="article-date">
+  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+      <a class="article-title" href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
     </h1>
   
 
@@ -102,15 +102,117 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># 新增用户组</span><br><span class="line">groupadd dev</span><br><span class="line"></span><br><span class="line"># 新增用户并添加到用户组</span><br><span class="line">useradd -g dev user_name</span><br><span class="line"></span><br><span class="line"># 为新增的用户修改密码</span><br><span class="line">echo &quot;123456&quot; | passwd --stdin user_name</span><br><span class="line"></span><br><span class="line">Changing password for user user_name.</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line"></span><br><span class="line"># 查看用户所属的组</span><br><span class="line">groups user_name</span><br><span class="line"></span><br><span class="line"># 查看用户信息</span><br><span class="line">id user_name</span><br><span class="line"></span><br><span class="line"># 从组中删除用户</span><br><span class="line">gpasswd dev -d user_name</span><br><span class="line"></span><br><span class="line">Removing user user_name from group dev</span><br><span class="line">gpasswd: user &apos;user_name&apos; is not a member of &apos;dev&apos;</span><br><span class="line"></span><br><span class="line"># 添加已有用户到组</span><br><span class="line">gpasswd dev -a user_name</span><br><span class="line"></span><br><span class="line">Adding user user_name to group dev</span><br><span class="line"></span><br><span class="line"># 永久删除用户</span><br><span class="line">userdel user_name</span><br><span class="line">gpasswd dev -d user_name</span><br><span class="line"># 同时删除该用户所有数据</span><br><span class="line">rm -rf /home/user_name</span><br><span class="line"></span><br><span class="line"># 给用户添加 sudo 权限(为了方便大佬)</span><br><span class="line">vi /etc/sudoers</span><br><span class="line"># 找到 root    ALL=(ALL)       ALL 这一行,在下面添加  user_name    ALL=(ALL)       ALL </span><br><span class="line"></span><br><span class="line">## Allow root to run any commands anywhere</span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">user_name    ALL=(ALL)       ALL</span><br><span class="line">user_name_1    ALL=(ALL)       ALL</span><br><span class="line">user_name_2    ALL=(ALL)       ALL</span><br><span class="line"></span><br><span class="line">wq! 保存即可</span><br></pre></td></tr></table></figure>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<div><strong>1 Xampp</strong> </div>
+<div><strong><br></strong></div>
+<div><a href="http://blog.csdn.net/jonathanlin2008/article/details/6210782%E2%80%8D" rel="noopener" target="_blank"></a></div>
+<div><strong>安装好xampp，配置 httpd.conf</strong> </div>
+<div>191/221 行 DocumentRoot 路径改为 "F:/PHP"  （我的工作空间）,以后项目就放在这个文件夹里。</div>
+<div></div>
+<div> </div>
+<div><strong>配置 php.ini</strong> </div>
+<div> </div>
+<div>Windows 下</div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension = "E:\Software\Develop\xampp\php\ext\php_xdebug.dll"
+xdebug.profiler_append = 0
+xdebug.profiler_enable = 1
+xdebug.profiler_enable_trigger = 0
+xdebug.profiler_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.profiler_output_name = "cachegrind.out.%t-%s"
+xdebug.remote_enable = on
+xdebug.remote_handler = "dbgp"
+xdebug.remote_host = "127.0.0.1"
+xdebug.trace_output_dir = "E:\Software\Develop\xampp\tmp"
+xdebug.remote_port = 9000</code></pre>
+</div>
+<div><br></div>
+<div>重启 Apache </div>
+<div> </div>
+<div>如果是Linux 需要下载 xdebug</div>
+<div><a href="http://code.activestate.com/komodo/remotedebugging/" rel="noopener" target="_blank">http://code.activestate.com/komodo/remotedebugging/</a></div>
+<div> </div>
+<div>解压后找到合适版本的xdebug.so并将其复制到/opt/lampp/lib/php/extensions/中。然后修改/opt/lampp/etc/php.ini文件，</div>
+<div>在其最后加上</div>
+<div><code></code>
+<div>
+<div><br></div>
+<div>
+<pre><code class="language-python">[XDebug]
+zend_extension="/opt/lampp/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=true
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+xdebug.remote_handler=dbgp
+xdebug.profiler_enable=1
+xdebug.profiler_output_dir="/opt/lampp/tmp"</code></pre>
+<br></div>
+</div>
+</div>
+<div>lampp restart</div>
+<div><br></div>
+<div><strong>2 PhpStorm</strong></div>
+<div> </div>
+<div><strong>2.1    进入File&gt;Settings&gt;PHP&gt;Servers，添加一个 Server</strong> </div>
+<div> </div>
+<div><code></code>
+<div>
+<div>
+<pre><code class="language-python">Name     :  localhost
+Host     :  localhost
+Port     :  80
+Debugger :  Xdebuger</code></pre>
+</div>
+<br></div>
+</div>
+<div> </div>
+<div><strong>2.2    进入File&gt;Settings&gt;PHP&gt;Debug</strong></div>
+<div> </div>
+<div>
+<pre><code class="language-python">Debug port    :    9000</code></pre>
+</div>
+<br><div> </div>
+<div><strong>2.3    打开 Edit Configurations</strong></div>
+<div> </div>
+<div align="left"></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170415984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div><br></div>
+<div><strong><u>添加一个 PHP Web Application</u></strong></div>
+<div><strong><u><br></u></strong></div>
+<div> <img src="" alt=""><img src="https://img-blog.csdn.net/20130712170419953?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWtyMTI3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></div>
+<div align="left"></div>
+<div> </div>
+<div>运行时 就用这个 Web 运行调试，搞定。</div>
+<div>还不行就试试修改 上图中的Defaults，我把 server都改成了自己的localhost ,浏览器改成了firefox。</div>
+<div><br></div>
+<div>成果就是设置好断点,</div>
+<div>debug 运行，或者直接 shift + F9</div>
+<div>则会自动打开火狐浏览器并且停留在断点处。</div>
+<div><br></div>
+<div><br></div>
+<div><strong><span style="font-size:18px;">以后遇到新问题是将更新本文档，免得后面人又得重新探索，也欢迎大家提出问题。</span></strong></div>
+<div> </div>
+<div><span style="font-size:18px;color:#ff0000;"><strong>转载请注明出处</strong></span></div>
+<div><br></div>
+<div> </div>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/安装_CENTOS_用户组管理/" data-id="cjoqptotn0007mpsl3dufnnjm" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/" data-id="cjorxdvy80046auslew71i8v6" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CENTOS/">CENTOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/install/">安装</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -126,7 +228,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -137,7 +239,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -147,7 +249,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -156,7 +258,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -169,23 +271,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

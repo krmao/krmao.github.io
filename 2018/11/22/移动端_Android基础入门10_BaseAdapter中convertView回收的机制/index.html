@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-22T01:34:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制">
+<meta name="twitter:description" content="以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。    下面先讲讲我遇到的几个问题： 一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义； 二.View的SetTag和get">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android基础入门10_BaseAdapter中convertView回收的机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/" class="article-date">
+  <time datetime="2018-11-22T01:34:53.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p>
+以前一直在用BaseAdapter，对于其中的getview方法的重写一直不太清楚。今天终于得以有空来探究它的详细机制。</p>
+<p>
+</p>
+<p></p>
+<h3>下面先讲讲我遇到的几个问题：</h3>
+<strong>一.View getview(int position, View convertview, ViewGroup parent )中的第二个参数是什么含义；<br>
+二.View的SetTag和getTag方法的用途；</strong>
+<p></p>
+<p><br></p>
+<h3>先来解决第一个问题:</h3>
+<p><em><strong>android SDK中这样讲参数 convertview ：</strong></em></p>
+<p><span style="color:#ff0000;">the old view to reuse, if possible. Note: You should check that this view is non-null and of an appropriate type before using. If it is not possible to convert this view to display the correct data, this method can create a new
+ view.</span></p>
+<p><br>
+翻译：<br>
+如果可以的话，这是旧View（这里不便翻译有的人翻成视图）的重用。 建议：在用之前，你应该检查这个View是不是非空，是不是一个合适的类型。<br>
+如果不可能让这个VIew去显示一个恰当的数据，这个方法会创建一个新的View。</p>
+<p><br></p>
+<p><strong>案例：</strong></p>
+<p>如果我们要做的是一个ListView，在手机上显示的只有那么几条Item，而整个ListView可能有很长，可能是100条<br>
+甚至是上万条，总不能让这么多条Item都驻留在内存中，所以android为你准备了一套机制，就是Recycler(反复循<br>
+环器)，他的具体工作原理可以到 <a href="http://www.cnblogs.com/xiaowenji/archive/2010/12/08/1900579.html" rel="noopener" target="_blank">
+http://www.cnblogs.com/xiaowenji/archive/2010/12/08/1900579.html</a>去看。<br>
+但是有些地方他没有讲清，所以我再讲一下。先把代码贴出来<br></p>
+<p><strong>布局文件main.xml</strong></p>
+<p><span></span></p>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;  
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="fill_parent"  
+    android:layout_height="fill_parent"  
+    android:orientation="vertical" &gt;  
+    &lt;ListView  
+        android:id="@+id/result"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:cacheColorHint="#00000000" &gt;  
+&lt;/ListView&gt;  
+&lt;/LinearLayout&gt;</code></pre>
+<br><p></p>
+<p>
+此处注意ListView的 <strong><span style="color:#000099;">android:layout_height </span></strong>属性值为"<strong>fill_paternt</strong>",<span style="color:#ff0000;"><strong>如果为“wrap_content"将会是另一种情况</strong></span></p>
+<p>
+<span style="color:#ff0000;"><strong><br></strong></span></p>
+<p>
+</p>
+<p>
+<strong>adapter的代码 ListViewAdapter.java </strong></p>
+<p style="font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;">
+</p>
+<pre><code class="language-java">class ListViewAdapter extends BaseAdapter  
+{  
+    private Context mContext;  
+    int i=0;  
+    public ListViewAdapter (Context context)  
+    {  
+        this.mContext=context;  
+    }  
+    @Override  
+    public int getCount()  
+    {  
+        return 30;  
+              
+    }  
+    @Override  
+    public Object getItem(int position)  
+    {  
+        return position;  
+    }  
+    @Override  
+    public long getItemId(int position)  
+    {  
+        return 0;  
+    }  
+    @Override  
+    public View getView(int position, View convertView, ViewGroup parent)  
+    {  
+        System.out.println("getView " + position + " " + convertView);//调试语句  
+        Holder holder;  
+        if(null==convertView)  
+        {  
+            holder=new Holder();  
+            convertView=LayoutInflater.from(mContext).inflate(R.layout.textview, null); //mContext指的是调用的Activtty  
+            holder.textView=(TextView)convertView.findViewById(R.id.textview);  
+            convertView.setTag(holder);  
+        }  
+        else  
+        {  
+            holder=(Holder)convertView.getTag();  
+        }  
+        holder.textView.setText("position: "+position);  
+        return convertView;           
+    }  
+    class Holder  
+    {  
+        public TextView textView;  
+    }  
+} </code></pre>
+<br><p></p>
+<p>
+运行程序之后发现屏幕上显示出的Item的convertview都为空，向下滑动新产生的Item的convetview都不为空。到此为止和上面链接中讲的是一致的，但是如果设置ListView的android:layout_height属性值为“wrap_content</p>
+<p>
+之后，发现只有第一个Item的convertview为null其他的不为空。</p>
+<p>
+虽然两种设置不同，结果也不同，但是convertview的机制没有变。</p>
+<p>
+<br></p>
+<p>
+其实到此为止我们可以总结出 <span style="font-size:24px;"><strong><em><u>convertview的机制</u> </em></strong></span>了，</p>
+<p>
+<br></p>
+<p>
+<span style="font-size:14px;background-color:rgb(255,255,255);"><strong><u><span style="color:#ff0000;">就是在初始显示的时候，每次显示一个item都调用一次getview方法但是每次调用的时候covertview为空（因为还没有旧的view），当显示完了之后。如果屏幕移动了之后，并且导致有些Item（也可以说是view）跑到屏幕外面，此时如果还有新的item需要产生，则这些item显示时调用的getview方法中的convertview参数就不是null，而是那些移出屏幕的view（旧view），我们所要做的就是将需要显示的item填充到这些回收的view（旧view）中去，最后注意convertview为null的不仅仅是初始显示的那些item，还有一些是已经开始移入屏幕但是还没有view被回收的那些item。</span></u></strong></span></p>
+<p>
+<br></p>
+<p>
+最终我们用亲手写的代码实现了Recycler(反复循环器).</p>
+<p>
+<br></p>
+<p>
+<span style="font-size:24px;"><strong><u>第二个问题 </u></strong></span>其实应该在第一个问题中嵌套来讲，但是为了思路清晰我分开了：</p>
+<p>
+view的setTag和getTag方法其实很简单，在实际编写代码的时候一个view不仅仅是为了显示一些字符串、图片，有时我们还需要他们携带一些其他的数据以便我们对该view的识别或者其他操作。于是android 的设计者们就创造了setTag(Object)方法来存放一些数据和view绑定，我们可以理解为这个是view 的标签也可以理解为view 作为一个容器存放了一些数据。而这些数据我们也可以通过getTag() 方法来取出来。</p>
+<p>
+到这里setTag和getTag大家应该已经明白了。再回到上面的话题，</p>
+<p>
+<br></p>
+<p>
+<span style="font-size:14px;"><strong><u><span style="color:#ff0000;">我们通过convertview的setTag方法和getTag方法来将我们要显示的数据来绑定在convertview上。如果convertview 是第一次展示我们就创建新的Holder对象与之绑定，并在最后通过return convertview 返回，去显示；如果convertview 是回收来的那么我们就不必创建新的holder对象，只需要把原来的绑定的holder取出加上新的数据就行了。</span></u></strong></span></p>
+<p>
+<br></p>
+<p>
+至此我的问题讲完了，你的问题解决了么？</p>
+<div><br></div>
+<div><strong><br></strong></div>
+<div><strong><br></strong></div>
+<div><strong>本篇文章转自 <a href="http://blog.csdn.net/pkxiuluo01/article/details/7380974" rel="noopener" target="_blank"><span style="color:#ff0000;">http://blog.csdn.net/pkxiuluo01/article/details/7380974</span></a></strong></div>
+<div><strong><br></strong></div>
+<div><strong><br></strong></div>
+<div><strong><br></strong></div>
+<div><strong><br></strong></div>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门10_BaseAdapter中convertView回收的机制/" data-id="cjorxdnra001oauslcitv7ajm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Django基础入门_Ckeditor_Wins7下图片上传及显示的路径问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Django基础入门】Ckeditor Wins7下图片上传及显示的路径问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门15_Shape圆角输入框/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖15〗】Shape圆角输入框</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android基础入门〖10〗】BaseAdapter中convertView回收的机制' + '-' + 'Thu Nov 22 2018 09:34:53 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android框架进阶〖02〗】ThinkAndroid线程池机制 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="/**************************************************************************************************   *  本博客为CSDN博主【MK】原创，博客地址：http://blog.csdn.net/mkrcpp/article/details/141">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android框架进阶〖02〗】ThinkAndroid线程池机制">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android框架进阶02_ThinkAndroid线程池机制/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="/**************************************************************************************************   *  本博客为CSDN博主【MK】原创，博客地址：http://blog.csdn.net/mkrcpp/article/details/141">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-22T01:34:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android框架进阶〖02〗】ThinkAndroid线程池机制">
+<meta name="twitter:description" content="/**************************************************************************************************   *  本博客为CSDN博主【MK】原创，博客地址：http://blog.csdn.net/mkrcpp/article/details/141">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android框架进阶02_ThinkAndroid线程池机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android框架进阶02_ThinkAndroid线程池机制/" class="article-date">
+  <time datetime="2018-11-22T01:34:49.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android框架进阶〖02〗】ThinkAndroid线程池机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/14166627" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank">http://blog.csdn.net/mkrcpp/article/details/14166627</a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+<p></p>
+<p><strong>TAApplication</strong>是<strong>ThinkAndroid</strong>的灵魂，整个框架的初始化工作都在这里进行了。</p>
+<p>其中有一个重要的工作，即<strong>初始化线程池机制 ，英文名为TACommandExecutor</strong>。</p>
+<p>之所以称为机制，是因为这不仅仅是一个线程池。</p>
+<p>通过观察代码可以看出，最最重要的代码是</p>
+<p></p>
+<pre><code class="language-java">public void ensureInitialized()
+{
+	if (!initialized)
+	{
+		initialized = true;
+		TALogger.i(TACommandExecutor.this, "CommandExecutor初始化");
+		TACommandQueueManager.getInstance().initialize();
+		TALogger.i(TACommandExecutor.this, "CommandExecutor初始化");
+	}
+}</code></pre>
+<br>
+其中涉及到一个很重要的类，即 <strong>TACommandQueueManager</strong>，看名字就知道这是一个队列管理器 。
+<p></p>
+<p>好，接下来我们就研究下<strong>TACommandQueueManager</strong>，</p>
+<p>非常清晰的，我们看到连个重要的属性，<strong>TAThreadPool</strong>，<strong>TACommandQueue，</strong></p>
+<p>看名字就知道一个是线程池，一个是指令队列。然后 TACommandQueueManager的作用就是初始化线程池和初始化队列。</p>
+<p>通过研究线程池 <strong>TAThreadPool </strong>的代码可以知道，默认仅仅是创建了2个线程，并且在系统启动时运行起来。</p>
+<p>通过研究指令队列<strong>TACommandQueue</strong>的代码可以知道它维护了一个<strong>LinkedBlockingQueue</strong>，一个阻塞队列，由链表实现。</p>
+<p><strong><span style="color:#ff0000;">阻塞队列的好处就是：</span></strong></p>
+<p></p>
+<ul><li>当一个线程A申请从队列中取数据时，如果队列中没有数据，那么线程A就发生阻塞，直到队列中存在数据。</li><li>同样的，当线程B想向队列中存放数据时，如果队列已满，那么线程B阻塞，直到队列中被取走了一个值，这就是咱们熟悉的生产者消费者模式嘛。</li></ul><p></p>
+<p><strong>OK，说了这么多，稍微整理下</strong></p>
+<p></p>
+<pre><code class="language-plain">------------------------------------
+TACommandQueueManager   初始化了    一个阻塞队列和一个线程池，线程池不断的从队列中取指令并执行
+TACommandExecutor       初始化了    TACommandQueueManager 
+TAApplication           初始化了    TACommandExecutor
+------------------------------------</code></pre>
+<p></p>
+<p><span style="font-family:'Microsoft YaHei';">基本上搞清楚了，唯一不清楚的就是什么是Command，阻塞队列维护的是什么样的指令呢，线程池执行的到底是什么呢？</span></p>
+<p><span style="font-family:'Microsoft YaHei';">我们来分析下</span></p>
+<p></p>
+<pre><code class="language-java">TAICommand:			
+	-getRequest()获得请求数据
+	-setRequest(TARequest request)设置请求数据
+	-getResponse()获得返回数据
+	-setResponse(TAResponse response)设置赶回数据
+	-execute()
+	-getResponseListener()获得响应/返回监听器
+	-setResponseListener(TAIResponseListener listener)设置响应/返回监听器
+	-setTerminated(boolean terminated)设置是否终结/停止
+	-isTerminated()判断状态是否停止
+----------------------------------------------------------------------------
+
+		TABaseCommand:基础指令
+			*getRequest()
+			*setRequest(TARequest request)
+			*getResponse()
+			*setResponse(TAResponse response)	
+			*getResponseListener()
+			*setResponseListener(TAIResponseListener responseListener)
+			*setTerminated(boolean terminated)
+			*isTerminated()
+			TARequest: 请求提交的数据
+				Tag		标记
+				Data		数据
+				activityKeyResID
+				activityKey
+			TAResponse:返回的数据，结果
+				Tag		标记
+				Data		数据
+				activityKeyResID		
+				activityKey
+			TAIResponseListener:	数据返回的一个监听器
+				onStart()
+				onSuccess(TAResponse response)
+				onRuning(TAResponse response)
+				onFailure(TAResponse response)
+				onFinish()
+----------------------------------------------------------------------------
+
+				TACommand:
+					TAIResponseListener
+					private Handler handler = new Handler()
+					{
+						public void handleMessage(Message msg)
+						{
+							switch (msg.what)
+							{
+							case command_start:
+								listener.onStart();
+								break;
+							case command_runting:
+								listener.onRuning(getResponse());
+								break;
+							case command_success:
+								listener.onSuccess(getResponse());
+								break;
+							case command_failure:
+								listener.onFailure(getResponse());
+								break;
+							case command_finish:
+								listener.onFinish();
+								break;
+							default:
+								break;
+							}
+						};
+
+					};
+
+					*public final void execute()
+					{
+						onPreExecuteCommand();	//listener.onStart();
+						executeCommand();	//abstract
+						onPostExecuteCommand();	//null
+					}
+----------------------------------------------------------------------------
+
+							TestMVCCommand	异步下载，发送信息通知 hanlder处理数据
+								*protected void executeCommand()
+								 {	
+								 	处理耗时任务
+								 	sendSuccessMessage(arrayList);
+								 }
+----------------------------------------------------------------------------
+</code></pre>
+<p></p>
+<p style="font-family:Arial;font-size:14px;line-height:25.98958396911621px;"><span style="font-family:'Microsoft YaHei';font-size:12px;"></span></p>
+<div style="color:rgb(54,46,43);font-size:14px;font-family:'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, '宋体', PMingLiU, serif;line-height:21px;">
+应用初始化时，初始化了线程池，和Command 阻塞队列，那么由此可知，上面的一系列代码只是为了实现统一管理 <u>处理耗时任务的</u> 线程，</div>
+<div style="font-size:14px;font-family:'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, '宋体', PMingLiU, serif;line-height:21px;">
+<span style="color:#ff0000;background-color:rgb(255,255,255);">再简而言之，Command即类似于 AsynTask 中的 doInBackground()执行的内容。</span></div>
+<div style="font-size:14px;font-family:'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, '宋体', PMingLiU, serif;line-height:21px;">
+<strong><span style="color:#ff0000;background-color:rgb(255,255,255);"><br></span></strong></div>
+<p></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/14166627" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/14166627</a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶02_ThinkAndroid线程池机制/" data-id="cjorxdr5e002rauslja6igsrt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android框架进阶01_ThinkAndroid注解机制二/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android框架进阶〖01〗】ThinkAndroid注解机制二
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_数据结构与算法_00_二分插入排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【数据结构与算法 00】二分插入排序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android框架进阶〖02〗】ThinkAndroid线程池机制' + '-' + 'Thu Nov 22 2018 09:34:49 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

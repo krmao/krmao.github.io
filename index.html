@@ -76,10 +76,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-移动端_IOS_发布" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-移动端_Android基础入门6_四大组件之ContentProvider" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/11/19/移动端_IOS_发布/" class="article-date">
-  <time datetime="2018-11-19T10:29:49.000Z" itemprop="datePublished">2018-11-19</time>
+    <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/" class="article-date">
+  <time datetime="2018-11-22T01:34:56.000Z" itemprop="datePublished">2018-11-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+      <a class="article-title" href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
     </h1>
   
 
@@ -102,23 +102,248 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-首先设置-apple-开发者账号"><a href="#1-首先设置-apple-开发者账号" class="headerlink" title="1: 首先设置 apple 开发者账号"></a>1: 首先设置 apple <a href="https://developer.apple.com/account/ios/identifier/bundle]" target="_blank" rel="noopener">开发者账号</a></h3><p>我把所有的(Certificates/Provisioning Profiles)全部删除了,只留下 Identifiers 菜单里面的 App IDs 里面的  该应用的 id</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2062311-b2e1aa094039036c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h3 id="2-xcode-登录账号密码"><a href="#2-xcode-登录账号密码" class="headerlink" title="2: xcode 登录账号密码"></a>2: xcode 登录账号密码</h3><h3 id="3-Targets-gt-General-gt-Identity-gt-Bundle-Identifier-输入-与步骤一里面-app-id-对应的-id"><a href="#3-Targets-gt-General-gt-Identity-gt-Bundle-Identifier-输入-与步骤一里面-app-id-对应的-id" class="headerlink" title="3: Targets -&gt; General -&gt; Identity -&gt; Bundle Identifier  输入 与步骤一里面 app id 对应的 id"></a>3: Targets -&gt; General -&gt; Identity -&gt; Bundle Identifier  输入 与步骤一里面 app id 对应的 id</h3><h3 id="3-Targets-gt-General-gt-Signing-gt-Team-选择注册-该应用-Bundle-Identifier-的账号-这里很关键"><a href="#3-Targets-gt-General-gt-Signing-gt-Team-选择注册-该应用-Bundle-Identifier-的账号-这里很关键" class="headerlink" title="3: Targets -&gt; General -&gt; Signing -&gt; Team 选择注册 该应用 Bundle Identifier 的账号 (这里很关键)"></a>3: Targets -&gt; General -&gt; Signing -&gt; Team 选择注册 该应用 Bundle Identifier 的账号 (这里很关键)</h3><ul>
-<li>一般个人账号没有注册 Bundle Identifier (Personal Team 都是为了自己免费在自己的真机上测试使用的)</li>
-<li>如果选择了注册 该应用 的 Bundle Identifier 的账号,则 步骤二必须 填写相同的 Bundle Identifier,生成的包应该即可以发布到appstore,也可以发给注册了 iphone-uuid 的用户安装测试</li>
-<li>如果选择了个人账号(Personal Team ),则必须填写与 appstore中完全不重复的 Bundle Identifier(随便写一个)才能编译通过,而且生成的包不能发布到 app store, 但是应该依然可以发给注册了 iphone-uuid 的用户安装使用<h3 id="4-Targets-gt-Build-Settings-gt-Code-Signing-Identity-gt-选择步骤3里面的-Signing-Certificate-相同账号的账号"><a href="#4-Targets-gt-Build-Settings-gt-Code-Signing-Identity-gt-选择步骤3里面的-Signing-Certificate-相同账号的账号" class="headerlink" title="4: Targets -&gt; Build Settings -&gt; Code Signing Identity -&gt; 选择步骤3里面的 Signing Certificate 相同账号的账号"></a>4: Targets -&gt; Build Settings -&gt; Code Signing Identity -&gt; 选择步骤3里面的 Signing Certificate 相同账号的账号</h3><h3 id="5-Xcode-gt-Product-gt-Archive-进行打包"><a href="#5-Xcode-gt-Product-gt-Archive-进行打包" class="headerlink" title="5: Xcode -&gt; Product -&gt; Archive 进行打包"></a>5: Xcode -&gt; Product -&gt; Archive 进行打包</h3></li>
-<li>如果个人/公司账号想要发布到 蒲公英等,打包成功后选择 AD HOC<br><img src="http://upload-images.jianshu.io/upload_images/2062311-d539bd819e46c5b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布 ad hoc.png"></li>
-<li>如果想发布到 app store 则直接点击 upload to appstore<br><img src="http://upload-images.jianshu.io/upload_images/2062311-b4bd45902c958451.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发布.png"></li>
-</ul>
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>简介</h1>
+<div>简而言之，ContentProvider 向别的应用程序提供数据(联系人这个应用程序提供了 它的 ContentProvider)，ContentResolver 从<strong>别的应用程序</strong>(已提供ContentProvider)获取、修改、添加数据(我们可以通过ContentResolver 来操纵联系人中的数据)。</div>
+<div> </div>
+<h1>说明</h1>
+<div>既然是四大组件之一，那么创建步骤基本相同</div>
+<div>1: 自定义 ContentProvider</div>
+<div>2: 注册</div>
+<div>3: 使用</div>
+<div> </div>
+<h1>1    自定义ContentProvider</h1>
+<p> MyProvider.java</p>
+<h6>
+</h6><pre><code class="language-java"><span style="font-weight:normal;">package com.myprovider;
+import android.content.ContentProvider;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+public class MyProvider extends ContentProvider{
+    DatabaseHelper dbhelper;
+    SQLiteDatabase db;
+    
+    UriMatcher UMatcher=new UriMatcher(UriMatcher.NO_MATCH);
+    
+    @Override
+    public boolean onCreate() {
+        // TODO 自动生成的方法存根
+        dbhelper=new DatabaseHelper(getContext(), "michael", null, 1);
+        
+        UMatcher.addURI("com.michael", "michael", 1);
+        UMatcher.addURI("com.michael", "michael/#", 2);
+        db=dbhelper.getWritableDatabase();
+        return true;
+    }
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        // TODO 自动生成的方法存根
+        Cursor cursor;
+        
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            cursor= db.query("michael", projection, selection, selectionArgs, null, null, sortOrder);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;    
+            
+            cursor =db.query("michael", projection, myselection, selectionArgs, null, null, sortOrder);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return cursor;
+    }
+    @Override
+    public String getType(Uri uri) {
+        // TODO 自动生成的方法存根
+        return null;
+    }
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        // TODO 自动生成的方法存根
+        long id =db.insert("michael", "username", values);
+        return ContentUris.withAppendedId(uri, id);
+    }
+    @Override
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        // TODO 自动生成的方法存根
+        int num;
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            num=db.delete("michael", selection, selectionArgs);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;
+            
+            num= db.delete("michael", myselection, selectionArgs);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return num;
+    }
+    @Override
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // TODO 自动生成的方法存根
+        int num;
+        
+        switch(UMatcher.match(uri))
+        {
+        case 1:
+            num=db.update("michael", values, selection, selectionArgs);
+            break;
+        case 2:
+            long id=ContentUris.parseId(uri);
+            String myselection="_id="+id;
+            
+            if(selection!=null)
+                myselection +=selection;
+            num=db.update("michael", values, myselection, selectionArgs);
+            break;
+        default:
+            //非法的参数异常
+            throw new IllegalArgumentException("unknow uri" + uri.toString());
+        }
+        return num;
+    }
+}</span></code></pre>
+
+<h1>2    封装的 SQLiteOpenHelper 用以操作数据库</h1>
+<p>DatabaseHelper.java</p>
+<h6>
+</h6><pre><code class="language-java"><span style="font-weight:normal;">package com.myprovider;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+public class DatabaseHelper extends SQLiteOpenHelper {
+    public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        //创建数据库
+        db.execSQL("create table michael(_id integer primary key autoincrement ,username text);");
+        
+        //初始数据
+        ContentValues values=new ContentValues();
+        values.put("username", "张三");
+        db.insert("michael", "username", values);
+        values.put("username", "李四");
+        db.insert("michael", "username", values);
+        values.put("username", "王五");
+        db.insert("michael", "username", values);
+        values.put("username", "赵六");
+        db.insert("michael", "username", values);
+    }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //升级数据库
+        db.execSQL("drop table if exists michael;");
+        this.onCreate(db);
+    }
+}</span></code></pre>
+
+<h1>3    注册</h1>
+<p>AndroidManifest.xml</p>
+<div>
+<pre><code class="language-html">&lt;provider
+    android:name="com.myprovider.MyProvider"
+    android:authorities="com.michael"
+    android:exported="true"/&gt;</code></pre>
+<br></div>
+<h1>4    访问数据    (在别的应用程序中亦同)</h1>
+<div>意思是，你新建一个项目，具备如下代码，仍然能操作访问 上述项目中的数据 。 这就是 ContentProvider 的神奇之处 :)</div>
+<div><br></div>
+<p>4.1 MainActivity.java</p>
+<div>
+<pre><code class="language-java">package com.myprovider;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        ContentResolver resolver=this.getContentResolver();
+        Uri uri=Uri.parse("content://com.michael/michael");
+        ContentValues values=new ContentValues();
+        values.put("username", "霸王龙");
+        resolver.insert(uri, values);
+        values.put("username", "巨无霸");
+        resolver.insert(uri, values);
+        values.put("username", "擎天柱");
+        resolver.insert(uri, values);
+        values.put("username", "大黄蜂");
+        resolver.insert(uri, values);
+        
+        Cursor cursor=resolver.query(uri, new String[]{"_id","username"}, null, null, null);
+        SimpleCursorAdapter adapter=new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"_id","username"}, new int[]{android.R.id.text1,android.R.id.text2}, 0);
+    
+        ListView listview=(ListView)findViewById(R.id.listview);
+        listview.setAdapter(adapter);
+    }
+}</code></pre>
+<br></div>
+<p>4.2 activity_main.xml 布局文件</p>
+<div>
+<pre><code class="language-html">&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+<br></div>
+<h1>5    效果截图</h1>
+<div><br></div>
+<div> <img src="https://img-blog.csdn.net/20130924220111437" alt=""></div>
+<div> </div>
+<div> </div>
+<div> <span style="font-size:18px;color:#ff0000;"><strong><u>转载请注明出处，毕竟代码是一个一个敲出来的 :)</u></strong></span></div>
+<div> </div>
+<div> </div>
+<div> </div>
+<div> </div>
+            </div>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="krmao.gihub.io/2018/11/19/移动端_IOS_发布/" data-id="cjoqptoub000nmpslqbih9kuy" class="article-share-link">Share</a>
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/" data-id="cjorxdmzq001causlsujdh27u" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
 
       <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
     </footer>
@@ -134,7 +359,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -145,7 +370,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">19</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -155,7 +380,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CENTOS/" style="font-size: 20px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 13.33px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 20px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 16.67px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 16.67px;">算法</a>
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
     </div>
   </div>
 
@@ -164,7 +389,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">19</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
     </div>
   </div>
 
@@ -177,23 +402,23 @@
       <ul>
         
           <li>
-            <a href="/2018/11/19/移动端_IOS_发布/">移动端_IOS_发布</a>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_JDK_1_8/">安装_CENTOS_JDK_1_8</a>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_FTP/">安装_CENTOS_FTP</a>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_NODE/">安装_CENTOS_NODE</a>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
           </li>
         
           <li>
-            <a href="/2018/11/19/安装_CENTOS_用户组管理/">安装_CENTOS_用户组管理</a>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
           </li>
         
       </ul>

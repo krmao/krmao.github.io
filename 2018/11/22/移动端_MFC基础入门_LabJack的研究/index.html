@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【MFC基础入门】LabJack的研究 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MyLabJackDlg.h  // MyLabJackDlg.h : 头文件 //  #pragma once #include &quot;afxwin.h&quot; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;windows.h&amp;gt; #include &quot;C:\Program Files (x86)\LabJack\Driver">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【MFC基础入门】LabJack的研究">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_MFC基础入门_LabJack的研究/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="MyLabJackDlg.h  // MyLabJackDlg.h : 头文件 //  #pragma once #include &quot;afxwin.h&quot; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;windows.h&amp;gt; #include &quot;C:\Program Files (x86)\LabJack\Driver">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201212/25/1356411205_8771.png">
+<meta property="og:updated_time" content="2018-11-22T01:34:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【MFC基础入门】LabJack的研究">
+<meta name="twitter:description" content="MyLabJackDlg.h  // MyLabJackDlg.h : 头文件 //  #pragma once #include &quot;afxwin.h&quot; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;windows.h&amp;gt; #include &quot;C:\Program Files (x86)\LabJack\Driver">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201212/25/1356411205_8771.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_MFC基础入门_LabJack的研究" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_MFC基础入门_LabJack的研究/" class="article-date">
+  <time datetime="2018-11-22T01:34:51.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【MFC基础入门】LabJack的研究
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p>MyLabJackDlg.h</p>
+<p></p>
+<pre><code class="language-cpp">// MyLabJackDlg.h : 头文件
+//
+
+#pragma once
+#include "afxwin.h"
+#include &lt;stdio.h&gt;
+#include &lt;windows.h&gt;
+#include "C:\Program Files (x86)\LabJack\Drivers\LabJackUD.h"
+
+
+// CMyLabJackDlg 对话框
+class CMyLabJackDlg : public CDialogEx
+{
+// 构造
+public:
+	CMyLabJackDlg(CWnd* pParent = NULL);	// 标准构造函数
+
+// 对话框数据
+	enum { IDD = IDD_MYLABJACK_DIALOG };
+
+	protected:
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
+
+
+// 实现
+protected:
+	HICON m_hIcon;
+
+	// 生成的消息映射函数
+	virtual BOOL OnInitDialog();
+	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg void OnPaint();
+	afx_msg HCURSOR OnQueryDragIcon();
+	DECLARE_MESSAGE_MAP()
+public:
+	CString Edit_AIN0;
+	CString Edit_AIN1;
+	CString Edit_AIN2;
+	CString Edit_AIN3;
+	CButton bt_start;
+	CButton bt_stop;
+
+	double StartAIN0;
+	double StartAIN1;
+	bool setvalue;
+	bool timerstate;
+
+	LJ_ERROR lngErrorcode;
+	LJ_HANDLE lngHandle;
+	double dblValue;
+	long lngValue;
+
+	long lngBinary;
+
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton3();
+
+	CString Edit_SAIN0;
+	CString Edit_SAIN1;
+	CString Edit_Arcsin0;
+	CString Edit_Arcsin1;
+	CButton bt_setvalue;
+	void ErrorHandler (LJ_ERROR lngErrorcode, long lngLineNumber, long lngIteration);
+};
+</code></pre>
+<p></p>
+<p>MyLabJackDlg.cpp</p>
+<pre><code class="language-cpp">// MyLabJackDlg.cpp : 实现文件
+//
+
+#include "stdafx.h"
+#include "MyLabJack.h"
+#include "MyLabJackDlg.h"
+#include "afxdialogex.h"
+#include &lt;math.h&gt;
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+// 用于应用程序“关于”菜单项的 CAboutDlg 对话框
+
+class CAboutDlg : public CDialogEx
+{
+public:
+	CAboutDlg();
+
+// 对话框数据
+	enum { IDD = IDD_ABOUTBOX };
+
+	protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+
+// 实现
+protected:
+	DECLARE_MESSAGE_MAP()
+};
+
+CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
+{
+}
+
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_MOVING()
+END_MESSAGE_MAP()
+
+
+// CMyLabJackDlg 对话框
+
+
+
+
+CMyLabJackDlg::CMyLabJackDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(CMyLabJackDlg::IDD, pParent)
+	, Edit_SAIN0(_T(""))
+	, Edit_SAIN1(_T(""))
+	, Edit_Arcsin0(_T(""))
+	, Edit_Arcsin1(_T(""))
+{
+	m_hIcon = AfxGetApp()-&gt;LoadIcon(IDR_MAINFRAME);
+	Edit_AIN0 = _T("");
+}
+
+void CMyLabJackDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+
+	DDX_Control(pDX, IDC_BUTTON1, bt_start);
+	DDX_Control(pDX, IDC_BUTTON2, bt_stop);
+	DDX_Text(pDX, IDC_EDIT1, Edit_AIN0);
+	DDV_MaxChars(pDX, Edit_AIN0, 30);
+	DDX_Text(pDX, IDC_EDIT2, Edit_AIN1);
+	DDV_MaxChars(pDX, Edit_AIN1, 30);
+	DDX_Text(pDX, IDC_EDIT3, Edit_AIN2);
+	DDV_MaxChars(pDX, Edit_AIN2, 30);
+	DDX_Text(pDX, IDC_EDIT4, Edit_AIN3);
+	DDV_MaxChars(pDX, Edit_AIN3, 30);
+	DDX_Text(pDX, IDC_EDIT5, Edit_SAIN0);
+	DDV_MaxChars(pDX, Edit_SAIN0, 30);
+	DDX_Text(pDX, IDC_EDIT6, Edit_SAIN1);
+	DDV_MaxChars(pDX, Edit_SAIN1, 30);
+	DDX_Text(pDX, IDC_EDIT7, Edit_Arcsin0);
+	DDV_MaxChars(pDX, Edit_Arcsin0, 30);
+	DDX_Text(pDX, IDC_EDIT8, Edit_Arcsin1);
+	DDX_Control(pDX, IDC_BUTTON3, bt_setvalue);
+}
+
+BEGIN_MESSAGE_MAP(CMyLabJackDlg, CDialogEx)
+	ON_WM_SYSCOMMAND()
+	ON_WM_PAINT()
+	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &amp;CMyLabJackDlg::OnBnClickedButton1)
+	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BUTTON2, &amp;CMyLabJackDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &amp;CMyLabJackDlg::OnBnClickedButton3)
+END_MESSAGE_MAP()
+
+//This is our simple error handling function that is called after every UD
+//function call.  This function displays the errorcode and string description
+//of the error.  It also has a line number input that can be used with the
+//macro __LINE__ to display the line number in source code that called the
+//error handler.  It also has an iteration input is useful when processing
+//results in a loop (getfirst/getnext).
+void CMyLabJackDlg::ErrorHandler (LJ_ERROR lngErrorcode, long lngLineNumber, long lngIteration)
+{
+	char err[255];
+
+	if (lngErrorcode != LJE_NOERROR)
+	{
+		ErrorToString(lngErrorcode,err);
+		CString str;
+		str.Format("Error number = %d\nError string = %s\nSource line number = %d\nIteration = %d\n\n",lngErrorcode ,err ,lngLineNumber ,lngIteration);
+		MessageBox(str.GetString());
+
+		if(lngErrorcode &gt; LJE_MIN_GROUP_ERROR)
+		{
+			exit(0);
+		}
+   }
+}
+
+
+
+// CMyLabJackDlg 消息处理程序
+
+BOOL CMyLabJackDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// 将“关于...”菜单项添加到系统菜单中。
+
+	// IDM_ABOUTBOX 必须在系统命令范围内。
+	ASSERT((IDM_ABOUTBOX &amp; 0xFFF0) == IDM_ABOUTBOX);
+	ASSERT(IDM_ABOUTBOX &lt; 0xF000);
+
+	CMenu* pSysMenu = GetSystemMenu(FALSE);
+	if (pSysMenu != NULL)
+	{
+		BOOL bNameValid;
+		CString strAboutMenu;
+		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
+		ASSERT(bNameValid);
+		if (!strAboutMenu.IsEmpty())
+		{
+			pSysMenu-&gt;AppendMenu(MF_SEPARATOR);
+			pSysMenu-&gt;AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
+		}
+	}
+
+	// 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
+	//  执行此操作
+	SetIcon(m_hIcon, TRUE);			// 设置大图标
+	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+	// TODO: 在此添加额外的初始化代码
+	double dblValue=0;
+	long lngValue=0;
+	LJ_HANDLE lngHandle=0;
+	setvalue=false;
+	timerstate=false;
+	CString tmp;
+	StartAIN0=2.482;
+	StartAIN1=2.472;
+	UpdateData(1);
+
+	tmp.Format("%f",StartAIN0);
+	Edit_SAIN0=tmp;
+	tmp.Format("%f",StartAIN1);
+	Edit_SAIN1=tmp;
+	UpdateData(0);
+
+	fstream out;
+	out.open("e:\\test.txt",ios::app|ios::in);
+	out.seekg(ios::beg);
+
+	if(out.rdbuf()-&gt;sgetc()==char_traits&lt;char&gt;::eof())
+		out&lt;&lt;"systemtime"&lt;&lt;'\t'&lt;&lt;"arcsin(AIN0)"&lt;&lt;'\t'&lt;&lt;"arcsin(AIN1)"&lt;&lt;endl;
+
+	out.close();
+
+	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+}
+
+void CMyLabJackDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+	if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+	{
+		CAboutDlg dlgAbout;
+		dlgAbout.DoModal();
+	}
+	else
+	{
+		CDialogEx::OnSysCommand(nID, lParam);
+	}
+}
+
+// 如果向对话框添加最小化按钮，则需要下面的代码
+//  来绘制该图标。对于使用文档/视图模型的 MFC 应用程序，
+//  这将由框架自动完成。
+
+void CMyLabJackDlg::OnPaint()
+{
+	if (IsIconic())
+	{
+		CPaintDC dc(this); // 用于绘制的设备上下文
+
+		SendMessage(WM_ICONERASEBKGND, reinterpret_cast&lt;WPARAM&gt;(dc.GetSafeHdc()), 0);
+
+		// 使图标在工作区矩形中居中
+		int cxIcon = GetSystemMetrics(SM_CXICON);
+		int cyIcon = GetSystemMetrics(SM_CYICON);
+		CRect rect;
+		GetClientRect(&amp;rect);
+		int x = (rect.Width() - cxIcon + 1) / 2;
+		int y = (rect.Height() - cyIcon + 1) / 2;
+
+		// 绘制图标
+		dc.DrawIcon(x, y, m_hIcon);
+	}
+	else
+	{
+		CDialogEx::OnPaint();
+	}
+}
+
+//当用户拖动最小化窗口时系统调用此函数取得光标
+//显示。
+HCURSOR CMyLabJackDlg::OnQueryDragIcon()
+{
+	return static_cast&lt;HCURSOR&gt;(m_hIcon);
+}
+
+
+void CMyLabJackDlg::OnBnClickedButton1() //开启定时器1
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if(timerstate==false)
+	{
+		SetTimer(1,60,NULL);//启动定时器1,定时时间是60ms
+		timerstate=true;
+	}
+}
+
+
+void CMyLabJackDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+	//写入文件
+	ofstream out;
+	out.open("e:\\test.txt",ios::app);
+	CString strtime;
+	SYSTEMTIME st;
+	GetLocalTime(&amp;st);
+	strtime.Format("%2d%2d%2d%3d",st.wHour,st.wMinute,st.wSecond,st.wMilliseconds);
+	out&lt;&lt;strtime&lt;&lt;'\t';
+	//Open the first found LabJack U3.
+	lngErrorcode = OpenLabJack (LJ_dtU3, LJ_ctUSB, "1", 1, &amp;lngHandle);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+
+	//Start by using the pin_configuration_reset IOType so that all
+	//pin assignments are in the factory default condition.
+	lngErrorcode = ePut (lngHandle, LJ_ioPIN_CONFIGURATION_RESET, 0, 0, 0);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+
+	CString ss;
+	UpdateData(1);
+	/*****************************************************************************/
+	//Take a single-ended measurement from AIN0.
+	lngBinary = 0;
+	lngErrorcode = eAIN (lngHandle, 0, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+	ss.Format(TEXT("%f"),dblValue);
+	Edit_AIN0=ss;
+	//反正弦
+	dblValue=asin((dblValue-StartAIN0)/1.2);
+	if(dblValue&gt;1)
+	{
+		dblValue=1;
+	}
+	else if(dblValue&lt;-1)
+	{
+		dblValue=-1;
+	}
+	ss.Format(TEXT("%f"),dblValue);
+	Edit_Arcsin0=ss;
+	out&lt;&lt;ss&lt;&lt;'\t';
+
+	lngErrorcode = eAIN (lngHandle, 1, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+	ss.Format(TEXT("%f"),dblValue);
+
+	Edit_AIN1=ss;	
+	//反正弦
+	dblValue=asin((dblValue-StartAIN1)/1.2);
+	if(dblValue&gt;1)
+	{
+		dblValue=1;
+	}
+	else if(dblValue&lt;-1)
+	{
+		dblValue=-1;
+	}
+	ss.Format(TEXT("%f"),dblValue);
+	Edit_Arcsin1=ss;
+	out&lt;&lt;ss&lt;&lt;'\t'&lt;&lt;endl;
+
+	lngErrorcode = eAIN (lngHandle, 2, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+	ss.Format(TEXT("%f"),dblValue);
+	Edit_AIN2=ss;
+	lngErrorcode = eAIN (lngHandle, 3, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+	ss.Format(TEXT("%f"),dblValue);
+	Edit_AIN3=ss;
+
+	UpdateData(0);
+	/*****************************************************************************/
+	CDialogEx::OnTimer(nIDEvent);
+
+	
+	out.close();
+
+}
+
+
+void CMyLabJackDlg::OnBnClickedButton2()				//关闭定时器1。
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	if(timerstate==true)
+	{
+		KillTimer(1); //关闭定时器1。
+		timerstate=false;
+	}
+
+}
+
+void CMyLabJackDlg::OnBnClickedButton3()//设置初值
+{
+	// TODO: 在此添加控件通知处理程序代码
+	//Open the first found LabJack U3.
+	if(timerstate==true)
+	{
+		KillTimer(1); //关闭定时器1。
+		timerstate=false;
+	}
+	bt_start.EnableWindow(false);
+	bt_stop.EnableWindow(false);
+	bt_setvalue.EnableWindow(false);
+	bt_setvalue.SetWindowTextA("请等待10s...");
+	lngErrorcode = OpenLabJack (LJ_dtU3, LJ_ctUSB, "1", 1, &amp;lngHandle);
+	ErrorHandler(lngErrorcode, __LINE__, 0);
+	double A0[10],A1[10];
+
+	for(int i=0;i&lt;10;i++)
+	{
+		//Take a single-ended measurement from AIN0.
+		lngBinary = 0;
+		lngErrorcode = eAIN (lngHandle, 0, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+		ErrorHandler(lngErrorcode, __LINE__, 0);
+		A0[i]=dblValue;
+		//Take a single-ended measurement from AIN1.
+		lngErrorcode = eAIN (lngHandle, 1, 31, &amp;dblValue, -1, -1, -1, lngBinary, 0, 0);
+		ErrorHandler(lngErrorcode, __LINE__, 0);
+		A1[i]=dblValue;
+		Sleep(1000);
+	}
+	for(int i=0;i&lt;10;i++)
+	{
+		StartAIN0+=A0[i];
+		StartAIN1+=A1[i];
+	}
+	StartAIN0 /= 10.0;
+	StartAIN1 /= 10.0;
+	setvalue=true;
+
+	CString tmp;
+	UpdateData(1);
+
+	tmp.Format("%f",StartAIN0);
+	Edit_SAIN0=tmp;
+	tmp.Format("%f",StartAIN1);
+	Edit_SAIN1=tmp;
+	UpdateData(0);
+	bt_start.EnableWindow(true);
+	bt_stop.EnableWindow(true);
+	bt_setvalue.EnableWindow(true);
+	bt_setvalue.SetWindowTextA("重设初值(10s)");
+}</code></pre>
+<br>
+结果：
+<p></p>
+<p><img src="http://img.my.csdn.net/uploads/201212/25/1356411205_8771.png" alt=""><br></p>
+<p><br></p>
+<strong><span style="font-size:24px;color:#ff0000;">转载请注明出处！</span></strong>
+<p><br><br></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_MFC基础入门_LabJack的研究/" data-id="cjorxdvqb0040auslfhkzsphf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖2〗】Eclipse 导入 Android 源码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Django基础入门_Aptana提示功能和shell设置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Django基础入门】Aptana提示功能和shell设置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【MFC基础入门】LabJack的研究' + '-' + 'Thu Nov 22 2018 09:34:51 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

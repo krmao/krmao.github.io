@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注：本篇文章基于我以前发表的文章 Android 之 Fragment 之上，稍作修改即可达到 炫酷的 滑动效果 :)    具体步骤如下: NO.1:    新建一个 内容布局，用于显示文章             之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="注：本篇文章基于我以前发表的文章 Android 之 Fragment 之上，稍作修改即可达到 炫酷的 滑动效果 :)    具体步骤如下: NO.1:    新建一个 内容布局，用于显示文章             之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924172748015">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924172823500">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924172828937">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924172946890">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924172937390">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173043187">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173115390">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173121328">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173158859">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173209000">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924173248656">
+<meta property="og:updated_time" content="2018-11-22T01:34:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu">
+<meta name="twitter:description" content="注：本篇文章基于我以前发表的文章 Android 之 Fragment 之上，稍作修改即可达到 炫酷的 滑动效果 :)    具体步骤如下: NO.1:    新建一个 内容布局，用于显示文章             之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20130924172748015">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android基础入门12_滑动菜单SlidingMenu" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" class="article-date">
+  <time datetime="2018-11-22T01:34:55.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p><strong><span style="font-size:18px;">注：本篇文章基于我以前发表的文章 <a href="http://blog.csdn.net/mkrcpp/article/details/11478011" rel="noopener" target="_blank"><span style="color:#ff0000;">Android 之 Fragment</span></a> 之上，稍作修改即可达到 炫酷的 滑动效果 :)</span></strong></p>
+<p></p>
+<div><span style="background-color:#c7edcc;"></span> </div>
+<div><span style="color:#ff0000;background-color:#c7edcc;"><strong><u>具体步骤如下:</u></strong></span></div>
+<h1>NO.1:    新建一个 内容布局，用于显示文章</h1>
+<div>            <span style="background-color:#c7edcc;">之所以要新建一个而不是用 right_fragment.xml  是因为 RightFragment 需要被实例化啊，哈哈，这是个重点哦。</span></div>
+<div><span style="background-color:#c7edcc;">            因为我们已不再使用之前的 main_layout.xml 了。</span></div>
+<div>            <span style="background-color:#c7edcc;">contentlayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_fragment"
+    android:name="com.example.myfragments.RightFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.2:    新建一个 菜单布局，用于显示菜单</h1>
+<div>            <span style="background-color:#c7edcc;">原因与第一步的原因相同 :)</span></div>
+<div>            <span style="background-color:#c7edcc;">menulayout.xml</span></div>
+<div><span style="background-color:#c7edcc;"></span>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_fragment"
+    android:name="com.example.myfragments.LeftFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/&gt;</code></pre>
+</div>
+<h1>NO.3:    下载并安装 SlidingMenu</h1>
+<div>            下载地址 <a href="https://github.com/jfeinstein10/SlidingMenu" rel="noopener" target="_blank">
+https://github.com/jfeinstein10/SlidingMenu</a> </div>
+<div><span></span>    打开 Eclipse ，将 SlidingMenu 导入。<br></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172748015" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924172823500" alt=""></div>
+<div><span></span>    <img src="https://img-blog.csdn.net/20130924172828937" alt=""></div>
+<div><span></span>    </div>
+<div>            设置 项目 library 的属性，勾选 Is Library 。</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172946890" alt=""></div>
+<div>            </div>
+<div>            在自己的项目中引用 library 库，我的项目为 MyFragments</div>
+<div>            <img src="https://img-blog.csdn.net/20130924172937390" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173043187" alt=""></div>
+<div>            <img src="https://img-blog.csdn.net/20130924173115390" alt=""></div>
+<div>            </div>
+<div> </div>
+<div>            由于 SlidingMenu 自带了 android-support-v4.jar，所以需要将自己项目中原有的 android-support-v4.jar 删掉。</div>
+<div>            成功导入后的截图为:</div>
+<div>            <img src="https://img-blog.csdn.net/20130924173121328" alt=""></div>
+<div>            ok，至此 SlidingMenu 已经成功引入，下面就开始使用吧 :)</div>
+<div> </div>
+<h1>NO.4:    使用 SlidingMenu</h1>
+<div>            只需要将 原 MainActivity.java 改写成如下代码即可</div>
+<div>
+<pre><code class="language-java">package com.example.myfragments;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+public class MainActivity extends Activity implements onItemSeletedListener{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);   
+        requestWindowFeature(Window.FEATURE_NO_TITLE);   
+        
+        //开始设置滑动菜单
+        setContentView(R.layout.contentlayout);                     //设置正文的显示布局
+        //-------------------------------------------------------------------------------------
+        //NO.1    继承 SlidingActivity 方式
+        //setBehindContentView(R.layout.menulayout);                //设置左侧菜单的布局
+        //SlidingMenu menu = getSlidingMenu();
+        //-------------------------------------------------------------------------------------
+        //NO.2    非继承 SlidingActivity 方式
+        SlidingMenu menu = new SlidingMenu(this);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(R.layout.menulayout);                            //添加菜单
+        //-------------------------------------------------------------------------------------
+        
+        
+        menu.setMode(SlidingMenu.LEFT);                                //设置菜单位置
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);        //设置菜单打开方式
+                                                                    //TOUCHMODE_FULLSCREEN     全屏模式
+                                                                    //TOUCHMODE_MARGIN         边缘模式
+                                                                    //TOUCHMODE_NONE         不能通过手势打开
+        
+        
+        menu.setShadowWidth(12);                                    //设置渐变效果宽度    位于菜单 与 内容 之间
+        menu.setShadowDrawable(R.drawable.shadow);                    //设置菜单渐变效果
+        menu.setFadeDegree(0.9f);                                    //设置淡入程度       当滑出菜单时，渐变效果由0.9 - 0 淡入
+ 
+        menu.setBehindOffset(250);                                    //设置菜单滑出后 距离屏幕右边的长度(直接设置 dp)
+        //-------------------------------------------------------------------------------------
+        //设置结束
+        
+        
+        
+        
+        
+        //Fragment 一些代码增删改
+        //添加
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //LeftFragment leftfragment=new LeftFragment();
+        //fragmenttransaction.add(R.id.left_fragment, leftfragment);
+        //fragmenttransaction.commit();
+        //删除
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //Fragment leftfragment=fragmentmanager.findFragmentById(R.id.left_fragment);
+        //fragmenttransaction.remove(leftfragment);
+        //fragmenttransaction.commit();
+        //替换
+        //FragmentManager fragmentmanager=getFragmentManager();
+        //FragmentTransaction fragmenttransaction=fragmentmanager.beginTransaction();
+        //fragmenttransaction.replace(R.id.left_fragment, new LeftFragment());
+        //fragmenttransaction.commit();
+    }
+    @Override
+    public void onItemSeleted(int position) {
+        RightFragment rightFragment=(RightFragment) getFragmentManager().findFragmentById(R.id.right_fragment);
+        
+        if(rightFragment != null)
+            rightFragment.update(position);
+    }
+}</code></pre>
+</div>
+<br><div>        上述代码中用到的 渐变设置为 R.drawable.shadow   该配置文件用到的颜色值见 文章  <a href="http://blog.csdn.net/mkrcpp/article/details/11563083" rel="noopener" target="_blank">Android ListView 之 SimpleAdapter 二 (包含 item 中按钮监听)</a> 中 第五节 color.xml 颜色值。</div>
+<div>
+<pre><code class="language-html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;shape xmlns:android="http://schemas.android.com/apk/res/android" &gt;
+    &lt;gradient
+        android:endColor="@color/darkblue"
+        android:centerColor="@color/darkgray"
+        android:startColor="@color/black" /&gt;
+&lt;/shape&gt;</code></pre>
+</div>
+<h1>NO.5:    滑动菜单效果展示</h1>
+<div>        <img src="https://img-blog.csdn.net/20130924173158859" alt=""></div>
+<div>        注意此处的渐变淡入效果</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173209000" alt=""></div>
+<div>        渐变效果为 由 黑色-深灰色-深蓝色 渐变。</div>
+<div>        <img src="https://img-blog.csdn.net/20130924173248656" alt=""></div>
+<div>        </div>
+<br><p></p>
+<p><br></p>
+<p><span style="font-size:18px;color:#ff0000;"><strong><u>注：转载请注明出处 :)   毕竟代码是一个一个敲出来的啊，O(∩_∩)O~</u></strong></span></p>
+<p><br></p>
+<p><br></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门12_滑动菜单SlidingMenu/" data-id="cjorxdo8e001uausl8eeljvai" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门7_SurfaceView坦克大战之世界地图/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖7〗】SurfaceView坦克大战之世界地图
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门5_四大组件之BroadcastReceiver/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android基础入门〖12〗】滑动菜单SlidingMenu' + '-' + 'Thu Nov 22 2018 09:34:55 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

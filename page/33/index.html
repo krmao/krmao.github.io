@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/33/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-移动端_Android框架进阶00_ThinkAndroid注解机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android框架进阶00_ThinkAndroid注解机制/" class="article-date">
+  <time datetime="2018-11-22T01:34:50.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/22/移动端_Android框架进阶00_ThinkAndroid注解机制/">移动端_IOS【Android框架进阶〖00〗】ThinkAndroid注解机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/13509051" rel="noopener" target="_blank">http://blog.csdn.net/mkrcpp/article/details/13509051</a><a href="http://blog.csdn.net/mkrcpp/article/details/13509051" rel="noopener" target="_blank"></a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+<p style="color:rgb(54,46,43);line-height:25.98958396911621px;"><span style="font-family:'Microsoft YaHei';font-size:12px;"></span></p>
+<p style="color:rgb(54,46,43);line-height:25.98958396911621px;"><span style="font-weight:bold;">由于项目需要，开始研究ThinkAndroid。</span></p>
+<p style="color:rgb(54,46,43);line-height:25.98958396911621px;"><span style="font-weight:bold;">个人认为该框架的注解机制十分新颖，所以先研究这个，顺便学习下 Java 的annotation。</span></p>
+<p><strong>粗略的看了看，该机制在BaseActivity中初始化。而BaseActivity是所有Activity的基类。</strong></p>
+<p><strong>对BaseActivity进行了代码剖离，发现在BaseActivity中在onCreate函数里启动注解机制。</strong></p>
+<p></p>
+<ul><li>首先注入布局资源（绑定layout布局）</li><li>其次注入成员资源（绑定组件资源）</li><li>然后注入成员变量（初始化普通变量）</li></ul><p></p>
+<p>暂时先搞清楚第二个，怎么绑定组件资源的：</p>
+<p><strong>我写了个小demo，MyAnno</strong></p>
+<p></p>
+<ul><li><img src="" alt=""><img src="https://img-blog.csdn.net/20131029160827031" alt=""></li></ul><p></p>
+<p><strong>InjectView.java</strong></p>
+<p></p>
+<pre><code class="language-java">package com.myanno;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+
+/**
+ * 自定义注解，获取资源ID
+ * @使用方法
+ * 				@InjectView(id = R.id.settingIv)
+ * 				private ImageView imgSetting; 
+ * 
+ * @author 		michael.mao@sosino.com
+ * @date		2013-10-29
+ * @description @Retention: 定义注解的保留策略
+ *				@Retention(RetentionPolicy.SOURCE) 	//注解仅存在于源码中，在class字节码文件中不包含
+ *				@Retention(RetentionPolicy.CLASS)  	//默认的保留策略，注解会在class字节码文件中存在，但运行时无法获得，
+ *				@Retention(RetentionPolicy.RUNTIME)	//注解会在class字节码文件中存在，在运行时可以通过反射获取到
+ *				@Inherited							//说明子类可以继承父类中的该注解
+ *
+ *				@Target(ElementType.TYPE)   		//接口、类、枚举、注解
+ *				@Target(ElementType.FIELD) 			//字段、枚举的常量
+ *				@Target(ElementType.METHOD) 		//方法
+ * 				@Target(ElementType.PARAMETER) 		//方法参数
+ *				@Target(ElementType.CONSTRUCTOR)  	//构造函数
+ *				@Target(ElementType.LOCAL_VARIABLE)	//局部变量
+ *				@Target(ElementType.ANNOTATION_TYPE)//注解
+ *				@Target(ElementType.PACKAGE) 		//包   
+ */
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface InjectView
+{
+	/** View的ID */
+	public int id() default -1;
+}
+
+</code></pre>
+<br><strong>MainActivity.java</strong>
+<p></p>
+<p></p>
+<pre><code class="language-java">package com.myanno;
+
+import java.lang.reflect.Field;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+	/** 注解绑定UI元素 */
+	@InjectView(id=R.id.myimgview)
+	ImageView myimageview;
+	
+	@InjectView(id=R.id.mytext)
+	TextView mytext;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		//初始化注解绑定的成员变量
+		injectView(this);
+		
+		//直接使用UI元素
+		mytext.setText("Text0");
+		myimageview.setImageResource(R.drawable.junny);
+	}
+	
+	/** 实例化@InjectView 注解的成员*/
+	public void injectView(Activity activity)
+	{
+		Field[] fields = activity.getClass().getDeclaredFields();//得到Activity中的所有定义的字段
+		if (fields != null &amp;&amp; fields.length &gt; 0)
+		{
+			for (Field field : fields)
+			{
+				if (field.isAnnotationPresent(InjectView.class))//方法返回true，如果指定类型的注解存在于此元素上
+				{
+					Log.i("Field", field.toString());
+					
+					InjectView mInjectView = field.getAnnotation(InjectView.class);	//获得该成员的annotation
+					int viewId = mInjectView.id();	//获得该注解的id
+					View view=activity.findViewById(viewId);//获得ID为viewID的组件对象
+					
+					Log.i("Field", String.valueOf(viewId));
+					Log.i("Field", view.getClass().toString());
+					
+					try
+					{
+						field.setAccessible(true);//设置类的私有成员变量可以被访问
+						field.set(activity, view);//field.set(object,value)===object.fieldValue = value
+					} catch (Exception e) { e.printStackTrace();}
+				}
+				else
+					Log.i("Field", "该字段没有被注解");
+			}
+		}
+	}
+}
+</code></pre>
+<br><strong>布局文件 activity_main.xml</strong>
+<p></p>
+<p></p>
+<pre><code class="language-html">&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    tools:ignore="ContentDescription" &gt;
+    &lt;ImageView
+        android:id="@+id/myimgview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/&gt;
+    &lt;TextView
+        android:id="@+id/mytext"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@android:color/darker_gray"
+        android:textSize="30sp" /&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<br><strong>实验结果</strong>
+<p></p>
+<p></p>
+<ul><li><img src="https://img-blog.csdn.net/20131029160835046" width="240" height="427" alt=""><br></li></ul><p></p>
+<p><span style="color:#009900;"><strong>即注入成功了</strong></span> <img alt="大笑" src="http://static.blog.csdn.net/xheditor/xheditor_emot/default/laugh.gif"></p>
+<p><br></p>
+<p>需要说下我遇到的问题，在以上的基础上，如果将布局文件里的TextView 和ImageView两个布局换个位置，这时候再运行下，会出现空指针异常。</p>
+<p>将Log向上翻会发现一个警告</p>
+<p></p>
+<ul><li><img src="" alt=""><img src="https://img-blog.csdn.net/20131029160840859" alt=""></li></ul><p></p>
+<p>即非法<strong><span style="color:#ff0000;">参数异常</span></strong></p>
+<p>定位到这一行</p>
+<p></p>
+<pre><code class="language-java">field.set(activity, view);</code></pre>
+<br>
+通过观察Log打印的日志
+<p></p>
+<p></p>
+<ul><li><img src="" alt=""><img src="https://img-blog.csdn.net/20131029160851984" alt=""></li></ul><p></p>
+<p>发现<strong><u>第一二行</u></strong>是对的，即获得注解的<span style="color:#ff0000;"><strong>类型和ID(ImageView 2131230720)</strong></span>都是正确的，但是通过findViewById获取view的时候，Log<strong><u>第三行</u></strong>显示的<strong><span style="color:#ff0000;">却是TextView。</span></strong></p>
+<p>百思不得其解，最后无赖之下，清理一下项目，搞定。</p>
+<p>我不知道是怎么回事，暂且推测为资源缓存吧。</p>
+<p></p>
+<p style="line-height:25.98958396911621px;"></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong>/**************************************************************************************************</strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';font-size:12px;"><strong><span style="color:rgb(255,0,0);"> *  本博客为</span><span style="color:rgb(51,51,255);">CSDN博主【MK】原创</span><span style="color:rgb(255,0,0);">，博客</span><span style="line-height:25.98958396911621px;color:rgb(255,0,0);">地址：<a href="http://blog.csdn.net/mkrcpp/article/details/13170649" rel="noopener" style="color:rgb(106,57,6);text-decoration:none;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/13509051" rel="noopener" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/14166121" rel="noopener" style="font-family:'Microsoft YaHei';font-weight:bold;line-height:25.984375px;" target="_blank"></a><a href="http://blog.csdn.net/mkrcpp/article/details/13509051" rel="noopener" style="font-family:'Microsoft YaHei';font-weight:bold;line-height:25.984375px;" target="_blank">http://blog.csdn.net/mkrcpp/article/details/13509051</a></span></strong></span></p>
+<p style="color:rgb(54,46,43);font-family:Arial;font-size:14px;line-height:25.98958396911621px;">
+<span style="font-family:'Microsoft YaHei';"><span style="font-size:12px;"> **********************************************************************************************************************/</span></span></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android框架进阶00_ThinkAndroid注解机制/" data-id="cjorxdqmm002lausl1xaveuyo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/32/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/34/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

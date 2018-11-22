@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="android ios hybird react-native futter">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NEVER TOO OLD TO LEARN">
+<meta property="og:url" content="krmao.gihub.io/page/26/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NEVER TOO OLD TO LEARN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-移动端_Django基础入门_空间数据库查询" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Django基础入门_空间数据库查询/" class="article-date">
+  <time datetime="2018-11-22T01:34:51.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/22/移动端_Django基础入门_空间数据库查询/">移动端_IOS【Django基础入门】空间数据库查询</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p>1 ：在views.py中</p>
+<p>//阿里云地图之地址转地理坐标    <a href="http://ditu.aliyun.com/jsdoc/geocode_api.html" rel="noopener" target="_blank">
+http://ditu.aliyun.com/jsdoc/geocode_api.html</a>  里面有返回的数据格式。<br></p>
+<p>//参考geopy</p>
+<p></p>
+<pre><code class="language-python">address = smart_str(city.name + address).replace(' ','')import traceback
+import xml.dom.minidom
+from urllib2 import urlopen
+from sys import version_info
+from apps.address.models import City
+from apps.org.models import Vresource
+from django.utils.encoding import smart_str
+from xml.parsers.expat import ExpatError
+
+################################Quick Search###########################################
+def search(request):
+    qs = Vresource.objects.all()
+    q = request.GET.get('q', '')
+    result = util.ali_getlocation(q)
+    result = simplejson.loads(result)
+    distance = request.GET.get('distance', '1')
+    
+    if q != '':
+        myfilter = Q()
+        q = q.split(" ")
+        
+        for i in q:
+            myfilter = myfilter|Q(name__icontains=i)|Q(address__icontains=i)|Q(traffic_info__icontains=i)
+            
+        if result['level'] != -1:
+            geom = fromstr("POINT(%s %s)" % (result['lon'],result['lat']))
+            distance_from_point = {'km':distance}
+            qs = qs.filter(geometry__distance_lte=(geom, D(**distance_from_point)))         
+            myfilter = myfilter|Q(geometry__distance_lte=(geom, D(**distance_from_point)))   
+             
+        qs = qs.filter(myfilter)
+    return render_to_response('org/search.html', {'results':qs}, context_instance=RequestContext(request))
+
+###############################ali_getlocation##########################################
+
+def ali_getlocation(address, city_id=1):
+    try:
+        city = City.objects.get(id=city_id)
+        address = smart_str(city.name + address).replace(' ','').replace(' ','')
+        page = urlopen('http://gc.ditu.aliyun.com/geocoding?a=%s' %address)
+        page = decode_page(page)
+        return page
+    except:
+        print "Unexpected error:"
+        tb = traceback.format_exc()
+        print tb
+        
+def get_encoding(page, contents=None):
+    # TODO: clean up Py3k support
+    if version_info &lt; (3, 0):
+        charset = page.headers.getparam("charset") or None
+    else:
+        charset = page.headers.get_param("charset") or None
+    if charset:
+        return charset
+
+    if contents:
+        try:
+            return xml.dom.minidom.parseString(contents).encoding
+        except ExpatError:
+            pass
+
+def decode_page(page):
+    contents = page.read()
+    # HTTP 1.1 defines iso-8859-1 as the 'implied' encoding if none is given
+    encoding = get_encoding(page, contents) or 'iso-8859-1'
+    # TODO: clean up Py3k support
+    if version_info &lt; (3, 0):
+        return unicode(contents, encoding=encoding).encode('utf-8')
+    else:
+        return str(contents, encoding=encoding)        
+########################################################################################    
+</code></pre>
+<p>2 ：输出</p>
+<pre><code class="language-python">{"cityName":"","address":"江苏省,苏州市,虎丘区,","level":5,"alevel":2,"lat":31.28723,"lon":120.55216}</code></pre>
+<h3><span style="font-family:'KaiTi_GB2312';font-size:18px;color:#ff0000;font-weight:normal;background-color:rgb(255,255,204);">转载请注明出处！</span></h3>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Django基础入门_空间数据库查询/" data-id="cjorxdrhv0030auslo12cckil" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/25/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/27/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

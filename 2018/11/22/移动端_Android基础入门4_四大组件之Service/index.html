@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【Android基础入门〖4〗】四大组件之Service | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1  生命周期图    2 第一种 非绑定方式 startService 2.1 自定义 Service  package com.demoservice; import android.app.Service; import android.content.Intent; import android.media.MediaPlayer; impo">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【Android基础入门〖4〗】四大组件之Service">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_Android基础入门4_四大组件之Service/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="1  生命周期图    2 第一种 非绑定方式 startService 2.1 自定义 Service  package com.demoservice; import android.app.Service; import android.content.Intent; import android.media.MediaPlayer; impo">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdn.net/20130924230320328">
+<meta property="og:updated_time" content="2018-11-22T01:34:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【Android基础入门〖4〗】四大组件之Service">
+<meta name="twitter:description" content="1  生命周期图    2 第一种 非绑定方式 startService 2.1 自定义 Service  package com.demoservice; import android.app.Service; import android.content.Intent; import android.media.MediaPlayer; impo">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20130924230320328">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_Android基础入门4_四大组件之Service" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_Android基础入门4_四大组件之Service/" class="article-date">
+  <time datetime="2018-11-22T01:34:54.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【Android基础入门〖4〗】四大组件之Service
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<h1>1  生命周期图</h1>
+<div></div>
+<div> <img src="https://img-blog.csdn.net/20130924230320328" alt=""></div>
+<h1>2 第一种 非绑定方式 startService</h1>
+<h2>2.1 自定义 Service</h2>
+<div>
+<pre><code class="language-java">package com.demoservice;
+import android.app.Service;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+public class FirstService extends Service {
+    MediaPlayer mplayer;
+    Binder binder=new Binder();
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO 自动生成的方法存根
+        return binder;
+    }
+    @Override
+    public void onCreate() {
+        // TODO 自动生成的方法存根
+        super.onCreate();
+        mplayer=MediaPlayer.create(this, R.raw.music12);
+        Log.i("demo", "onCreate");
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onStartCommand");
+        mplayer.start();
+        return super.onStartCommand(intent, flags, startId);
+    }
+    @Override
+    public void onDestroy() {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onDestroy");
+        mplayer.stop();
+        super.onDestroy();
+    }
+}</code></pre>
+<br><h2>2.2 注册 Service</h2>
+</div>
+<p></p>
+<pre><code class="language-html">&lt;service
+    android:name="com.demoservice.FirstService"&gt;
+    &lt;intent-filter &gt;
+        &lt;action android:name="michael.FIRSTSERVICE"/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;</code></pre>
+<br><h2>2.3 开启/关闭 Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-java">package com.demoservice;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    Button btn_start,btn_stop;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btn_start=(Button)findViewById(R.id.btn_start);
+        btn_stop=(Button)findViewById(R.id.btn_stop);
+        
+        final Intent intent=new Intent();
+        intent.setAction("michael.FIRSTSERVICE");
+        
+        OnClickListener listener=new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO 自动生成的方法存根
+                if(v == btn_start)
+                {
+                    startService(intent);
+                }else if(v==btn_stop)
+                {
+                    stopService(intent);
+                }
+            }
+        };    
+        btn_start.setOnClickListener(listener);
+        btn_stop.setOnClickListener(listener);
+    }
+}</code></pre>
+<br><br><p></p>
+<h1>3 第二种 绑定方式 bindService</h1>
+<h2>3.1 自定义 Service</h2>
+<p></p>
+<pre><code class="language-java">package com.SecondService;
+import com.demoservice.R;
+import android.app.Service;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
+public class SecondService extends Service {
+    int count;
+    boolean quit=false;
+    MediaPlayer mplayer;
+    MyBinder binder=new MyBinder();
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO 自动生成的方法存根
+        Log.i("demo", "onBind");
+        mplayer.start();
+        
+        new Thread()
+        {
+            @Override
+            public void run() {
+                while(!quit)
+                {
+                    try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+                    count++;
+                    Log.i("demo", String.valueOf(count));
+                }
+            }
+        }.start();
+        return binder;
+    }
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i("demo", "onUnbind");
+        quit=true;
+        return super.onUnbind(intent);
+    }
+    @Override
+    public void onRebind(Intent intent) {
+        Log.i("demo", "onRebind");
+        mplayer.start();
+        super.onRebind(intent);
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        quit=false;
+        mplayer=MediaPlayer.create(this, R.raw.music12);
+        Log.i("demo", "onCreate");
+    }
+    @Override
+    public void onDestroy() {
+        Log.i("demo", "onDestroy");
+        mplayer.stop();
+        quit=true;
+        super.onDestroy();
+    }
+    
+    class MyBinder extends Binder
+    {
+        public SecondService getService()
+        {
+            return SecondService.this;
+        }
+        public int getCount()
+        {
+            return count;
+        }
+    }
+}</code></pre>
+<br><h2>3.2 注册 Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-html">&lt;service
+    android:name="com.SecondService.SecondService"&gt;
+    &lt;intent-filter &gt;
+        &lt;action android:name="michael.SECONDSERVICE"/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;</code></pre>
+<br><h2>3.3 绑定/解绑Service</h2>
+<p></p>
+<p></p>
+<pre><code class="language-java">package com.SecondService;
+import com.demoservice.R;
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+public class MainActivity extends Activity {
+    SecondService mservice;
+    ServiceConnection conn=new ServiceConnection() {
+        
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            // TODO 自动生成的方法存根
+            Log.i("demo", "onServiceDisconnected");
+            mservice=null;
+        }
+        
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // TODO 自动生成的方法存根
+            Log.i("demo", "onServiceConnecteds");
+            mservice = ((SecondService.MyBinder)service).getService();
+        }
+    };
+    
+    Button btn_start,btn_stop,btn_get;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btn_start=(Button)findViewById(R.id.btn_start);
+        btn_get=(Button)findViewById(R.id.btn_get);
+        btn_stop=(Button)findViewById(R.id.btn_stop);
+        final Intent intent=new Intent();
+        intent.setAction("michael.SECONDSERVICE");
+        
+        OnClickListener listener=new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO 自动生成的方法存根
+                if(v == btn_start)
+                {
+                    bindService(intent, conn, BIND_AUTO_CREATE);
+                }else if(v==btn_stop)
+                {
+                    unbindService(conn);
+                }else if(v==btn_get)
+                {
+                    btn_get.setText(String.valueOf(mservice.binder.getCount()));
+                }
+            }
+        };    
+        btn_start.setOnClickListener(listener);
+        btn_stop.setOnClickListener(listener);
+        btn_get.setOnClickListener(listener);
+    }
+}</code></pre>
+<p></p>
+<p><span style="color:rgb(54,46,43);font-family:Arial;font-size:14.44444465637207px;line-height:25.98958396911621px;"><strong><span style="color:rgb(255,0,0);font-size:17.77777862548828px;line-height:25.98958396911621px;"><u>转载请注明出处!</u></span></strong></span></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_Android基础入门4_四大组件之Service/" data-id="cjorxdmh40016auslg2npw3kx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门5_四大组件之BroadcastReceiver/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖5〗】四大组件之BroadcastReceiver
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门3_四大组件之Activity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖3〗】四大组件之Activity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【Android基础入门〖4〗】四大组件之Service' + '-' + 'Thu Nov 22 2018 09:34:54 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

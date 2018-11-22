@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【数据结构与算法】二叉树 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="头文件 BTree.h  #ifndef BTREE_H #define BTREE_H #include &amp;lt;iostream&amp;gt; #include &amp;lt;queue&amp;gt; using namespace std;  template&amp;lt;class T&amp;gt;">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【数据结构与算法】二叉树">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_数据结构与算法_二叉树/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="头文件 BTree.h  #ifndef BTREE_H #define BTREE_H #include &amp;lt;iostream&amp;gt; #include &amp;lt;queue&amp;gt; using namespace std;  template&amp;lt;class T&amp;gt;">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201304/23/1366704968_7137.png">
+<meta property="og:updated_time" content="2018-11-22T01:34:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【数据结构与算法】二叉树">
+<meta name="twitter:description" content="头文件 BTree.h  #ifndef BTREE_H #define BTREE_H #include &amp;lt;iostream&amp;gt; #include &amp;lt;queue&amp;gt; using namespace std;  template&amp;lt;class T&amp;gt;">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201304/23/1366704968_7137.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_数据结构与算法_二叉树" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_数据结构与算法_二叉树/" class="article-date">
+  <time datetime="2018-11-22T01:34:50.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【数据结构与算法】二叉树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+<p><br></p>
+<p><strong><span style="color:#009900;">头文件 BTree.h</span></strong></p>
+<p></p>
+<pre><code class="language-cpp">#ifndef BTREE_H
+#define BTREE_H
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+using namespace std;
+
+template&lt;class T&gt;                                     //树节点类
+class BNode
+{
+public:
+    BNode&lt;T&gt;():left(NULL),right(NULL),data(T()){}
+    BNode&lt;T&gt; *left;
+    BNode&lt;T&gt; *right;
+    T data;
+};
+
+
+template&lt;class T&gt;                                     //二叉树类
+class BTree
+{
+public:
+    BNode&lt;T&gt; *root;
+    BTree&lt;T&gt;():root(NULL){}
+    ~BTree&lt;T&gt;()
+    {
+        DestoryBTree(root);
+    }
+    void CreateBTree(BNode&lt;T&gt;* &amp;mBTree);              //构造二叉树
+    void PreorderDisplay(BNode&lt;T&gt;* &amp;mBTree);          //前序遍历
+    void InorderDisplay(BNode&lt;T&gt;* &amp;mBTree);           //中序遍历
+    void PostorderDisplay(BNode&lt;T&gt;* &amp;mBTree);         //后序遍历
+    void LevelorderDisplay(BNode&lt;T&gt;* &amp;mBTree);        //层次遍历
+    void DestoryBTree(BNode&lt;T&gt;* &amp;mBTree);             //毁灭二叉树
+};
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::CreateBTree(BNode&lt;T&gt; *&amp;mBTree)
+{
+    BNode&lt;T&gt; *tmpNode=new BNode&lt;T&gt;();
+    cout&lt;&lt;"Input:\t";
+    cin&gt;&gt;tmpNode-&gt;data;
+
+    if(tmpNode-&gt;data=="#")
+    {
+        delete tmpNode;
+        mBTree=NULL;
+        return;
+    }
+    mBTree=tmpNode;
+    CreateBTree(mBTree-&gt;left);
+    CreateBTree(mBTree-&gt;right);
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::PreorderDisplay(BNode&lt;T&gt; *&amp;mBTree)     //前序遍历
+{
+    if(mBTree)
+    {
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+        PreorderDisplay(mBTree-&gt;left);
+        PreorderDisplay(mBTree-&gt;right);
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::InorderDisplay(BNode&lt;T&gt; *&amp;mBTree)      //中序遍历
+{
+    if(mBTree)
+    {
+        InorderDisplay(mBTree-&gt;left);
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+        InorderDisplay(mBTree-&gt;right);
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::PostorderDisplay(BNode&lt;T&gt; *&amp;mBTree)    //后序遍历
+{
+    if(mBTree)
+    {
+        PostorderDisplay(mBTree-&gt;left);
+        PostorderDisplay(mBTree-&gt;right);
+        cout&lt;&lt;mBTree-&gt;data&lt;&lt;" ";
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::LevelorderDisplay(BNode&lt;T&gt; *&amp;mBTree)   //层次遍历
+{
+    if(mBTree)
+    {
+        BNode&lt;T&gt; *p=NULL;
+        queue&lt;BNode&lt;T&gt; *&gt;BNodeQueue;
+        BNodeQueue.push(mBTree);
+        while(!BNodeQueue.empty())
+        {
+            p=BNodeQueue.front();
+            cout&lt;&lt;p-&gt;data&lt;&lt;" ";
+            BNodeQueue.pop();
+            if(p-&gt;left)
+                BNodeQueue.push(p-&gt;left);
+            if(p-&gt;right)
+                BNodeQueue.push(p-&gt;right);
+        }
+    }
+}
+
+template&lt;class T&gt;
+void BTree&lt;T&gt;::DestoryBTree(BNode&lt;T&gt; *&amp;mBTree)        //毁灭二叉树
+{
+    if(mBTree)
+    {
+        DestoryBTree(mBTree-&gt;left);
+        DestoryBTree(mBTree-&gt;right);
+        delete mBTree;
+    }
+
+}
+
+#endif // BTREE_H
+</code></pre>
+<p><strong><span style="color:#009900;"><br></span></strong></p>
+<p><strong><span style="color:#009900;">主函数 main.cpp</span></strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include "BTree.h"
+using namespace std;
+
+int main()
+{
+    cout&lt;&lt;"Create A BinaryTree Now :"&lt;&lt;endl;
+    BTree&lt;string&gt; mBTree;
+    mBTree.CreateBTree(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"PreorderDisplay"&lt;&lt;endl;
+    mBTree.PreorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"InorderDisplay"&lt;&lt;endl;
+    mBTree.InorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"PostorderDisplay"&lt;&lt;endl;
+    mBTree.PostorderDisplay(mBTree.root);
+
+    cout&lt;&lt;endl&lt;&lt;"LevelorderDisplay"&lt;&lt;endl;
+    mBTree.LevelorderDisplay(mBTree.root);
+
+    return 0;
+}
+</code></pre>
+<br><span style="color:#009900;"><strong>结果</strong></span><br><p><img src="" alt=""></p>
+<p><img src="http://img.my.csdn.net/uploads/201304/23/1366704968_7137.png" alt=""><br></p>
+<p><span style="color:#009900;"><strong>持续更新。</strong></span></p>
+<p><strong><span style="color:#ff0000;">转载请注明出处！</span></strong></p>
+<p><br></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_数据结构与算法_二叉树/" data-id="cjorxdkqb000fausl7250xbhy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Android基础入门16_XML解析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Android基础入门〖16〗】XML解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Django基础入门_Breadcrumbs导航栏/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Django基础入门】Breadcrumbs导航栏</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【数据结构与算法】二叉树' + '-' + 'Thu Nov 22 2018 09:34:50 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>

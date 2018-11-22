@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>移动端_IOS【有趣的面试题】有人邀请ABCDEF六人参加一项会议 | NEVER TOO OLD TO LEARN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有人邀请ABCDEF六人参加一项会议，这六个人有些奇怪因为他们有很多要求，已知： （1）AB两人至少有一人参加会议 （2）AEF三人中有两人参加会议 （3）B和C两人一致决定要么两人都去，要么两人都不去。 （4）AD两人中只有一人参加会议 （5）CD两人中也只有一人参加会议 （6）如果D不去，那么E也决定不去那么最后究竟有几个人参加会议？   #in">
+<meta name="keywords" content="移动端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端_IOS【有趣的面试题】有人邀请ABCDEF六人参加一项会议">
+<meta property="og:url" content="krmao.gihub.io/2018/11/22/移动端_有趣的面试题_有人邀请ABCDEF六人参加一项会议/index.html">
+<meta property="og:site_name" content="NEVER TOO OLD TO LEARN">
+<meta property="og:description" content="有人邀请ABCDEF六人参加一项会议，这六个人有些奇怪因为他们有很多要求，已知： （1）AB两人至少有一人参加会议 （2）AEF三人中有两人参加会议 （3）B和C两人一致决定要么两人都去，要么两人都不去。 （4）AD两人中只有一人参加会议 （5）CD两人中也只有一人参加会议 （6）如果D不去，那么E也决定不去那么最后究竟有几个人参加会议？   #in">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201303/03/1362290823_3600.png">
+<meta property="og:updated_time" content="2018-11-22T01:34:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端_IOS【有趣的面试题】有人邀请ABCDEF六人参加一项会议">
+<meta name="twitter:description" content="有人邀请ABCDEF六人参加一项会议，这六个人有些奇怪因为他们有很多要求，已知： （1）AB两人至少有一人参加会议 （2）AEF三人中有两人参加会议 （3）B和C两人一致决定要么两人都去，要么两人都不去。 （4）AD两人中只有一人参加会议 （5）CD两人中也只有一人参加会议 （6）如果D不去，那么E也决定不去那么最后究竟有几个人参加会议？   #in">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201303/03/1362290823_3600.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+    <div id="banner">
+        <canvas id="canvas" style="width: 100%;height: 100%"></canvas>
+    </div>
+    <div id="header-outer" class="outer">
+        <div id="header-title" class="inner">
+            <h1 id="logo-wrap">
+                <a href="/" id="logo">NEVER TOO OLD TO LEARN</a>
+            </h1>
+            
+        </div>
+        <div id="header-inner" class="inner">
+            <nav id="main-nav">
+                <a id="main-nav-toggle" class="nav-icon"></a>
+                
+                <a class="main-nav-link" href="/">Home</a>
+                
+                <a class="main-nav-link" href="/products">Products</a>
+                
+                <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            <nav id="sub-nav">
+                
+                <form class="search-form">
+                    <input type="text" id="local-search-input" class="search-form-input" placeholder="search in site">
+                </form>
+            </nav>
+        </div>
+        <div id="local-search-result" class="local-search-result-cls"></div>
+    </div>
+</header>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/canvas-nests.js"></script>
+<script type="text/javascript" id="local.search.active">
+	var inputArea = document.querySelector("#local-search-input");
+	inputArea.onclick = function () {
+		getSearchFile();
+		this.onclick = null
+	}
+	inputArea.onkeydown = function () {
+		if (event.keyCode === 13) return false
+	}
+</script>
+      <div class="outer">
+        <section id="main"><article id="post-移动端_有趣的面试题_有人邀请ABCDEF六人参加一项会议" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/22/移动端_有趣的面试题_有人邀请ABCDEF六人参加一项会议/" class="article-date">
+  <time datetime="2018-11-22T01:34:52.000Z" itemprop="datePublished">2018-11-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/technology/">技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      移动端_IOS【有趣的面试题】有人邀请ABCDEF六人参加一项会议
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+<script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+
+<div class="htmledit_views" id="content_views">
+                
+有人邀请ABCDEF六人参加一项会议，这六个人有些奇怪因为他们有很多要求，已知：<br>
+（1）AB两人至少有一人参加会议<br>
+（2）AEF三人中有两人参加会议<br>
+（3）B和C两人一致决定要么两人都去，要么两人都不去。<br>
+（4）AD两人中只有一人参加会议<br>
+（5）CD两人中也只有一人参加会议<br>
+（6）如果D不去，那么E也决定不去<br><p>那么最后究竟有几个人参加会议？</p>
+<p><br></p>
+<p></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+
+using namespace std;
+
+void main()
+{
+	map&lt;char,int&gt;Person;
+	Person['A']=0;Person['B']=0;Person['C']=0;Person['D']=0;Person['E']=0;Person['F']=0;
+
+	cout&lt;&lt;"参加会议的人有 ："&lt;&lt;endl&lt;&lt;endl;
+
+	for(Person['A']=0;Person['A']&lt;2;Person['A']++)
+		for(Person['B']=0;Person['B']&lt;2;Person['B']++)
+			for(Person['C']=0;Person['C']&lt;2;Person['C']++)
+				for(Person['D']=0;Person['D']&lt;2;Person['D']++)
+					for(Person['E']=0;Person['E']&lt;2;Person['E']++)
+						for(Person['F']=0;Person['F']&lt;2;Person['F']++)
+						{
+							//1 ：AB至少一人去  A!B   !AB  AB
+							if(	Person['A'] || Person['B']	)		
+							{
+								//2 ：AEF只有两人去
+								if((Person['A']&amp;&amp;Person['E'] &amp;&amp; !Person['F'])||(Person['A']&amp;&amp;Person['F']&amp;&amp;!Person['E'])||(Person['E']&amp;&amp;Person['F']&amp;&amp;!Person['A']))
+								{                                                  				                 
+									//3 : BC要么都去，要么都不去
+									if( (Person['B'] &amp;&amp;  Person['C']) || (!Person['B'] &amp;&amp; !Person['C']))         
+									{
+										//4 ：AD只有一人参加会议
+										if( (Person['A'] ^  Person['D']) )										
+										{
+											//5 ：CD只有一人参加会议
+											if( (Person['C'] ^  Person['D']) )									
+											{
+												//6 : 如果D不去，E也决定不去   DE  D!E  !D!E
+												if( (Person['D'] &amp;&amp; Person['E']) ||	(Person['D'] &amp;&amp; !Person['E']) || (!Person['D'] &amp;&amp; !Person['E']) )                 
+												{							
+													int n=0;
+													if((Person['A']))	{n++;cout&lt;&lt;"A"&lt;&lt;" ";}
+													if((Person['B']))	{n++;cout&lt;&lt;"B"&lt;&lt;" ";}
+													if((Person['C']))	{n++;cout&lt;&lt;"C"&lt;&lt;" ";}
+													if((Person['D']))	{n++;cout&lt;&lt;"D"&lt;&lt;" ";}
+													if((Person['E']))	{n++;cout&lt;&lt;"E"&lt;&lt;" ";}
+													if((Person['F']))	{n++;cout&lt;&lt;"F"&lt;&lt;" "&lt;&lt;endl&lt;&lt;"共有"&lt;&lt;n&lt;&lt;"个人参加会议！"&lt;&lt;endl;}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+    cout&lt;&lt;endl;
+}</code></pre>
+<br><p><img src="http://img.my.csdn.net/uploads/201303/03/1362290823_3600.png" alt=""></p>
+<p><br></p>
+<p><strong><span style="font-size:24px;color:#ff0000;">转载请注明出处！</span></strong></p>
+<p><br></p>
+<p><br></p>
+            </div>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="krmao.gihub.io/2018/11/22/移动端_有趣的面试题_有人邀请ABCDEF六人参加一项会议/" data-id="cjorxdlfs000rauslya39js3s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mobile/">移动端</a></li></ul>
+
+      <span id="busuanzi_container_page_pv" style="color:#999">PAGE-PV(<span id="busuanzi_value_page_pv"></span>)</span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/22/移动端_Django基础入门_ManyToManyField跨越中间表查询/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          移动端_IOS【Django基础入门】ManyToManyField跨越中间表查询
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/22/移动端_Android基础入门2_Eclipse_导入_Android_源码/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">移动端_IOS【Android基础入门〖2〗】Eclipse 导入 Android 源码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+  
+    <div id="gitment"></div>
+
+<!-- 汉化版 -->
+<!--<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">-->
+<!--<script src="https://billts.site/js/gitment.js"></script>-->
+
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script src="/js/md5.js"></script>
+<script>
+
+	var idPrimary = '移动端_IOS【有趣的面试题】有人邀请ABCDEF六人参加一项会议' + '-' + 'Thu Nov 22 2018 09:34:52 GMT+0800';
+	var idMD5 = md5(idPrimary);
+
+	var gitment = new Gitment({
+		id: idMD5, // max length 50
+		owner: 'krmao',
+		repo: 'krmao.github.io',
+		oauth: {
+			client_id: 'fcb8807f8dd032053916',
+			client_secret: 'c8a88998914e0f4774aed972ef12d0bba6510b60'
+		}
+	})
+	gitment.render('gitment')
+</script>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/technology/">技术</a><span class="category-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CENTOS/" style="font-size: 17.5px;">CENTOS</a> <a href="/tags/IOS/" style="font-size: 12.5px;">IOS</a> <a href="/tags/reactnative/" style="font-size: 10px;">REACT-NATIVE</a> <a href="/tags/springboot/" style="font-size: 10px;">SPRING-BOOT</a> <a href="/tags/install/" style="font-size: 17.5px;">安装</a> <a href="/tags/service/" style="font-size: 10px;">服务端</a> <a href="/tags/mobile/" style="font-size: 20px;">移动端</a> <a href="/tags/algorithm/" style="font-size: 15px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">71</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门6_四大组件之ContentProvider/">移动端_IOS【Android基础入门〖6〗】四大组件之ContentProvider</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_MFC基础入门_基于Adaboost算法的车牌检测在OpenCV上的研究与实现/">移动端_IOS【MFC基础入门】基于Adaboost算法的车牌检测在OpenCV上的研究与实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门1_UI布局/">移动端_IOS【Android基础入门〖1〗】UI布局</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_Android基础入门0_AndroidStudio/">移动端_IOS【Android基础入门〖0〗】AndroidStudio</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/22/移动端_PHP基础入门_配置Phpstorm与xampp/">移动端_IOS【PHP基础入门】配置Phpstorm与xampp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+    
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 mkrcpp@qq.com<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+            <span id="busuanzi_container_site_pv" style="margin-left: 20px">SITE-PV(<span id="busuanzi_value_site_pv"></span>)</span>
+            <span id="busuanzi_container_site_uv" style="margin-left: 20px">SITE-UV(<span id="busuanzi_value_site_uv"></span>)</span>
+        </div>
+    </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/products" class="mobile-nav-link">Products</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
+</body>
+</html>
